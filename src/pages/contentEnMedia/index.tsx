@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import Image, { type ImageProps } from 'next/image'
 import { Container } from "@/components/Container"
+import Link from 'next/link';
+import { getAllVideos, Video } from '../api/videos';
 
 // kaartje
 function PreviewCard(props: {titel: string, beschrijving: string, image: string, url: string, tags: string[], iconType: string}) {
@@ -133,17 +135,23 @@ function useWindowSize() {
 
 // de echte component
 export default function ContentEnMedia() {
+  const [videos, setVideos] =useState<Video[]>([])
+
+	useEffect(() => {
+		getAllVideos().then(setVideos)
+	}, [])
+  
   const size = useWindowSize();
 
-  const getVideoCount = () => {
-    if (size.width >= 1024) { // 'lg' breakpoint
-      return 4;
-    } else if (size.width >= 768) { // 'md' breakpoint
-      return 3;
-    } else {
-      return 2;
-    }
-  };
+  // const getVideoCount = () => {
+  //   if (size.width >= 1024) { // 'lg' breakpoint
+  //     return 4;
+  //   } else if (size.width >= 768) { // 'md' breakpoint
+  //     return 3;
+  //   } else {
+  //     return 2;
+  //   }
+  // };
 
   return (
     <div>
@@ -154,7 +162,7 @@ export default function ContentEnMedia() {
      {/* Videos Section */}
      <div className="text-[32px] font-bold pb-6">Videos</div>
      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-        {VideoContent.slice(0, getVideoCount()).map((video) => (
+        {/* {VideoContent.slice(0, getVideoCount()).map((video) => (
           <PreviewCard
             key={video.id}
             titel={video.titel}
@@ -164,9 +172,25 @@ export default function ContentEnMedia() {
             tags={video.tags}
             iconType={video.iconType}
           />
-        ))}
+        ))} */}
+        {videos && videos.map((video) => (
+          <Link href={'contentEnMedia/' + video.titel}>
+            <PreviewCard
+              key={video.id}
+              titel={video.titel}
+              beschrijving={video.beschrijving}
+              image={video.images[0]}
+              url={video.vid_url}
+              tags={video.tags}
+              iconType={video.icon}
+            />
+          </Link>
+        ))
+        }
       </div>
-      <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk alle video's <span className='ml-2'>→</span></button>
+      <Link href={'contentenmedia/videos' }>
+        <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk alle video's <span className='ml-2'>→</span></button>
+      </Link>
       </Container>
     </div>
   );
