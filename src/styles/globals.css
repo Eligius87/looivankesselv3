@@ -25,3 +25,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.ReactCollapse--collapse {
+  transition: height 500ms ease-in-out;
+}

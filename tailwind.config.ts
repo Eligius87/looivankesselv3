@@ -33,6 +33,10 @@ const config: Config = {
       teal: colors.teal,
       sky: colors.sky,
       gray:  colors.gray,
+      blue: colors.blue,
+      green: colors.green,
+      yellow: colors.yellow,
+      
       'background': '#DCE0D9',
 
     },

@@ -6,10 +6,8 @@ export type Uitlichting = {
   beschrijving: string;
 };
 
-const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
-
 export async function getAllUitlichtings(): Promise<Uitlichting[]> {
-  const { data, error } = await supabase.from('Uitlichtingvakken').select('*');
+  const { data, error } = await supabase.from('uitlichtingvakken').select('*');
 
   if (error) {
     throw error;

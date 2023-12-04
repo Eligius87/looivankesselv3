@@ -4,6 +4,7 @@ import Image from "next/image"
 import { Collapse } from 'react-collapse'
 import { useState } from "react"
 import { Uitlichting, getUitlichting, getAllUitlichtings } from "../api/uitlichting"
+import { Vakken, getVak, getAllVakken } from "../api/overzichtvakken"
 
 function PlusIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
     return (
@@ -22,35 +23,35 @@ function MinusIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 }
 
 
-function VakkenCard() {
+function VakkenCard({titel, traject, periode, color}: any) {
     return (
-    <div className="grid grid-cols-4 gap-1 shadow-lg p-4 rounded-lg border-l-2 border-red-400">
+    <div className={`grid grid-cols-4 shadow-md p-2 rounded-lg border-l-2 ${color} ring-1 ring-zinc-300 `}>
         {/* Vak naam */}
         <div className="col-span-1">
             <h1 className="font-bold">Vak:</h1>
         </div>
-        <div className="col-span-3">Representation: Cultural Representations and Signifying Practices</div>
+        <div className="col-span-3">{titel}</div>
         {/* traject */}
         <div className="col-span-1">
             <h1 className="font-bold">Traject:</h1>
         </div>
-        <div className="col-span-3">Bsc</div>
+        <div className="col-span-3">{traject}</div>
         {/* jaren gegeven */}
         <div className="col-span-1">
             <h1 className="font-bold">periode:</h1>
         </div>
-        <div className="col-span-3">2006-heden</div>
+        <div className="col-span-3">{periode}</div>
     </div>
     )
 }
 
 function Accordionitem({open, toggle, title, desc}: any) {
     return (
-        <div className="pt-[10px]">
+        <div className={`pt-[10px] shadow-lg rounded-lg border-l-2 border-red-500 ReactCollapse--collapse ring-1 ring-zinc-300`}>
             <div className="bg-white py-[25px] px-[50px] flex justify-between items-center cursor-pointer" onClick={toggle}>
                 <p className="text-[22px] font-semibold">{title}</p>
-                <div className="text-[30px]">
-                    {open ? <MinusIcon /> : <PlusIcon /> }
+                <div className={`text-[30px] transition-transform ${open ? 'rotate-180' : ''}`}>
+                    {open ? <MinusIcon className="w-5 h-5"/> : <PlusIcon className="w-5 h-5"/> }
                 </div>
             </div>
             <Collapse isOpened={open}>
@@ -60,8 +61,9 @@ function Accordionitem({open, toggle, title, desc}: any) {
     )
 }
 
-export default function Onderwijs(props: {uitlichting: Uitlichting[]}) {
-    const uitlichting = props.uitlichting;
+export default function Onderwijs(props: {uitlichtings: Uitlichting[], vakken: Vakken[]}) {
+    const uitlichtings = props.uitlichtings;
+    const vakken = props.vakken;
 
     const [open, setopen] = useState<number | null>(null);
 
@@ -71,6 +73,16 @@ export default function Onderwijs(props: {uitlichting: Uitlichting[]}) {
         }
         setopen(index)
     })
+
+    const colors = [
+        'border-red-500',
+        'border-blue-500',
+        'border-green-500',
+        'border-yellow-500',
+        'border-purple-500',
+        'border-pink-500',
+        'border-indigo-500',
+    ]
 
     return (
         <div className="">
@@ -86,13 +98,11 @@ export default function Onderwijs(props: {uitlichting: Uitlichting[]}) {
             </div>
             <Container className="">
                 {/* ONDERWIJS FILOSOFIE */}
-                <div className="grid grid-cols-2 gap-2 border-b-2 border-zinc-400 py-8">
-                    <div className="cols-span-1">
+                <div className="flex flex-col gap-2 border-b-2 border-zinc-400 py-8">
                         <h1 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
                            Onderwijs Filosofie
                         </h1>
-                    </div>
-                    <div className="cols-span-1">
+                    <div className="flex">
                         <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
                     </div>
                 </div>
@@ -113,25 +123,35 @@ export default function Onderwijs(props: {uitlichting: Uitlichting[]}) {
                            Uitlichting een aantal vakken
                         </h1>
                     <div className="flex flex-col gap-2">
-                        {uitlichting?.map((uitlichting, index) => (
+                        {uitlichtings?.map((uitlichting, index) => (
                             <Accordionitem key={index} open={index === open} toggle={() => toggle(index)} title={uitlichting.titel} desc={uitlichting.beschrijving} />
                         ))}
                     </div>
                 </div>
                 {/* OVERZICHT VAKKEN */}
-                <div className="grid grid-cols-2 gap-2 border-b-2 border-zinc-400 py-8">
-                    <div className="cols-span-1">
-                        <h1 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
-                           Overzicht Vakken 
-                        </h1>
-                    </div>
-                    <div className="cols-span-1 flex flex-col gap-3">
-                        <VakkenCard />
-                        <VakkenCard />
-                        <VakkenCard />
+                <div className="flex flex-col gap-1">
+                    <h1 className="py-4 text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
+                        Overzicht Vakken 
+                    </h1>
+                    <div className="grid grid-cols-2 gap-2 border-b-2 border-zinc-400 py-8">
+                        {vakken?.map((vak, index) => (
+                            <VakkenCard key={vak.titel} titel={vak.titel} traject={vak.traject} periode={vak.periode} color={colors[index % 7]}/>
+                        ))}
                     </div>
                 </div>
             </Container>
         </div>
     )
 } 
+
+
+export async function getServerSideProps() {
+  const uitlichtings = await getAllUitlichtings();
+  const vakken = await getAllVakken();
+  return {
+    props: {
+      uitlichtings: uitlichtings,
+      vakken: vakken,
+    },
+    }
+  }
