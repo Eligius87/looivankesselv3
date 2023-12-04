@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Image, { type ImageProps } from 'next/image'
 import { Container } from "@/components/Container"
 
+// kaartje
 function PreviewCard(props: {titel: string, beschrijving: string, image: string, url: string, tags: string[], iconType: string}) {
 
   const renderIcon = (iconType: string) => {
@@ -106,6 +107,7 @@ let VideoContent = [
 },
 ]
 
+// zodat content past bij de grootte van het scherm
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
     width: undefined,
@@ -129,6 +131,7 @@ function useWindowSize() {
   return windowSize;
 }
 
+// de echte component
 export default function ContentEnMedia() {
   const size = useWindowSize();
 
@@ -163,7 +166,7 @@ export default function ContentEnMedia() {
           />
         ))}
       </div>
-      <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk meer <span className='ml-2'>→</span></button>
+      <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk alle video's <span className='ml-2'>→</span></button>
       </Container>
     </div>
   );
