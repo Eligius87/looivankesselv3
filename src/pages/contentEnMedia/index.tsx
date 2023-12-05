@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { getAllVideos, Video } from '../api/videos';
 import { Podcast, getAllPodcasts } from '../api/podcasts';
 import { Conference, getAllConferences } from '../api/conferences';
+import BeatLoader from "react-spinners/BeatLoader";
 
 // kaartje
 function PreviewCard(props: {titel: string, beschrijving: string, image: string, url: string, tags: string[], iconType: string}) {
@@ -98,12 +99,24 @@ export default function ContentEnMedia() {
   const [videos, setVideos] =useState<Video[]>([])
   const [podcasts, setPodcasts] =useState<Podcast[]>([])
   const [conferences, setConferences] =useState<Conference[]>([])
+  const [loadingVideos, setLoadingVideos] = useState(true);  // Loading state for videos
+  const [loadingPodcasts, setLoadingPodcasts] = useState(true);  // Loading state for podcasts
+  const [loadingConferences, setLoadingConferences] = useState(true);  // Loading state for conferences
 
-	useEffect(() => {
-		getAllVideos().then(setVideos)
-    getAllPodcasts().then(setPodcasts)
-    getAllConferences().then(setConferences)
-	}, [])
+  useEffect(() => {
+    getAllVideos().then(data => {
+      setVideos(data);
+      setLoadingVideos(false);  // Update loading state for videos
+    });
+    getAllPodcasts().then(data => {
+      setPodcasts(data);
+      setLoadingPodcasts(false);  // Update loading state for podcasts
+    });
+    getAllConferences().then(data => {
+      setConferences(data);
+      setLoadingConferences(false);  // Update loading state for conferences
+    });
+  }, []);
   
   const size = useWindowSize();
 
@@ -125,9 +138,10 @@ export default function ContentEnMedia() {
       </h1>
      {/* Videos Section */}
      <span>
-      <div className="text-[32px] font-bold pb-6">Videos</div>
+      <div className="text-[32px] font-bold pb-6">Video's</div>
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-          {videos && videos.slice(0, getVideoCount()).map((video) => (
+      {loadingVideos ? <div className="flex"><BeatLoader className="mt-2" color='grey' loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> <span className='ml-2 text-gray-500'>Video's ophalen</span></div> :
+          videos && videos.slice(0, getVideoCount()).map((video) => (
             <Link key={video.id} href={`contentEnMedia/video/${encodeURIComponent(video.titel)}`}>
               <PreviewCard
                 key={video.id}
@@ -151,7 +165,8 @@ export default function ContentEnMedia() {
       <span>
       <div className="mt-16 text-[32px] font-bold pb-6">Podcasts</div>
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-          {podcasts && podcasts.slice(0, getVideoCount()).map((podcast) => (
+      {loadingPodcasts ? <div className="flex"><BeatLoader color='grey' className="mt-2" loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> <span className='ml-2 text-gray-500'>Podcasts ophalen</span></div> : 
+          podcasts && podcasts.slice(0, getVideoCount()).map((podcast) => (
             <Link key={podcast.id} href={`contentEnMedia/video/${encodeURIComponent(podcast.titel)}`}>
               <PreviewCard
                 key={podcast.id}
@@ -175,7 +190,8 @@ export default function ContentEnMedia() {
       <span>
         <div className="mt-16 text-[32px] font-bold pb-6">Conferences</div>
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-            {conferences && conferences.slice(0, getVideoCount()).map((conference) => (
+        {loadingConferences ? <div className="flex"><BeatLoader className="mt-2" color='grey' loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> <span className='ml-2 text-gray-500'>Conferences ophalen</span></div> :
+            conferences && conferences.slice(0, getVideoCount()).map((conference) => (
               <Link key={conference.id} href={`contentEnMedia/video/${encodeURIComponent(conference.titel)}`}>
                 <PreviewCard
                   key={conference.id}
