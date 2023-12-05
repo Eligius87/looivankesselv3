@@ -4,9 +4,18 @@ import Image, { type ImageProps } from 'next/image'
 import { Container } from "@/components/Container"
 import Link from 'next/link';
 import { getAllVideos, Video } from '../api/videos';
+import { Podcast, getAllPodcasts } from '../api/podcasts';
+import { Conference, getAllConferences } from '../api/conferences';
 
 // kaartje
 function PreviewCard(props: {titel: string, beschrijving: string, image: string, url: string, tags: string[], iconType: string}) {
+  const truncateDescription = (text: string, limit: number) => {
+    const words = text.split(' ');
+    if (words.length > limit) {
+      return words.slice(0, limit).join(' ') + '...';
+    }
+    return text;
+  };
 
   const renderIcon = (iconType: string) => {
     switch (iconType) {
@@ -51,7 +60,7 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
         ))}
       </div>
       <div className='text-[10px] md:text-sm lg:text-md'>
-        {props.beschrijving}
+        {truncateDescription(props.beschrijving, 50)}
       </div>
       <div className='flex flex-row items-center justify-between '>
         {renderIcon(props.iconType)}
@@ -59,55 +68,6 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
     </div>
   )
 }
-
-// Place holder data, dit moet later uit de database komen
-let VideoContent = [
-{
-  id: 1,
-  titel: 'Video 1',
-  beschrijving: 'beschrijving video 1',
-  image: 'https://picsum.photos/id/237/200/300',
-  url: 'https://www.youtube.com/watch?v=5G6ianWzDNk',
-  tags: ['Video', 'Echt leuke video'],
-  iconType: 'video'
-},
-{
-  id: 2,
-  titel: 'Video 2',
-  beschrijving: 'bechscirnving video 2',
-  image: 'https://picsum.photos/id/237/200/300',
-  url: 'https://www.youtube.com/watch?v=5G6ianWzDNk',
-  tags: ['Video', 'Echt leuke video'],
-  iconType: 'video'
-},
-{
-  id: 3,
-  titel: 'Video 3',
-  beschrijving: 'BEschrivnignbg van video 3',
-  image: 'https://picsum.photos/id/237/200/300',
-  url: 'https://www.youtube.com/watch?v=5G6ianWzDNk',
-  tags: ['Video', 'Echt leuke video'],
-  iconType: 'video'
-},
-{
-  id: 4,
-  titel: 'Video 4',
-  beschrijving: 'BEacijajikawidk cvin video 4',
-  image: 'https://picsum.photos/id/237/200/300',
-  url: 'https://www.youtube.com/watch?v=5G6ianWzDNk',
-  tags: ['Video', 'Echt leuke video'],
-  iconType: 'video'
-},
-{
-  id: 5,
-  titel: 'VIdeo 5',
-  beschrijving: 'Deze zie je alleen als je op bekijke meer gaat kleikekekenene.',
-  image: 'https://picsum.photos/id/237/200/300',
-  url: 'https://www.youtube.com/watch?v=5G6ianWzDNk',
-  tags: ['Video', 'Echt leuke video'],
-  iconType: 'video'
-},
-]
 
 // zodat content past bij de grootte van het scherm
 function useWindowSize() {
@@ -136,22 +96,26 @@ function useWindowSize() {
 // de echte component
 export default function ContentEnMedia() {
   const [videos, setVideos] =useState<Video[]>([])
+  const [podcasts, setPodcasts] =useState<Podcast[]>([])
+  const [conferences, setConferences] =useState<Conference[]>([])
 
 	useEffect(() => {
 		getAllVideos().then(setVideos)
+    getAllPodcasts().then(setPodcasts)
+    getAllConferences().then(setConferences)
 	}, [])
   
   const size = useWindowSize();
 
-  // const getVideoCount = () => {
-  //   if (size.width >= 1024) { // 'lg' breakpoint
-  //     return 4;
-  //   } else if (size.width >= 768) { // 'md' breakpoint
-  //     return 3;
-  //   } else {
-  //     return 2;
-  //   }
-  // };
+  const getVideoCount = () => {
+    if (size.width >= 1024) { // 'lg' breakpoint
+      return 4;
+    } else if (size.width >= 768) { // 'md' breakpoint
+      return 3;
+    } else {
+      return 2;
+    }
+  };
 
   return (
     <div>
@@ -160,37 +124,76 @@ export default function ContentEnMedia() {
           Content en Media
       </h1>
      {/* Videos Section */}
-     <div className="text-[32px] font-bold pb-6">Videos</div>
-     <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-        {/* {VideoContent.slice(0, getVideoCount()).map((video) => (
-          <PreviewCard
-            key={video.id}
-            titel={video.titel}
-            beschrijving={video.beschrijving}
-            image={video.image}
-            url={video.url}
-            tags={video.tags}
-            iconType={video.iconType}
-          />
-        ))} */}
-        {videos && videos.map((video) => (
-          <Link href={'contentEnMedia/' + video.titel}>
-            <PreviewCard
-              key={video.id}
-              titel={video.titel}
-              beschrijving={video.beschrijving}
-              image={video.images[0]}
-              url={video.vid_url}
-              tags={video.tags}
-              iconType={video.icon}
-            />
+     <span>
+      <div className="text-[32px] font-bold pb-6">Videos</div>
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
+          {videos && videos.slice(0, getVideoCount()).map((video) => (
+            <Link key={video.id} href={`contentEnMedia/video/${encodeURIComponent(video.titel)}`}>
+              <PreviewCard
+                key={video.id}
+                titel={video.titel}
+                beschrijving={video.beschrijving}
+                image={video.images[0]}
+                url={video.vid_url}
+                tags={video.tags}
+                iconType={video.icon}
+              />
+            </Link>
+          ))
+          }
+        </div>
+        <Link href={'contentEnMedia/video' }>
+          <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk alle video's <span className='ml-2'>→</span></button>
+        </Link>
+     </span>
+
+      {/* Podcast Section */}
+      <span>
+      <div className="mt-16 text-[32px] font-bold pb-6">Podcasts</div>
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
+          {podcasts && podcasts.slice(0, getVideoCount()).map((podcast) => (
+            <Link key={podcast.id} href={`contentEnMedia/video/${encodeURIComponent(podcast.titel)}`}>
+              <PreviewCard
+                key={podcast.id}
+                titel={podcast.titel}
+                beschrijving={podcast.beschrijving}
+                image={podcast.images[0]}
+                url={podcast.url}
+                tags={podcast.tags}
+                iconType={podcast.icon}
+              />
+            </Link>
+          ))
+          }
+        </div>
+        <Link href={'contentEnMedia/podcast'}>
+          <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk alle Podcasts <span className='ml-2'>→</span></button>
+        </Link>
+     </span>
+
+      {/* Conferences Section */}
+      <span>
+        <div className="mt-16 text-[32px] font-bold pb-6">Conferences</div>
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
+            {conferences && conferences.slice(0, getVideoCount()).map((conference) => (
+              <Link key={conference.id} href={`contentEnMedia/video/${encodeURIComponent(conference.titel)}`}>
+                <PreviewCard
+                  key={conference.id}
+                  titel={conference.titel}
+                  beschrijving={conference.beschrijving}
+                  image={conference.images[0]}
+                  url={conference.url}
+                  tags={conference.tags}
+                  iconType={conference.icon}
+                />
+              </Link>
+            ))
+            }
+          </div>
+          <Link href={'contentEnMedia/conference' }>
+            <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk alle Conferences <span className='ml-2'>→</span></button>
           </Link>
-        ))
-        }
-      </div>
-      <Link href={'contentenmedia/videos' }>
-        <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk alle video's <span className='ml-2'>→</span></button>
-      </Link>
+     </span>
       </Container>
     </div>
   );
