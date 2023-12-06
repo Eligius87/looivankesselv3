@@ -6,6 +6,8 @@ export type Publicaties = {
   beschrijving: string;
   images: string[];
   datum: string;
+  publicatie_url: string;
+  zin_besc: string;
 };
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
@@ -18,13 +20,15 @@ export async function getAllPublicaties(): Promise<Publicaties[]> {
   }
 
   return data.map((publicatie) => {
-    const {id, titel, image, beschrijving, datum} = publicatie;
+    const {id, titel, image, beschrijving, datum, publicatie_url, zin_besc} = publicatie;
     return {
         id, 
 	    images: [image].map(src => BASE_FILE_STORAGE_URL + src),
         beschrijving,
         datum,
         titel,
+        publicatie_url,
+        zin_besc,
     };
   });
 }
