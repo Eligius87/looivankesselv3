@@ -1,13 +1,16 @@
 import Image, { type ImageProps } from 'next/image'
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
-import logoAirbnb from '@/images/logos/airbnb.svg'
-import logoFacebook from '@/images/logos/facebook.svg'
-import logoPlanetaria from '@/images/logos/planetaria.svg'
-import logoStarbucks from '@/images/logos/starbucks.svg'
+import logoLucas from '@/images/logos/LUCAS.png'
+import logoNog from '@/images/logos/nog icon.png'
+import logoTijdschrift from '@/images/logos/TijdschriftGenderstudies.jpg'
+import logoLGBT from '@/images/logos/lgbtqnetwork.png'
 import portrait from '@/images/bannerlooi.jpg'
-
+import couperus from '@/images/logos/couperus.png'
 import { Preview, getAllPreviews } from './api/landingpage'
+
+
+const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
 
 function BriefcaseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -65,8 +68,8 @@ function Role({ role }: { role: Role }) {
 
   return (
     <li className="flex gap-4">
-      <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-        <Image src={role.logo} alt="" className="h-7 w-7" unoptimized />
+      <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5">
+        <Image src={role.logo} alt="" className="h-8 w-8 object-cover rounded-full" unoptimized />
       </div>
       <dl className="flex flex-auto flex-wrap gap-x-2">
         <dt className="sr-only">Company</dt>
@@ -94,9 +97,9 @@ function Role({ role }: { role: Role }) {
 function Resume() {
   let resume: Array<Role> = [
     {
-      company: 'Planetaria',
-      title: 'CEO',
-      logo: logoPlanetaria,
+      company: 'Universiteit Leiden',
+      title: 'Assistent Professor',
+      logo: logoLucas,
       start: '2019',
       end: {
         label: 'Present',
@@ -104,25 +107,72 @@ function Resume() {
       },
     },
     {
-      company: 'Airbnb',
-      title: 'Product Designer',
-      logo: logoAirbnb,
+      company: 'Nederlands Research School of Genderstudies',
+      title: 'Curriculum Commitee',
+      logo: logoNog,
+      start: '2021',
+      end: {
+        label: 'Present',
+        dateTime: new Date().getFullYear().toString(),
+      },
+    },
+    {
+      company: 'Amsterdam Universiteit Press',
+      title: 'Tijdschrift voor Genderstudies',
+      logo: logoTijdschrift,
+      start: '2018',
+      end: {
+        label: 'Present',
+        dateTime: new Date().getFullYear().toString(),
+      },
+    },
+    {
+      company: 'Leiden Universiteit LGBT+ Network',
+      title: 'Chair',
+      logo: logoLGBT,
+      start: '2017',
+      end: {
+        label: 'Present',
+        dateTime: new Date().getFullYear().toString(),
+      },
+    },
+    {
+      company: 'Louis Couperus Society',
+      title: 'Arabesken',
+      logo: couperus,
       start: '2014',
+      end: {
+        label: 'Present',
+        dateTime: new Date().getFullYear().toString(),
+      },
+    },
+    {
+      company: 'Universiteit Leiden',
+      title: 'Chair PhD Council',
+      logo: logoLucas,
+      start: '2015',
+      end: '2017',
+    },
+    {
+      company: 'Universiteit Leiden',
+      title: 'PhD Candidate',
+      logo: logoLucas,
+      start: '2015',
       end: '2019',
     },
     {
-      company: 'Facebook',
-      title: 'iOS Software Engineer',
-      logo: logoFacebook,
-      start: '2011',
-      end: '2014',
+      company: 'Universiteit Leiden',
+      title: 'Lecturer BA International Studies',
+      logo: logoLucas,
+      start: '2013',
+      end: '2015',
     },
     {
-      company: 'Starbucks',
-      title: 'Shift Supervisor',
-      logo: logoStarbucks,
-      start: '2008',
-      end: '2011',
+      company: 'Cultuur Barbaar Foundation',
+      title: 'Chair',
+      logo: logoLucas, 
+      start: '2011',
+      end: '2014',
     },
   ]
 
@@ -130,14 +180,14 @@ function Resume() {
     <div className="rounded-2xl p-6 row-span-3 shadow-lg">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <BriefcaseIcon className="h-6 w-6 flex-none" />
-        <span className="ml-3">Work</span>
+        <span className="ml-3">Werk</span>
       </h2>
       <ol className="mt-6 space-y-4">
         {resume.map((role, roleIndex) => (
           <Role key={roleIndex} role={role} />
         ))}
       </ol>
-      <Button href="#" variant="secondary" className="group mt-6 w-full">
+      <Button target="_blank" href={BASE_FILE_STORAGE_URL + '/files/Looi%20van%20Kessel%20-%20Curriculum%20Vitae%20(2023).docx.pdf?t=2023-12-07T10%3A18%3A51.030Z'} variant="secondary" className="hover:text-teal-400 group mt-6 w-full">
         Download CV
         <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
       </Button>
@@ -158,7 +208,30 @@ function Agenda() {
   )
 }
 
-function PreviewCard(props: {beschrijving: string, date: string, image: string}) {
+function PreviewCard(props: {beschrijving: string, date: string, image: string, type: string}) {
+    function podcastIcon() {
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 md:w-5 md:h-5 lg:w-6 lg:h-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+        </svg>
+      )
+    }
+    function videoIcon() {
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+          <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+        </svg>
+      )
+    }
+
+    function articleIcon() {
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+        </svg>
+      )
+    }
+  
   return(
     <div className='flex flex-col gap-2'>
       <div className='relative w-[100px] h-[100px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px]'>
@@ -167,13 +240,13 @@ function PreviewCard(props: {beschrijving: string, date: string, image: string})
       <div className='text-[10px] md:text-md lg:text-lg font-bold py-2'>
         {props.beschrijving}
       </div>
-      <div className='flex flex-row items-center justify-between '>
+      <div className='w-[100px] md:w-[200px] lg:w-[300px] flex flex-row items-center justify-between '>
         <div className='text-red-600 font-bold text-[10px] md:text-xs lg:text-sm'>{props.date}</div>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 md:w-5 md:h-5 lg:w-6 lg:h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
-          </svg>
+        {props.type == 'podcast' ? podcastIcon() :
+         props.type == 'video' ? videoIcon() :
+         props.type == 'article' ? articleIcon() : null
+        }
       </div>
-
     </div>
   )
 }
@@ -188,8 +261,8 @@ export default function Home(props: {previews: Preview[]}) {
             Looi van Kessel <br></br>Professor, Schrijver 
           </h1>
           <div className='w-full flex flex-row justify-between item-center my-5'>
-            <h1 className='text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl'>Leiden, Universiteit</h1>
-            <h1 className='text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl'>Scroll Naar Beneden</h1>
+            <h1 className='text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl'>Universiteit Leiden</h1>
+            <h1 className='text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl'></h1>
           </div>
         <div className='max-w-3xl'>  
         </div>
@@ -212,7 +285,7 @@ export default function Home(props: {previews: Preview[]}) {
             <div className='grid grid-cols-1 grid-flow-row gap-4 lg:grid-cols-3'>
               <div className='col-span-2 grid gap-4 grid-cols-2'>
                 {previews?.map((preview) => (
-                  <PreviewCard key={preview.id} beschrijving={preview.beschrijving} date={preview.datum} image={preview.images[0]} /> 
+                  <PreviewCard key={preview.id} beschrijving={preview.beschrijving} date={preview.datum} image={preview.images[0]} type={preview.type} /> 
                 ))}
               </div> 
               <Resume />
@@ -232,3 +305,5 @@ export async function getServerSideProps() {
     },
     }
   }
+
+

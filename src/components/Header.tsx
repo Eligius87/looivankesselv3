@@ -27,11 +27,12 @@ function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 function HomeIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" {...props}>
-      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" {...props}>
+      <path stroke-linecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
     </svg>
   )
 }
+
 
 function ChevronDownIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -139,7 +140,7 @@ function MobileNavigation(
             </div>
             <nav className="mt-6">
               <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-                <MobileNavItem href="/about">About</MobileNavItem>
+                <MobileNavItem href="/over">Over</MobileNavItem>
                 <MobileNavItem href="/onderwijs">Onderwijs</MobileNavItem>
                 <MobileNavItem href="/contentEnMedia">Content & media</MobileNavItem>
                 <MobileNavItem href="/onderzoek">Onderzoek</MobileNavItem>
@@ -186,7 +187,7 @@ function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
   return (
     <nav {...props}>
       <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        <NavItem href="/about">About</NavItem>
+        <NavItem href="/over">Over</NavItem>
         <NavItem href="/onderwijs">Onderwijs</NavItem>
         <NavItem href="/contentEnMedia">Content & media</NavItem>
         <NavItem href="/onderzoek">Onderzoek</NavItem>
@@ -212,8 +213,8 @@ function ThemeToggle() {
       className="group rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
       onClick={() => setTheme(otherTheme)}
     >
-      <SunIcon className="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 dark:hidden [@media(prefers-color-scheme:dark)]:fill-teal-50 [@media(prefers-color-scheme:dark)]:stroke-teal-500 [@media(prefers-color-scheme:dark)]:group-hover:fill-teal-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-teal-600" />
-      <MoonIcon className="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover:stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-teal-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-teal-500" />
+      <SunIcon className="h-6 w-6 stroke-zinc-500 transition hover:text-teal-400 " />
+      <MoonIcon className="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block hover:text-teal-400" />
     </button>
   )
 }
@@ -222,6 +223,16 @@ function clamp(number: number, a: number, b: number) {
   let min = Math.min(a, b)
   let max = Math.max(a, b)
   return Math.min(Math.max(number, min), max)
+}
+
+function HomeButton() {
+  return (
+    <Link href='/'>
+      <button type='button' className='cursor-pointer group rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition'>
+        <HomeIcon className='w-5 h-5 hover:text-teal-400 transition ease-in-out'/>
+      </button>
+    </Link>
+  )
 }
 
 export function Header() {
@@ -322,10 +333,10 @@ export function Header() {
             }}
           >
             <div className="relative flex gap-4">
-              <div className='flex justify-center items-center'>
-                <Link href="/" className='bg-white-800'>
-                  <HomeIcon className='w-5 h-5'/>
-                </Link>
+              <div className='flex justify-start items-center'>
+                  <div className="pointer-events-auto">
+                    <HomeButton />
+                  </div>
               </div>
               <div className="flex flex-1 justify-end md:justify-center"> 
                 <MobileNavigation className="pointer-events-auto md:hidden" />

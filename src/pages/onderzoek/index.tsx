@@ -48,7 +48,7 @@ function PublicatieCard({titel, publicatie_url, zin_besc, datum}: any) {
 
 function PublicatieAccordion({open, toggle, titel, image, beschrijving, datum}: any) {
   return (
-    <div className='flex flex-col justify-center items-center ReactCollapse--collapse'>
+    <div className='flex flex-col justify-center items-center ReactCollapse--collapse cursor-pointer'>
       {/* image titel and plus minus icon */}
       <div className='flex flex-col lg:flex-row gap-2 justify-between items-center' onClick={toggle}>
           <div className='flex flex-col lg:flex-row gap-2'>
@@ -94,12 +94,13 @@ export default function Publicatie(props: {publicaties: Publicaties[]}) {
 
   return (
     <div>
-      <SimpleLayout
+      <SimpleLayout 
         title="I’ve spoken at events all around the world and been interviewed for many podcasts."
         intro=""
       >
       </SimpleLayout>
       <Container className='mt-9'>
+        <div className="border-b-2 border-zinc-500"></div>
         {/* PUBLICATIES UITGELICHT */} 
         <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 py-4">Publicaties Uitgelicht</h1>
         <div className='flex flex-col gap-3'>

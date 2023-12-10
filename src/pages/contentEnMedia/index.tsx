@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { getAllVideos, Video } from '../api/videos';
 import { Podcast, getAllPodcasts } from '../api/podcasts';
 import { Conference, getAllConferences } from '../api/conferences';
-import BeatLoader from "react-spinners/BeatLoader";
+// import BeatLoader from "react-spinners/BeatLoader";
 
 // kaartje
 function PreviewCard(props: {titel: string, beschrijving: string, image: string, url: string, tags: string[], iconType: string}) {
@@ -73,8 +73,8 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
 // zodat content past bij de grootte van het scherm
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
-    width: undefined,
-    height: undefined,
+    width: innerWidth,
+    height: innerHeight,
   });
 
   useEffect(() => {
@@ -90,7 +90,6 @@ function useWindowSize() {
     
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
   return windowSize;
 }
 
@@ -121,15 +120,15 @@ export default function ContentEnMedia() {
   const size = useWindowSize();
 
   const getVideoCount = () => {
-    if (size.width >= 1024) { // 'lg' breakpoint
+    if (size && size.width && size.width >= 1024) { // 'lg' breakpoint
       return 4;
-    } else if (size.width >= 768) { // 'md' breakpoint
+    } else if (size && size.width && size.width >= 768) { // 'md' breakpoint
       return 3;
     } else {
       return 2;
     }
   };
-
+{/* <BeatLoader className="mt-2" color='grey' loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> */}
   return (
     <div>
       <Container className="mt-9">
@@ -140,7 +139,8 @@ export default function ContentEnMedia() {
      <span>
       <div className="text-[32px] font-bold pb-6">Video's</div>
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-      {loadingVideos ? <div className="flex"><BeatLoader className="mt-2" color='grey' loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> <span className='ml-2 text-gray-500'>Video's ophalen</span></div> :
+      {loadingVideos ? <div className="flex">
+         <span className='ml-2 text-gray-500'>Video's ophalen</span></div> :
           videos && videos.slice(0, getVideoCount()).map((video) => (
             <Link key={video.id} href={`contentEnMedia/video/${encodeURIComponent(video.titel)}`}>
               <PreviewCard
@@ -160,12 +160,13 @@ export default function ContentEnMedia() {
           <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk alle video's <span className='ml-2'>→</span></button>
         </Link>
      </span>
-
+{/* <BeatLoader color='grey' className="mt-2" loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> */}
       {/* Podcast Section */}
       <span>
       <div className="mt-16 text-[32px] font-bold pb-6">Podcasts</div>
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-      {loadingPodcasts ? <div className="flex"><BeatLoader color='grey' className="mt-2" loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> <span className='ml-2 text-gray-500'>Podcasts ophalen</span></div> : 
+      {loadingPodcasts ? <div className="flex">
+         <span className='ml-2 text-gray-500'>Podcasts ophalen</span></div> : 
           podcasts && podcasts.slice(0, getVideoCount()).map((podcast) => (
             <Link key={podcast.id} href={`contentEnMedia/video/${encodeURIComponent(podcast.titel)}`}>
               <PreviewCard
@@ -185,12 +186,13 @@ export default function ContentEnMedia() {
           <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk alle Podcasts <span className='ml-2'>→</span></button>
         </Link>
      </span>
-
+{/* <BeatLoader className="mt-2" color='grey' loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> */}
       {/* Conferences Section */}
       <span>
         <div className="mt-16 text-[32px] font-bold pb-6">Conferences</div>
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-        {loadingConferences ? <div className="flex"><BeatLoader className="mt-2" color='grey' loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> <span className='ml-2 text-gray-500'>Conferences ophalen</span></div> :
+        {loadingConferences ? <div className="flex">
+           <span className='ml-2 text-gray-500'>Conferences ophalen</span></div> :
             conferences && conferences.slice(0, getVideoCount()).map((conference) => (
               <Link key={conference.id} href={`contentEnMedia/video/${encodeURIComponent(conference.titel)}`}>
                 <PreviewCard

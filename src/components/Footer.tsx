@@ -45,34 +45,20 @@ export function Footer() {
           <ContainerInner>
             <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
               <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200">
-                <NavLink href="/about">About</NavLink>
-                <NavLink href="/projects">Projects</NavLink>
-                <NavLink href="/speaking">Speaking</NavLink>
-                <NavLink href="/uses">Uses</NavLink>
+                <NavLink href="/over">Over</NavLink>
+                <NavLink href="/onderwijs">Onderwijs</NavLink>
+                <NavLink href="/contentEnMedia">Content & Media</NavLink>
+                <NavLink href="/onderzoek">Onderzoek</NavLink>
+                <NavLink href="/contact">contact</NavLink>
               </div>
               <p className="text-sm text-zinc-400 dark:text-zinc-500">
                 &copy; {new Date().getFullYear()} Looi van Kessel. All rights
                 reserved.
               </p>
             </div>
-          <div className="mt-6 flex gap-6">
+          <div className="mt-6 flex gap-6">  
             <SocialLink
-              href="https://twitter.com"
-              aria-label="Follow on Twitter"
-              icon={TwitterIcon}
-            />
-            <SocialLink
-              href="https://instagram.com"
-              aria-label="Follow on Instagram"
-              icon={InstagramIcon}
-            />
-            <SocialLink
-              href="https://github.com"
-              aria-label="Follow on GitHub"
-              icon={GitHubIcon}
-            />
-            <SocialLink
-              href="https://linkedin.com"
+              href="https://nl.linkedin.com/in/looi-van-kessel-a4095657"
               aria-label="Follow on LinkedIn"
               icon={LinkedInIcon}
             />
