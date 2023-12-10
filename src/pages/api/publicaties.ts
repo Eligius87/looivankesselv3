@@ -3,8 +3,6 @@ import supabase from '../../../utils/supabase';
 export type Publicaties = {
   id: string;
   titel: string;
-  beschrijving: string;
-  images: string[];
   datum: string;
   publicatie_url: string;
   zin_besc: string;
@@ -20,11 +18,9 @@ export async function getAllPublicaties(): Promise<Publicaties[]> {
   }
 
   return data.map((publicatie) => {
-    const {id, titel, image, beschrijving, datum, publicatie_url, zin_besc} = publicatie;
+    const {id, titel, datum, publicatie_url, zin_besc} = publicatie;
     return {
         id, 
-	    images: [image].map(src => BASE_FILE_STORAGE_URL + src),
-        beschrijving,
         datum,
         titel,
         publicatie_url,

@@ -12,6 +12,19 @@ import { Preview, getAllPreviews } from './api/landingpage'
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
 
+function FormatedDate({dateString}: any) {
+  const date = new Date(dateString)
+  const options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  };
+  const formatedDate = date.toLocaleDateString('nl-BE', options)
+  return (
+    <time dateTime={dateString}>{formatedDate}</time>
+  )
+}
+
 function BriefcaseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg
@@ -241,7 +254,7 @@ function PreviewCard(props: {beschrijving: string, date: string, image: string, 
         {props.beschrijving}
       </div>
       <div className='w-[100px] md:w-[200px] lg:w-[300px] flex flex-row items-center justify-between '>
-        <div className='text-red-600 font-bold text-[10px] md:text-xs lg:text-sm'>{props.date}</div>
+        <div className='text-red-600 font-bold text-[10px] md:text-xs lg:text-sm'><FormatedDate dateString={props.date} /></div>
         {props.type == 'podcast' ? podcastIcon() :
          props.type == 'video' ? videoIcon() :
          props.type == 'article' ? articleIcon() : null

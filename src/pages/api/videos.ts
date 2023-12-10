@@ -4,7 +4,7 @@ export type Video = {
   id: string;
   titel: string;
   beschrijving: string;
-  images: string[];
+  image: string;
   datum: string;
   vid_url: string;
   tags: string[];
@@ -27,7 +27,7 @@ export async function getAllVideos(): Promise<Video[]> {
         id, 
         titel,
         beschrijving,
-	    images: [image].map(src => BASE_FILE_STORAGE_URL + src),
+        image,
         datum,
         vid_url,
         tags,

@@ -1,4 +1,3 @@
-import { type Metadata } from 'next'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { Container } from '@/components/Container'
 import Image from 'next/image'
@@ -6,6 +5,20 @@ import { getAllPublicaties, Publicaties } from '../api/publicaties'
 import { Collapse } from 'react-collapse'
 import { useState } from 'react'
 import Link from 'next/link'
+import { getAllPublicatiesUit, PublicatiesUit } from '../api/publicatiesuitgelicht'
+
+function FormatedDate({dateString}: any) {
+  const date = new Date(dateString)
+  const options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  };
+  const formatedDate = date.toLocaleDateString('nl-BE', options)
+  return (
+    <time dateTime={dateString}>{formatedDate}</time>
+  )
+}
 
 function PlusIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
     return (
@@ -33,12 +46,14 @@ function ArrowIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 function PublicatieCard({titel, publicatie_url, zin_besc, datum}: any) {
   return (
-      <Link href={publicatie_url} className='cursor-pointer'>
-        <div className='flex flex-row justify-between items-center gap-2 p-2 shadow-lg rounded-lg transition ease-in-out hover:scale-[101%]'>
+      <Link href={publicatie_url} target='__blank' passHref={true} className='cursor-pointer'>
+        <div className='flex flex-row justify-between items-center gap-2 ring-1 ring-zinc-300 p-2 shadow-lg rounded-lg transition ease-in-out hover:scale-[101%]'>
           <div className='flex flex-col gap-2'>
             <h1 className='text-[10px] lg:text-md xl:text-xl font-bold'>{titel}</h1>
             <p className='text-[10px] lg:text-md xl:text-lg'>{zin_besc}</p>
-            <h2 className='text-red-500 font-semibold text-[8px] lg:text-sm'>{datum}</h2>
+            <h2 className='text-zinc-400 font-semibold text-[8px] lg:text-sm'>
+              <FormatedDate dateString={datum} />
+            </h2>
           </div>
             <ArrowIcon  className='w-10 h-10 flex justify-center items-center'/>
         </div>
@@ -46,19 +61,22 @@ function PublicatieCard({titel, publicatie_url, zin_besc, datum}: any) {
   )
 }
 
-function PublicatieAccordion({open, toggle, titel, image, beschrijving, datum}: any) {
+function PublicatieAccordion({open, toggle, titel, image, beschrijving, datum, url}: any) {
+
   return (
     <div className='flex flex-col justify-center items-center ReactCollapse--collapse cursor-pointer'>
       {/* image titel and plus minus icon */}
-      <div className='flex flex-col lg:flex-row gap-2 justify-between items-center' onClick={toggle}>
+      <div className='w-full flex flex-col lg:flex-row gap-2 justify-between items-center' onClick={toggle}>
           <div className='flex flex-col lg:flex-row gap-2'>
             <div className="relative aspect-square w-[200px] lg:w-[120px]">
               <Image src={image} fill alt="" className='rounded-md object-cover'/>
             </div>
             <div className='flex flex-col gap-2 items-start w-[200px] lg:w-full'>
-              <h1 className='font-bold text-xs lg:text-2xl'>{titel}</h1>
+              <h1 className='font-bold text-xs lg:text-xl'>{titel}</h1>
               <div className='flex flex-row justify-between w-[200px] lg:w-full'>
-                <button className='bg-zinc-300 p-2 rounded-lg hover:bg-zinc-200 text-xs lg:text-md transition ease-in-out'>Lees volledig artikel</button>
+                <Link className="z-30 bg-zinc-300 p-2 rounded-lg hover:bg-zinc-200 text-xs lg:text-md transition ease-in-out" href={url} passHref={true} target='__blank'>
+                Lees volledig artikel
+                </Link>
                 <div className={`lg:hidden flex justify-center items-center lg:text-[30px] transition-transform ${open ? 'rotate-180' : ''}`}>
                     {open ? <MinusIcon className="w-4 h-4"/> : <PlusIcon className="w-4 h-4"/> }
                 </div>
@@ -73,15 +91,18 @@ function PublicatieAccordion({open, toggle, titel, image, beschrijving, datum}: 
       <Collapse isOpened={open}>
         <div className='flex flex-col py-2 text-xs lg:text-lg w-[200px] lg:w-full'>
           <p>{beschrijving}</p>
-          <h2 className='text-red-500'></h2>
+          <h2 className='text-red-500 font-semibold'>
+            <FormatedDate dateString={datum} />
+          </h2>
         </div>
       </Collapse>
     </div>
   )
 }
 
-export default function Publicatie(props: {publicaties: Publicaties[]}) {
+export default function Publicatie(props: {publicaties: Publicaties[], publicatiesuit: PublicatiesUit[]}) {
   const publicaties = props.publicaties
+  const publicatiesuit = props.publicatiesuit
   const [open, setOpen] = useState<number | null>(null);
   
   const toggle = (index: number) => {
@@ -102,10 +123,10 @@ export default function Publicatie(props: {publicaties: Publicaties[]}) {
       <Container className='mt-9'>
         <div className="border-b-2 border-zinc-500"></div>
         {/* PUBLICATIES UITGELICHT */} 
-        <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 py-4">Publicaties Uitgelicht</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-zinc-800 py-4">Publicaties Uitgelicht</h1>
         <div className='flex flex-col gap-3'>
-          {publicaties?.map((publicatie, index) => (
-            <PublicatieAccordion key={index} open={index === open} toggle={() => toggle(index)} titel={publicatie.titel} image={publicatie.images[0]} beschrijving={publicatie.beschrijving} datum={publicatie.datum}/>
+          {publicatiesuit?.map((publicatieuit, index) => (
+            <PublicatieAccordion key={index} open={index === open} toggle={() => toggle(index)} titel={publicatieuit.titel} image={publicatieuit.image} beschrijving={publicatieuit.beschrijving} datum={publicatieuit.datum} url={publicatieuit.pubuit_url}/>
           ))}
         </div>
         {/* LEZINGEN */} 
@@ -126,9 +147,11 @@ export default function Publicatie(props: {publicaties: Publicaties[]}) {
 
 export async function getServerSideProps() {
   const publicaties = await getAllPublicaties();
+  const publicatiesuit = await getAllPublicatiesUit();
   return {
     props: {
       publicaties: publicaties,
+      publicatiesuit: publicatiesuit,
     },
     }
   }

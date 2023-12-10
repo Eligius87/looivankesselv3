@@ -9,7 +9,7 @@ import { Conference, getAllConferences } from '../api/conferences';
 // import BeatLoader from "react-spinners/BeatLoader";
 
 // kaartje
-function PreviewCard(props: {titel: string, beschrijving: string, image: string, url: string, tags: string[], iconType: string}) {
+function PreviewCard(props: {titel: string, image: string, url: string, tags: string[], iconType: string}) {
   const truncateDescription = (text: string, limit: number) => {
     const words = text.split(' ');
     if (words.length > limit) {
@@ -52,19 +52,18 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
       <div className='relative w-[150px] h-[150px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px]'>
         <Image src={ props.image } fill alt="" className="rounded-2xl" />
       </div>
-      <div className='text-[16px] md:text-lg lg:text-xl font-bold pt-2'>
-        {props.titel}
+      <div className="flex flex-row w-[150px] md:w-[150px] lg:w-[200px] items-center justify-between">
+        <div className='text-[16px] md:text-lg lg:text-xl font-bold pt-2'>
+          {props.titel}
+        </div>
+        <div className='flex flex-row items-center justify-between '>
+          {renderIcon(props.iconType)}
+        </div>
       </div>
       <div>
         {props.tags.map((tag) => (
           <span className='text-[10px] md:text-sm lg:text-md border border-gray-500 rounded-full px-2 py-1 mr-1'>{tag}</span>
         ))}
-      </div>
-      <div className='text-[10px] md:text-sm lg:text-md'>
-        {truncateDescription(props.beschrijving, 50)}
-      </div>
-      <div className='flex flex-row items-center justify-between '>
-        {renderIcon(props.iconType)}
       </div>
     </div>
   )
@@ -142,12 +141,11 @@ export default function ContentEnMedia() {
       {loadingVideos ? <div className="flex">
          <span className='ml-2 text-gray-500'>Video's ophalen</span></div> :
           videos && videos.slice(0, getVideoCount()).map((video) => (
-            <Link key={video.id} href={`contentEnMedia/video/${encodeURIComponent(video.titel)}`}>
+            <Link className="w-[150px] md:w-[150px] lg:w-[200px]" key={video.id} href={`contentEnMedia/video/${encodeURIComponent(video.titel)}`}>
               <PreviewCard
                 key={video.id}
                 titel={video.titel}
-                beschrijving={video.beschrijving}
-                image={video.images[0]}
+                image={video.image}
                 url={video.vid_url}
                 tags={video.tags}
                 iconType={video.icon}
@@ -172,7 +170,6 @@ export default function ContentEnMedia() {
               <PreviewCard
                 key={podcast.id}
                 titel={podcast.titel}
-                beschrijving={podcast.beschrijving}
                 image={podcast.images[0]}
                 url={podcast.url}
                 tags={podcast.tags}
@@ -198,7 +195,6 @@ export default function ContentEnMedia() {
                 <PreviewCard
                   key={conference.id}
                   titel={conference.titel}
-                  beschrijving={conference.beschrijving}
                   image={conference.images[0]}
                   url={conference.url}
                   tags={conference.tags}
