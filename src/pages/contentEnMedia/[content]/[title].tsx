@@ -53,6 +53,14 @@ export default VideoDetail;
 
 export const getStaticProps: GetStaticProps<Props> = async (context) => {
   const { params } = context;
+  if (!params?.title) {
+    return {
+      props: {
+        video: null,
+      },
+    };
+  }
+  
   const video = await getVideo(params.title as string);
 
   return {
