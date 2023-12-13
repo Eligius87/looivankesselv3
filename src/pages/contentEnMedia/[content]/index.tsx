@@ -77,7 +77,7 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
                         <PreviewCard 
                             titel={video.titel}
                             beschrijving={video.beschrijving}
-                            image={video.images[0]}
+                            image={video.image}
                             url={video.vid_url}
                             tags={video.tags}
                             iconType="video"
