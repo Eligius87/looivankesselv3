@@ -21,8 +21,8 @@ export async function getAllConferences(): Promise<Conference[]> {
     throw error;
   }
 
-  return data.map((podcast) => {
-    const {id, titel, image, datum, url, beschrijving ,tags, icon} = Conference;
+  return data.map((conference) => {
+    const {id, titel, image, datum, url, beschrijving ,tags, icon} = conference;
     return {
         id, 
         titel,
