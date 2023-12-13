@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import { Popover, Transition } from '@headlessui/react'
 import clsx from 'clsx'
+import {useRouter} from 'next/router'
 
 import { Container } from '@/components/Container'
 
@@ -50,20 +51,10 @@ function ChevronDownIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 function SunIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M8 12.25A4.25 4.25 0 0 1 12.25 8v0a4.25 4.25 0 0 1 4.25 4.25v0a4.25 4.25 0 0 1-4.25 4.25v0A4.25 4.25 0 0 1 8 12.25v0Z" />
-      <path
-        d="M12.25 3v1.5M21.5 12.25H20M18.791 18.791l-1.06-1.06M18.791 5.709l-1.06 1.06M12.25 20v1.5M4.5 12.25H3M6.77 6.77 5.709 5.709M6.77 17.73l-1.061 1.061"
-        fill="none"
-      />
-    </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" {...props}>
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+  </svg>
+
   )
 }
 
@@ -196,9 +187,9 @@ function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
 }
 
 function ThemeToggle() {
-  let { resolvedTheme, setTheme } = useTheme()
-  let otherTheme = resolvedTheme === 'dark' ? 'light' : 'dark'
   let [mounted, setMounted] = useState(false)
+  const router = useRouter()
+  const isDutch = router.locale === 'nl'
 
   useEffect(() => {
     setMounted(true)
@@ -207,12 +198,17 @@ function ThemeToggle() {
   return (
     <button
       type="button"
-      aria-label={mounted ? `Switch to ${otherTheme} theme` : 'Toggle theme'}
-      className="group rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
-      onClick={() => setTheme(otherTheme)}
-    >
-      <SunIcon className="h-6 w-6 stroke-zinc-500 transition hover:text-teal-400 " />
-      <MoonIcon className="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block hover:text-teal-400" />
+      className="flex justify-center items-center group rounded-full bg-white/90 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition w-10 h-10"
+      onClick={() => {
+        setMounted(!mounted);
+        var locale = isDutch ? 'en' : 'nl';
+        router.push({
+          pathname: router.pathname,
+          query: router.query,
+        },
+        undefined, { locale: locale})
+        }}>
+      {mounted ? <SunIcon className="h-6 w-6 stroke-zinc-600 hover:stroke-teal-400 transition ease-in-out" /> : <h1 className='hover:text-teal-400 transition ease-in-out font-semibold text-[14px] rounded-full'>{router.locale?.toUpperCase()}</h1>}
     </button>
   )
 }
@@ -234,6 +230,11 @@ function HomeButton() {
 }
 
 export function Header() {
+
+
+
+
+
   let isHomePage = usePathname() === '/'
 
   let headerRef = useRef<React.ElementRef<'div'>>(null)

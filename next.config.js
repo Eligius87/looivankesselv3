@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  i18n : {
+    locales: ['nl', 'en'],
+    defaultLocale: 'nl',
+  },
   reactStrictMode: true,
   swcMinify: true,
   images: {

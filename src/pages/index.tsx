@@ -8,6 +8,7 @@ import logoLGBT from '@/images/logos/lgbtqnetwork.png'
 import portrait from '@/images/bannerlooi.jpg'
 import couperus from '@/images/logos/couperus.png'
 import { Preview, getAllPreviews } from './api/landingpage'
+import { getDictionary } from './api/dictionary'
 
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
@@ -246,14 +247,14 @@ function PreviewCard(props: {beschrijving: string, date: string, image: string, 
     }
   
   return(
-    <div className='flex flex-col gap-2'>
-      <div className='relative w-[100px] h-[100px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px]'>
-        <Image src={ props.image } fill alt="" className="rounded-2xl" />
+    <div className='grid grid-rows-auto gap-2'>
+      <div className='relative max-w-full h-auto aspect-square row-span-2'>
+        <Image src={ props.image } fill alt="" className="object-cover rounded-2xl" />
       </div>
-      <div className='text-[10px] md:text-md lg:text-lg font-bold py-2'>
+      <div className='text-[10px] md:text-xl lg:text-lg font-bold py-2 row-span-1'>
         {props.beschrijving}
       </div>
-      <div className='w-[100px] md:w-[200px] lg:w-[300px] flex flex-row items-center justify-between '>
+      <div className='row-span-1 flex flex-row items-center justify-between '>
         <div className='text-red-600 font-bold text-[10px] md:text-xs lg:text-sm'><FormatedDate dateString={props.date} /></div>
         {props.type == 'podcast' ? podcastIcon() :
          props.type == 'video' ? videoIcon() :
@@ -264,14 +265,18 @@ function PreviewCard(props: {beschrijving: string, date: string, image: string, 
   )
 }
 
+type Props = {
+  previews: Preview[],
+  dictionary: any,
+}
 
-export default function Home(props: {previews: Preview[]}) {
-  const previews = props.previews;
+export default function Home({previews, dictionary} : Props) {
+  const dict = dictionary.home;
   return (
     <div className=''>
       <Container className="mt-9 ">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-8xl">
-            Looi van Kessel <br></br>Professor, Schrijver 
+            {dict.header.one} <br></br>{dict.header.two}
           </h1>
           <div className='w-full flex flex-row justify-between item-center my-5'>
             <h1 className='text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl'>Universiteit Leiden</h1>
@@ -295,8 +300,8 @@ export default function Home(props: {previews: Preview[]}) {
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto lg:max-w-none">
           <div className="space-y-10 "> 
-            <div className='grid grid-cols-1 grid-flow-row gap-4 lg:grid-cols-3'>
-              <div className='col-span-2 grid gap-4 grid-cols-2'>
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
+              <div className='col-span-1 grid gap-4 grid-cols-2'>
                 {previews?.map((preview) => (
                   <PreviewCard key={preview.id} beschrijving={preview.beschrijving} date={preview.datum} image={preview.images[0]} type={preview.type} /> 
                 ))}
@@ -310,10 +315,12 @@ export default function Home(props: {previews: Preview[]}) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({locale}: any) {
   const previews = await getAllPreviews();
+  const dictionary = await getDictionary(locale);
   return {
     props: {
+      dictionary,
       previews: previews,
     },
     }

@@ -48,14 +48,14 @@ function VakkenCard({titel, traject, periode, color}: any) {
 function Accordionitem({open, toggle, title, desc}: any) {
     return (
         <div className={`pt-[10px] shadow-lg rounded-lg border-l-2 border-red-500 ReactCollapse--collapse ring-1 ring-zinc-300`}>
-            <div className="bg-white py-[25px] px-[50px] flex justify-between items-center cursor-pointer" onClick={toggle}>
+            <div className="py-[25px] px-[50px] flex justify-between items-center cursor-pointer" onClick={toggle}>
                 <p className="text-[22px] font-semibold">{title}</p>
                 <div className={`text-[30px] transition-transform ${open ? 'rotate-180' : ''}`}>
                     {open ? <MinusIcon className="w-5 h-5"/> : <PlusIcon className="w-5 h-5"/> }
                 </div>
             </div>
             <Collapse isOpened={open}>
-                <div className="bg-white px-[50px] pb-[20px]">{desc}</div>
+                <div className="px-[50px] pb-[20px]">{desc}</div>
             </Collapse>
         </div>
     )
@@ -133,7 +133,7 @@ export default function Onderwijs(props: {uitlichtings: Uitlichting[], vakken: V
                     <h1 className="py-4 text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
                         Overzicht Vakken 
                     </h1>
-                    <div className="grid grid-cols-2 gap-2 border-b-2 border-zinc-400 py-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 border-b-2 border-zinc-400 py-8">
                         {vakken?.map((vak, index) => (
                             <VakkenCard key={vak.titel} titel={vak.titel} traject={vak.traject} periode={vak.periode} color={colors[index % 7]}/>
                         ))}
