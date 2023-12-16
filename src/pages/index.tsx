@@ -9,6 +9,10 @@ import portrait from '@/images/bannerlooi.jpg'
 import couperus from '@/images/logos/couperus.png'
 import { Preview, getAllPreviews } from './api/landingpage'
 import { getDictionary } from './api/dictionary'
+import Link from 'next/link'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+
 
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
@@ -108,11 +112,29 @@ function Role({ role }: { role: Role }) {
   )
 }
 
+
+
+
 function Resume() {
-  let resume: Array<Role> = [
+  const router = useRouter();
+  const lang = router.locale;
+  const [dict, setDict] = useState<any>(null);
+
+  useEffect(() => {
+    getDictionary(lang)
+      .then((dictionary) => {
+        console.log("Dictionary:", dictionary.home);
+        setDict(dictionary.home);
+      })
+      .catch((error) => {
+        console.error('Error loading dictionary:', error);
+      });
+  }, []);
+
+  let resume: Array<Role> =  [
     {
-      company: 'Universiteit Leiden',
-      title: 'Assistent Professor',
+      company: dict.home.resume.one.company,
+      title: dict.home.resume.one.title,
       logo: logoLucas,
       start: '2019',
       end: {
@@ -121,8 +143,8 @@ function Resume() {
       },
     },
     {
-      company: 'Nederlands Research School of Genderstudies',
-      title: 'Curriculum Commitee',
+      company: dict.resume.two.company,
+      title: dict.resume.two.title,
       logo: logoNog,
       start: '2021',
       end: {
@@ -131,8 +153,8 @@ function Resume() {
       },
     },
     {
-      company: 'Amsterdam Universiteit Press',
-      title: 'Tijdschrift voor Genderstudies',
+      company: dict.resume.three.company,
+      title: dict.resume.three.title,
       logo: logoTijdschrift,
       start: '2018',
       end: {
@@ -141,8 +163,8 @@ function Resume() {
       },
     },
     {
-      company: 'Leiden Universiteit LGBT+ Network',
-      title: 'Chair',
+      company: dict.resume.four.company,
+      title: dict.resume.four.title,
       logo: logoLGBT,
       start: '2017',
       end: {
@@ -151,8 +173,8 @@ function Resume() {
       },
     },
     {
-      company: 'Louis Couperus Society',
-      title: 'Arabesken',
+      company: dict.resume.five.company,
+      title: dict.resume.five.title,
       logo: couperus,
       start: '2014',
       end: {
@@ -161,34 +183,34 @@ function Resume() {
       },
     },
     {
-      company: 'Universiteit Leiden',
-      title: 'Chair PhD Council',
+      company: dict.resume.six.company,
+      title: dict.resume.six.title,
       logo: logoLucas,
       start: '2015',
       end: '2017',
     },
     {
-      company: 'Universiteit Leiden',
-      title: 'PhD Candidate',
+      company: dict.resume.seven.company,
+      title: dict.resume.seven.title,
       logo: logoLucas,
       start: '2015',
       end: '2019',
     },
     {
-      company: 'Universiteit Leiden',
-      title: 'Lecturer BA International Studies',
+      company: dict.resume.eight.company,
+      title: dict.resume.eight.title,
       logo: logoLucas,
       start: '2013',
       end: '2015',
     },
     {
-      company: 'Cultuur Barbaar Foundation',
-      title: 'Chair',
+      company: dict.resume.nine.company,
+      title: dict.resume.nine.title,
       logo: logoLucas, 
       start: '2011',
       end: '2014',
     },
-  ]
+  ];
 
   return (
     <div className="rounded-2xl p-6 row-span-3 shadow-lg">
@@ -222,7 +244,7 @@ function Agenda() {
   )
 }
 
-function PreviewCard(props: {beschrijving: string, date: string, image: string, type: string}) {
+function PreviewCard(props: {beschrijving: string, date: string, image: string, type: string, link: string}) {
     function podcastIcon() {
       return (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 md:w-5 md:h-5 lg:w-6 lg:h-6">
@@ -247,21 +269,23 @@ function PreviewCard(props: {beschrijving: string, date: string, image: string, 
     }
   
   return(
-    <div className='grid grid-rows-auto gap-2'>
-      <div className='relative max-w-full h-auto aspect-square row-span-2'>
-        <Image src={ props.image } fill alt="" className="object-cover rounded-2xl" />
+    <Link href={props.link}>
+      <div className='grid grid-rows-auto gap-2'>
+        <div className='relative max-w-full h-auto aspect-square row-span-2'>
+          <Image src={ props.image } fill alt="" className="object-cover rounded-2xl" />
+        </div>
+        <div className='text-[10px] md:text-xl lg:text-lg font-bold py-2 row-span-1'>
+          {props.beschrijving}
+        </div>
+        <div className='row-span-1 flex flex-row items-center justify-between '>
+          <div className='text-red-600 font-bold text-[10px] md:text-xs lg:text-sm'><FormatedDate dateString={props.date} /></div>
+          {props.type == 'podcast' ? podcastIcon() :
+          props.type == 'video' ? videoIcon() :
+          props.type == 'article' ? articleIcon() : null
+          }
+        </div>
       </div>
-      <div className='text-[10px] md:text-xl lg:text-lg font-bold py-2 row-span-1'>
-        {props.beschrijving}
-      </div>
-      <div className='row-span-1 flex flex-row items-center justify-between '>
-        <div className='text-red-600 font-bold text-[10px] md:text-xs lg:text-sm'><FormatedDate dateString={props.date} /></div>
-        {props.type == 'podcast' ? podcastIcon() :
-         props.type == 'video' ? videoIcon() :
-         props.type == 'article' ? articleIcon() : null
-        }
-      </div>
-    </div>
+    </Link>
   )
 }
 
@@ -279,7 +303,7 @@ export default function Home({previews, dictionary} : Props) {
             {dict.header.one} <br></br>{dict.header.two}
           </h1>
           <div className='w-full flex flex-row justify-between item-center my-5'>
-            <h1 className='text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl'>Universiteit Leiden</h1>
+            <h1 className='text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl'>{dict.subheader}</h1>
             <h1 className='text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl'></h1>
           </div>
         <div className='max-w-3xl'>  
@@ -303,7 +327,7 @@ export default function Home({previews, dictionary} : Props) {
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
               <div className='col-span-1 grid gap-4 grid-cols-2'>
                 {previews?.map((preview) => (
-                  <PreviewCard key={preview.id} beschrijving={preview.beschrijving} date={preview.datum} image={preview.images[0]} type={preview.type} /> 
+                  <PreviewCard key={preview.id} beschrijving={preview.beschrijving} date={preview.datum} image={preview.images[0]} type={preview.type} link={preview.link} /> 
                 ))}
               </div> 
               <Resume />

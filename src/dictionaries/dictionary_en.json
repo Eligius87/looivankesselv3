@@ -3,6 +3,46 @@
         "header": {
             "one": "Looi van Kessel",
             "two": "Professor, Writer"
+        },
+        "subheader": "University of Leiden",
+        "resume": {
+            "cv": "download CV",
+            "one": {
+                "company": "University Leiden",
+                "title": "Assistent Professor"
+            },
+            "two": {
+                "company": "Netherlands Research School of Genderstudies",
+                "title": "Curriculum Commitee"
+            },
+            "three": {
+                "company": "Amsterdam University Press",
+                "title": "Magazine for Genderstudies"
+            },
+            "four": {
+                "company": "University of Leiden LGBT+ Network",
+                "title": "Chair"
+            },
+            "five": {
+                "company": "Louis Couperus Society",
+                "title": "Arabesken"
+            },
+            "six": {
+                "company": "University of Leiden",
+                "title": "Chair PhD Council"
+            },
+            "seven": {
+                "company": "University of Leiden",
+                "title": "PhD Candidate"
+            },
+            "eight": {
+                "company": "University of Leiden",
+                "title": "Lecturer BA International Studies"
+            },
+            "nine": {
+                "company": "Cultuur Barbaar Foundation",
+                "title": "Chair"
+            }
         }
     }
 }
