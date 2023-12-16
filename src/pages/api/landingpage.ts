@@ -6,6 +6,7 @@ export type Preview = {
   images: string[];
   datum: string;
   type: string;
+  link: string;
 };
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
@@ -18,13 +19,14 @@ export async function getAllPreviews(): Promise<Preview[]> {
   }
 
   return data.map((preview) => {
-    const {id, image, beschrijving, datum, type} = preview;
+    const {id, image, beschrijving, datum, type, link} = preview;
     return {
         id, 
 	    images: [image].map(src => BASE_FILE_STORAGE_URL + src),
         beschrijving,
         datum,
         type,
+        link,
     };
   });
 }
