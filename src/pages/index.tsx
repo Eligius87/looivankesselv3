@@ -129,12 +129,16 @@ function Resume() {
       .catch((error) => {
         console.error('Error loading dictionary:', error);
       });
-  }, []);
+  }, [lang]);
+
+  if (!dict) {
+    return <div>Loading...</div>;
+  }  
 
   let resume: Array<Role> =  [
     {
-      company: dict.home.resume.one.company,
-      title: dict.home.resume.one.title,
+      company: dict.resume.one.company,
+      title: dict.resume.one.title,
       logo: logoLucas,
       start: '2019',
       end: {
