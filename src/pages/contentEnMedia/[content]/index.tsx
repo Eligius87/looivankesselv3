@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { Container } from '@/components/Container';
+import { Container } from '../../../components/Container';
 import Image from 'next/image';
 import {Video, getAllVideos} from '../../api/videos';
 import { Podcast, getAllPodcasts } from '../../api/podcasts';

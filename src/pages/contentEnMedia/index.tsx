@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import Image, { type ImageProps } from 'next/image'
-import { Container } from "@/components/Container"
+import Image from 'next/image'
+import { Container } from "../../components/Container"
 import Link from 'next/link';
 import { getAllVideos, Video } from '../api/videos';
 import { Podcast, getAllPodcasts } from '../api/podcasts';

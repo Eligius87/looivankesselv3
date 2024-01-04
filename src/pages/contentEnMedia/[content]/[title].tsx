@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { Video, getVideo, getAllVideos } from '../../api/videos'; // Adjust the import path as needed
-import { Container } from '@/components/Container';
+import { Container } from '../../../components/Container';
 
 type Props = {
   video: Video | null;
