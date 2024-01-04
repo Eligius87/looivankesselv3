@@ -69,28 +69,6 @@ function PreviewCard(props: {titel: string, image: string, url: string, tags: st
   )
 }
 
-// zodat content past bij de grootte van het scherm
-function useWindowSize() {
-  const [windowSize, setWindowSize] = useState({
-    width: innerWidth,
-    height: innerHeight,
-  });
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
-    
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  return windowSize;
-}
 
 // de echte component
 export default function ContentEnMedia() {
@@ -116,17 +94,6 @@ export default function ContentEnMedia() {
     });
   }, []);
   
-  const size = useWindowSize();
-
-  const getVideoCount = () => {
-    if (size && size.width && size.width >= 1024) { // 'lg' breakpoint
-      return 4;
-    } else if (size && size.width && size.width >= 768) { // 'md' breakpoint
-      return 3;
-    } else {
-      return 2;
-    }
-  };
 {/* <BeatLoader className="mt-2" color='grey' loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> */}
   return (
     <div>
@@ -140,7 +107,7 @@ export default function ContentEnMedia() {
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
       {loadingVideos ? <div className="flex">
          <span className='ml-2 text-gray-500'>Video's ophalen</span></div> :
-          videos && videos.slice(0, getVideoCount()).map((video) => (
+          videos && videos.map((video) => (
             <Link className="w-[150px] md:w-[150px] lg:w-[200px]" key={video.id} href={`contentEnMedia/video/${encodeURIComponent(video.titel)}`}>
               <PreviewCard
                 key={video.id}
@@ -165,7 +132,7 @@ export default function ContentEnMedia() {
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
       {loadingPodcasts ? <div className="flex">
          <span className='ml-2 text-gray-500'>Podcasts ophalen</span></div> : 
-          podcasts && podcasts.slice(0, getVideoCount()).map((podcast) => (
+          podcasts && podcasts.map((podcast) => (
             <Link key={podcast.id} href={`contentEnMedia/video/${encodeURIComponent(podcast.titel)}`}>
               <PreviewCard
                 key={podcast.id}
@@ -190,7 +157,7 @@ export default function ContentEnMedia() {
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
         {loadingConferences ? <div className="flex">
            <span className='ml-2 text-gray-500'>Conferences ophalen</span></div> :
-            conferences && conferences.slice(0, getVideoCount()).map((conference) => (
+            conferences && conferences.map((conference) => (
               <Link key={conference.id} href={`contentEnMedia/video/${encodeURIComponent(conference.titel)}`}>
                 <PreviewCard
                   key={conference.id}

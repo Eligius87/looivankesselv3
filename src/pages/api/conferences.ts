@@ -37,5 +37,5 @@ export async function getAllConferences(): Promise<Conference[]> {
 }
 
 export async function getConference(titel: string): Promise<Conference | null> {
-  return (await getAllConferences()).find((Conference) => Conference.titel === titel) ?? null;
+  return (await getAllConferences()).find((conference) => conference.titel === titel) ?? null;
 }	

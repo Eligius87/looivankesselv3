@@ -8,10 +8,12 @@ import logoLGBT from '@/images/logos/lgbtqnetwork.png'
 import portrait from '@/images/bannerlooi.jpg'
 import couperus from '@/images/logos/couperus.png'
 import { Preview, getAllPreviews } from './api/landingpage'
+import { Agendas, getAllAgendas} from './api/agenda'
 import { getDictionary } from './api/dictionary'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { Agenda } from '@/components/Agenda'
 
 
 
@@ -235,19 +237,6 @@ function Resume() {
   )
 }
 
-function Agenda() {
-  return(
-    <div className='mt-9'>
-      <h1 className="text-center text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-6xl">
-        Agenda
-      </h1>
-      <div className=''>
-
-      </div>
-    </div>
-  )
-}
-
 function PreviewCard(props: {beschrijving: string, date: string, image: string, type: string, link: string}) {
     function podcastIcon() {
       return (
@@ -296,9 +285,19 @@ function PreviewCard(props: {beschrijving: string, date: string, image: string, 
 type Props = {
   previews: Preview[],
   dictionary: any,
+  agendas: Agendas[],
 }
 
-export default function Home({previews, dictionary} : Props) {
+export default function Home({previews, dictionary, agendas} : Props) {
+    const colors = [
+        'border-red-500',
+        'border-blue-500',
+        'border-green-500',
+        'border-yellow-500',
+        'border-purple-500',
+        'border-pink-500',
+        'border-indigo-500',
+    ]
   const dict = dictionary.home;
   return (
     <div className=''>
@@ -322,7 +321,18 @@ export default function Home({previews, dictionary} : Props) {
           <h1 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-4xl">
             painting and typesetting industry. Lorem Ipsum has  e a type.
           </h1>
-          <Agenda />
+          <h1 className='text-3xl text-center w-full'>Agenda</h1>
+          <Agenda 
+            items={agendas.map((agenda, i: number) => ({
+              type: agenda.type,
+              date: agenda.datum,
+              time: agenda.tijd,
+              titel: agenda.titel,
+              image: agenda.image,
+              desc: agenda.beschrijving,
+              color: colors[i % colors.length]
+            }))}
+          />
       </Container>
       {/* photo */}
       <Container className="mt-24 md:mt-28">
@@ -345,11 +355,13 @@ export default function Home({previews, dictionary} : Props) {
 
 export async function getServerSideProps({locale}: any) {
   const previews = await getAllPreviews();
+  const agendas = await getAllAgendas();
   const dictionary = await getDictionary(locale);
   return {
     props: {
       dictionary,
       previews: previews,
+      agendas: agendas,
     },
     }
   }
