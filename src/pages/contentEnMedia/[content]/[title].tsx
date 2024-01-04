@@ -74,5 +74,5 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }));
 
   // This example uses fallback: 'blocking'. You can change this to 'false' or 'true' as needed.
-  return { paths, fallback: 'blocking' };
+  return { paths, fallback: false };
 };
