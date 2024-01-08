@@ -3,16 +3,16 @@ import { Container } from '../../../components/Container';
 import Image from 'next/image';
 import {Video, getAllVideos} from '../../api/videos';
 import { Podcast, getAllPodcasts } from '../../api/podcasts';
-import { Conference, getAllConferences } from '../../api/conferences';
+import { Lezing, getAllLezingen } from '../../api/conferences';
 import Link from 'next/link';
 
 type ContentProps = {
     videos?: Video[];
     podcasts?: Podcast[];
-    conferences?: Conference[];
+    lezingen?: Lezing[];
 };
 
-type ContentType = 'video' | 'podcast' | 'conference';
+type ContentType = 'video' | 'podcasts' | 'lezing';
 
 // kaartje
 function PreviewCard(props: {titel: string, beschrijving: string, image: string, url: string, tags: string[], iconType: string}) {
@@ -49,9 +49,9 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
     return(
       <div className='flex flex-col gap-2'>
         <div className='relative w-[150px] h-[150px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px]'>
-          <Image src={ props.image } fill alt="" className="rounded-2xl" />
+          <Image src={ props.image } fill alt="" className="object-cover rounded-2xl" />
         </div>
-        <div className='text-[16px] md:text-lg lg:text-xl font-bold pt-2'>
+        <div className='max-w-[150px] lg:max-w-[200px] text-[16px] md:text-md font-bold pt-2'>
           {props.titel}
         </div>
         <div>
@@ -69,7 +69,7 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
     )
   }
 
-  const Content = ({ videos, podcasts, conferences }: ContentProps) => {
+  const Content = ({ videos, podcasts, lezingen }: ContentProps) => {
     const renderContent = () => {
         if (videos) {
             return videos.map(video => (
@@ -86,8 +86,7 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
             ));
         } else if (podcasts) {
             return podcasts.map(podcast => (
-                <Link key={podcast.id} href={`/contentEnMedia/podcast/${encodeURIComponent(podcast.titel)}`}>
-                    <a>
+                <Link key={podcast.id} href={podcast.url} target='__blank'>
                         <PreviewCard 
                             titel={podcast.titel}
                             beschrijving={podcast.beschrijving}
@@ -96,32 +95,30 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
                             tags={podcast.tags}
                             iconType="podcast"
                         />
-                    </a>
                 </Link>
             ));
-        } else if (conferences) {
-            return conferences.map(conference => (
-                <Link key={conference.id} href={`/contentEnMedia/conferences/${encodeURIComponent(conference.titel)}`}>
-                    <a>
+        } else if (lezingen) {
+            return lezingen.map(lezing => (
+                <Link key={lezing.id} href={lezing.url}>
                         <PreviewCard 
-                            titel={conference.titel}
-                            beschrijving={conference.beschrijving}
-                            image={conference.images[0]}
-                            url={conference.url}
-                            tags={conference.tags}
-                            iconType="conference"
+                            titel={lezing.titel}
+                            beschrijving={lezing.beschrijving}
+                            image={lezing.image}
+                            url={lezing.url}
+                            tags={lezing.tags}
+                            iconType="lezing"
                         />
-                    </a>
                 </Link>
             ));
         }
     };
 
+    const content = videos ? 'video' : podcasts ? 'podcasts' : 'lezing';
     return (
         <div>
             <Container>
                 <h2 className="text-center p-10 text-2xl font-bold tracking-tight text-zinc-800 sm:text-4xl mb-5">
-                    Video's
+                  {content == 'video' ? 'Video\'s' : content == 'podcasts' ? 'Podcasts' : 'Lezingen'}
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
                     {renderContent()}
@@ -139,11 +136,11 @@ export const getStaticProps: GetStaticProps<ContentProps> = async ({ params }) =
     if (content === 'video') {
         const videos = await getAllVideos();
         return { props: { videos } };
-    } else if (content === 'podcast') {
+    } else if (content === 'podcasts') {
         const podcasts = await getAllPodcasts();
         return { props: { podcasts } };
-    } else if (content === 'conference') {
-        const conferences = await getAllConferences();
+    } else if (content === 'lezing') {
+        const conferences = await getAllLezingen();
         return { props: { conferences } };
     }
 
@@ -153,8 +150,8 @@ export const getStaticProps: GetStaticProps<ContentProps> = async ({ params }) =
 export const getStaticPaths: GetStaticPaths = async () => {
     const paths = [
         { params: { content: 'video' } },
-        { params: { content: 'podcast' } },
-        { params: { content: 'conference' } }
+        { params: { content: 'podcasts' } },
+        { params: { content: 'lezing' } }
     ];
 
     return { paths, fallback: false };

@@ -2,6 +2,7 @@ import supabase from '../../../utils/supabase';
 
 export type Vakken = {
   id: string;
+  link: string;
   titel: string;
   traject: string;
   periode: string;
@@ -15,8 +16,9 @@ export async function getAllVakken(): Promise<Vakken[]> {
   }
 
   return data.map((vak) => {
-    const {id, titel, traject, periode} = vak;
+    const {id, link, titel, traject, periode} = vak;
     return {
+        link,
         id, 
         titel,
         traject,

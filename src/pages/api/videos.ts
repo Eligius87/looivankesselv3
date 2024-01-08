@@ -27,7 +27,7 @@ export async function getAllVideos(): Promise<Video[]> {
         id, 
         titel,
         beschrijving,
-        image,
+        image: BASE_FILE_STORAGE_URL + image,
         datum,
         vid_url,
         tags,

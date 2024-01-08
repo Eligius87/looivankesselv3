@@ -6,6 +6,7 @@
         },
         "subheader": "Universiteit of Leiden",
         "resume": {
+            "present": "heden",
             "cv": "download CV nu",
             "one": {
                 "company": "Universiteit Leiden",
@@ -44,5 +45,12 @@
                 "title": "Chair"
             }
         }
+    },
+    "education": {
+        "header": "Onderwijs",
+        "subheader1": "Onderwijs filosofie",
+        "subheader2": "Vak initieven",
+        "subheader3": "Uitlichting vakken",
+        "subheader4": "Overzicht vakken"
     }
 }

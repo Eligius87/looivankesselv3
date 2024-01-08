@@ -121,9 +121,6 @@ export default function Publicatie(props: {publicaties: Publicaties[], publicati
             <PublicatieAccordion key={index} open={index === open} toggle={() => toggle(index)} titel={publicatieuit.titel} image={publicatieuit.image} beschrijving={publicatieuit.beschrijving} datum={publicatieuit.datum} url={publicatieuit.pubuit_url}/>
           ))}
         </div>
-        {/* LEZINGEN */} 
-        <div className="pt-10 border-b-2 border-zinc-500"></div>
-        <h1 className="text-xl md:text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 py-4">Lezingen</h1>
         {/* ANDERE PUBLICATIES */} 
         <div className="pt-10 border-b-2 border-zinc-500"></div>
         <h1 className="text-xl md:text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 py-4">Andere Publicaties</h1>

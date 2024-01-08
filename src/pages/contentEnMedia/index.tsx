@@ -5,11 +5,23 @@ import { Container } from "../../components/Container"
 import Link from 'next/link';
 import { getAllVideos, Video } from '../api/videos';
 import { Podcast, getAllPodcasts } from '../api/podcasts';
-import { Conference, getAllConferences } from '../api/conferences';
+import { Lezing, getAllLezingen} from '../api/conferences';
 // import BeatLoader from "react-spinners/BeatLoader";
 
+function FormatedDate({dateString}: any) {
+  const date = new Date(dateString)
+  const options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  };
+  const formatedDate = date.toLocaleDateString('nl-BE', options)
+  return (
+    <time dateTime={dateString}>{formatedDate}</time>
+  )
+}
 // kaartje
-function PreviewCard(props: {titel: string, image: string, url: string, tags: string[], iconType: string}) {
+function PreviewCard(props: {titel: string, image: string, url: string, tags: string[], iconType: string, datum: string}) {
   const truncateDescription = (text: string, limit: number) => {
     const words = text.split(' ');
     if (words.length > limit) {
@@ -50,16 +62,17 @@ function PreviewCard(props: {titel: string, image: string, url: string, tags: st
   return(
     <div className='flex flex-col gap-2'>
       <div className='relative w-[150px] h-[150px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px]'>
-        <Image src={ props.image } fill alt="" className="rounded-2xl" />
+        <Image src={ props.image } fill alt="" className="object-cover rounded-2xl" />
       </div>
-      <div className="flex flex-row w-[150px] md:w-[150px] lg:w-[200px] items-center justify-between">
-        <div className='text-[16px] md:text-lg lg:text-xl font-bold pt-2'>
+      <div className="flex flex-row w-[150px] md:w-[150px] lg:w-[200px] items-start justify-between">
+        <div className='text-[16px] md:text-sm font-bold pt-2'>
           {props.titel}
         </div>
-        <div className='flex flex-row items-center justify-between '>
+        <div className='pt-2'>
           {renderIcon(props.iconType)}
         </div>
       </div>
+      <div className='text-[10px] text-gray-500'><FormatedDate dateString={props.datum}/></div>
       <div>
         {props.tags.map((tag) => (
           <span className='text-[10px] md:text-sm lg:text-md border border-gray-500 rounded-full px-2 py-1 mr-1'>{tag}</span>
@@ -69,15 +82,23 @@ function PreviewCard(props: {titel: string, image: string, url: string, tags: st
   )
 }
 
+function Button(props: {text: string, url: string}) {
+  return ( 
+    <Link href={props.url}>
+      <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6 ring-2 ring-gray-300 transition ease-in-out hover:ring-teal-400'>{props.text} <span className='ml-2'>→</span></button>
+    </Link>
+  )
+}
+
 
 // de echte component
 export default function ContentEnMedia() {
   const [videos, setVideos] =useState<Video[]>([])
   const [podcasts, setPodcasts] =useState<Podcast[]>([])
-  const [conferences, setConferences] =useState<Conference[]>([])
+  const [lezingen, setLezingen] =useState<Lezing[]>([])
   const [loadingVideos, setLoadingVideos] = useState(true);  // Loading state for videos
   const [loadingPodcasts, setLoadingPodcasts] = useState(true);  // Loading state for podcasts
-  const [loadingConferences, setLoadingConferences] = useState(true);  // Loading state for conferences
+  const [loadingLezingen, setLoadingLezingen] = useState(true);  // Loading state for conferences
 
   useEffect(() => {
     getAllVideos().then(data => {
@@ -88,9 +109,9 @@ export default function ContentEnMedia() {
       setPodcasts(data);
       setLoadingPodcasts(false);  // Update loading state for podcasts
     });
-    getAllConferences().then(data => {
-      setConferences(data);
-      setLoadingConferences(false);  // Update loading state for conferences
+    getAllLezingen().then(data => {
+      setLezingen(data);
+      setLoadingLezingen(false);  // Update loading state for conferences
     });
   }, []);
   
@@ -107,7 +128,7 @@ export default function ContentEnMedia() {
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
       {loadingVideos ? <div className="flex">
          <span className='ml-2 text-gray-500'>Video's ophalen</span></div> :
-          videos && videos.map((video) => (
+          videos && videos.slice(0,4).map((video) => (
             <Link className="w-[150px] md:w-[150px] lg:w-[200px]" key={video.id} href={`contentEnMedia/video/${encodeURIComponent(video.titel)}`}>
               <PreviewCard
                 key={video.id}
@@ -116,24 +137,23 @@ export default function ContentEnMedia() {
                 url={video.vid_url}
                 tags={video.tags}
                 iconType={video.icon}
+                datum={video.datum}
               />
             </Link>
           ))
           }
         </div>
-        <Link href={'contentEnMedia/video' }>
-          <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk alle video's <span className='ml-2'>→</span></button>
-        </Link>
+        <Button url="contentEnMedia/video" text="Bekijke alle Videos"/>
      </span>
 {/* <BeatLoader color='grey' className="mt-2" loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> */}
       {/* Podcast Section */}
       <span>
-      <div className="mt-16 text-[32px] font-bold pb-6">Podcasts</div>
+      <div className="mt-16 text-[32px] font-bold pb-6">Podcasts & Radio</div>
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
       {loadingPodcasts ? <div className="flex">
          <span className='ml-2 text-gray-500'>Podcasts ophalen</span></div> : 
-          podcasts && podcasts.map((podcast) => (
-            <Link key={podcast.id} href={`contentEnMedia/video/${encodeURIComponent(podcast.titel)}`}>
+           podcasts && podcasts.slice(0,4).map((podcast) => (
+            <Link key={podcast.id} href={`contentEnMedia/podcast/${encodeURIComponent(podcast.titel)}`}>
               <PreviewCard
                 key={podcast.id}
                 titel={podcast.titel}
@@ -141,39 +161,43 @@ export default function ContentEnMedia() {
                 url={podcast.url}
                 tags={podcast.tags}
                 iconType={podcast.icon}
+                datum={podcast.datum}
               />
             </Link>
           ))
           }
         </div>
-        <Link href={'contentEnMedia/podcast'}>
-          <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk alle Podcasts <span className='ml-2'>→</span></button>
-        </Link>
+        <Button text="Bekijk alle Podcasts" url="contentEnMedia/podcasts"/>
      </span>
 {/* <BeatLoader className="mt-2" color='grey' loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> */}
       {/* Conferences Section */}
       <span>
-        <div className="mt-16 text-[32px] font-bold pb-6">Conferences</div>
+        <div className="mt-16 text-[32px] font-bold pb-6">Lezingen Registraties</div>
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-        {loadingConferences ? <div className="flex">
+        {loadingLezingen ? <div className="flex">
            <span className='ml-2 text-gray-500'>Conferences ophalen</span></div> :
-            conferences && conferences.map((conference) => (
-              <Link key={conference.id} href={`contentEnMedia/video/${encodeURIComponent(conference.titel)}`}>
+            lezingen && lezingen.slice(0,4).map((lezing) => (
+              <Link key={lezing.id} href={`contentEnMedia/video/${encodeURIComponent(lezing.titel)}`}>
                 <PreviewCard
-                  key={conference.id}
-                  titel={conference.titel}
-                  image={conference.images[0]}
-                  url={conference.url}
-                  tags={conference.tags}
-                  iconType={conference.icon}
+                  key={lezing.id}
+                  titel={lezing.titel}
+                  image={lezing.image}
+                  url={lezing.url}
+                  tags={lezing.tags}
+                  iconType={lezing.icon}
+                  datum={lezing.datum}
                 />
               </Link>
             ))
             }
           </div>
-          <Link href={'contentEnMedia/conference' }>
-            <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6'>Bekijk alle Conferences <span className='ml-2'>→</span></button>
-          </Link>
+          <Button url="contentEnMedia/conference" text="Bekijke alle Conferences"/>
+     </span>
+      <span>
+        <div className="mt-16 text-[32px] font-bold pb-6">Blog posts & interviews</div>
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
+          </div>
+          <Button url="contentEnMedia/blogposts" text="Bekijke alle Blog posts"/>
      </span>
       </Container>
     </div>

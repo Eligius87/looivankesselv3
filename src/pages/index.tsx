@@ -144,7 +144,7 @@ function Resume() {
       logo: logoLucas,
       start: '2019',
       end: {
-        label: 'Present',
+        label: dict.resume.present,
         dateTime: new Date().getFullYear().toString(),
       },
     },
@@ -154,7 +154,7 @@ function Resume() {
       logo: logoNog,
       start: '2021',
       end: {
-        label: 'Present',
+        label: dict.resume.present,
         dateTime: new Date().getFullYear().toString(),
       },
     },
@@ -164,7 +164,7 @@ function Resume() {
       logo: logoTijdschrift,
       start: '2018',
       end: {
-        label: 'Present',
+        label: dict.resume.present,
         dateTime: new Date().getFullYear().toString(),
       },
     },
@@ -174,7 +174,7 @@ function Resume() {
       logo: logoLGBT,
       start: '2017',
       end: {
-        label: 'Present',
+        label: dict.resume.present,
         dateTime: new Date().getFullYear().toString(),
       },
     },
@@ -184,7 +184,7 @@ function Resume() {
       logo: couperus,
       start: '2014',
       end: {
-        label: 'Present',
+        label: dict.resume.present,
         dateTime: new Date().getFullYear().toString(),
       },
     },
