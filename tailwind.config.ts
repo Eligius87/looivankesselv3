@@ -39,7 +39,7 @@ const config: Config = {
       yellow: colors.yellow,
       white: colors.white,
       
-      'background': '#DCE0D9',
+      'background': '#f5f5ff',
 
     },
     extend: { 

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { getAllVideos, Video } from '../api/videos';
 import { Podcast, getAllPodcasts } from '../api/podcasts';
 import { Lezing, getAllLezingen} from '../api/conferences';
-// import BeatLoader from "react-spinners/BeatLoader";
+import BeatLoader from "react-spinners/BeatLoader";
 
 function FormatedDate({dateString}: any) {
   const date = new Date(dateString)
@@ -169,10 +169,9 @@ export default function ContentEnMedia() {
         </div>
         <Button text="Bekijk alle Podcasts" url="contentEnMedia/podcasts"/>
      </span>
-{/* <BeatLoader className="mt-2" color='grey' loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> */}
       {/* Conferences Section */}
       <span>
-        <div className="mt-16 text-[32px] font-bold pb-6">Lezingen Registraties</div>
+        <div className="mt-16 text-[32px] font-bold pb-6">Lezingenregistraties</div>
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
         {loadingLezingen ? <div className="flex">
            <span className='ml-2 text-gray-500'>Conferences ophalen</span></div> :

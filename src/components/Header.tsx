@@ -56,32 +56,50 @@ function SunIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function MoonIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function ArrowDownIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-      <path
-        d="M17.25 16.22a6.937 6.937 0 0 1-9.47-9.47 7.451 7.451 0 1 0 9.47 9.47ZM12.75 7C17 7 17 2.75 17 2.75S17 7 21.25 7C17 7 17 11.25 17 11.25S17 7 12.75 7Z"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" {...props}>
+  <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+</svg>
+
   )
 }
 
 function MobileNavItem({
   href,
   children,
+  hasDropdown,
 }: {
   href: string
   children: React.ReactNode
+  hasDropdown: boolean
 }) {
+  
+  const [open, setOpen] = useState(false)
+  
+  function handleDropdown() {
+    setOpen(!open)
+  }
+  
+  function DropDownMenu() {
+    return (
+        <ul className='w-full flex justify-center items-center flex-col gap-2'>
+          <Link href="/onderzoek/publicaties" className='hover:text-teal-500 transition ease-in-out'>Publicaties</Link>
+          <Link href="/onderzoek/onderzoekers" className='hover:text-teal-500 transition ease-in-out'>Lezingen</Link>
+        </ul>
+    )
+  }
+
   return (
-    <li>
-      <Popover.Button as={Link} href={href} className="block py-2">
-        {children}
-      </Popover.Button>
-    </li>
+    <div>
+      <li className='flex flex-row justify-center items-center gap-2'>
+        <Popover.Button as={Link} href={href} className="block py-2">
+          {children}
+        </Popover.Button>
+        {hasDropdown ? <ArrowDownIcon onClick={handleDropdown} className='w-5 h-5 hover:text-teal-500 transition ease-in-out cursor-pointer stroke-2'/> : ''}
+      </li>
+        {open ? <DropDownMenu /> : ''}
+    </div>
   )
 }
 
@@ -129,10 +147,10 @@ function MobileNavigation(
             </div>
             <nav className="mt-6">
               <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-                <MobileNavItem href="/onderwijs">Onderwijs</MobileNavItem>
-                <MobileNavItem href="/contentEnMedia">Content & media</MobileNavItem>
-                <MobileNavItem href="/onderzoek">Onderzoek</MobileNavItem>
-                <MobileNavItem href="/over">Over</MobileNavItem>
+                <MobileNavItem hasDropdown={false} href="/onderwijs">Onderwijs</MobileNavItem>
+                <MobileNavItem hasDropdown={false} href="/contentEnMedia">Content & media</MobileNavItem>
+                <MobileNavItem hasDropdown={true} href="/onderzoek">Onderzoek</MobileNavItem>
+                <MobileNavItem hasDropdown={false} href="/over">Over</MobileNavItem>
               </ul>
             </nav>
           </Popover.Panel>
@@ -145,40 +163,61 @@ function MobileNavigation(
 function NavItem({
   href,
   children,
+  hasDropdown,
 }: {
   href: string
   children: React.ReactNode
+  hasDropdown: boolean
+
 }) {
   let isActive = usePathname() === href
+  const [open, setOpen] = useState(false)
+  
+  function handleDropdown() {
+    setOpen(!open)
+  }
+
+  function DropDownMenu() {
+    return (
+        <ul className='absolute flex flex-col p-4 gap-2 bg-white/90 rounded-lg shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur'>
+          <Link href="/onderzoek/publicaties" className='hover:text-teal-500 transition ease-in-out'>Publicaties</Link>
+          <Link href="/onderzoek/onderzoekers" className='hover:text-teal-500 transition ease-in-out'>Lezingen</Link>
+        </ul>
+    )
+  }
 
   return (
-    <li>
-      <Link
-        href={href}
-        className={clsx(
-          'relative block px-3 py-2 transition',
-          isActive
-            ? 'text-teal-500 dark:text-teal-400'
-            : 'hover:text-teal-500 dark:hover:text-teal-400',
-        )}
-      >
-        {children}
-        {isActive && (
-          <span className="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0" />
-        )}
-      </Link>
-    </li>
+    <div>
+      <li className='flex flex-row gap-1 justify-center items-center'>
+        <Link
+          href={href}
+          className={clsx(
+            'relative block py-2 transition',
+            isActive
+              ? 'text-teal-500'
+              : 'hover:text-teal-500',
+          )}
+        >
+          {children}
+          {isActive && (
+            <span className="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0" />
+          )}
+        </Link>
+        {hasDropdown ? <ArrowDownIcon onClick={handleDropdown} className='w-5 h-5 hover:text-teal-500 transition ease-in-out cursor-pointer stroke-2'/> : ''}
+      </li>
+      {open ? <DropDownMenu /> : ''}
+    </div>
   )
 }
 
 function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
   return (
     <nav {...props}>
-      <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        <NavItem href="/onderwijs">Onderwijs</NavItem>
-        <NavItem href="/contentEnMedia">Content & media</NavItem>
-        <NavItem href="/onderzoek">Onderzoek</NavItem>
-        <NavItem href="/over">Over</NavItem>
+      <ul className="flex rounded-full gap-5 bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+        <NavItem hasDropdown={false} href="/onderwijs">Onderwijs</NavItem>
+        <NavItem hasDropdown={false} href="/contentEnMedia">Content & media</NavItem>
+        <NavItem hasDropdown={true} href="/onderzoek" >Onderzoek</NavItem>
+        <NavItem hasDropdown={false} href="/over">Over</NavItem>
       </ul>
     </nav>
   )
@@ -228,8 +267,6 @@ function HomeButton() {
 }
 
 export function Header() {
-
-
 
 
 
@@ -304,6 +341,7 @@ export function Header() {
       window.removeEventListener('resize', updateStyles)
     }
   }, [isHomePage])
+
 
   return (
     <>

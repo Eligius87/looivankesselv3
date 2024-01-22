@@ -14,8 +14,21 @@ type ContentProps = {
 
 type ContentType = 'video' | 'podcasts' | 'lezing';
 
+function FormatedDate({dateString}: any) {
+  const date = new Date(dateString)
+  const options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  };
+  const formatedDate = date.toLocaleDateString('nl-BE', options)
+  return (
+    <time dateTime={dateString}>{formatedDate}</time>
+  )
+}
+
 // kaartje
-function PreviewCard(props: {titel: string, beschrijving: string, image: string, url: string, tags: string[], iconType: string}) {
+function PreviewCard(props: {titel: string, datum: any, beschrijving: string, image: string, url: string, tags: string[], iconType: string}) {
 
     const renderIcon = (iconType: string) => {
       switch (iconType) {
@@ -47,27 +60,27 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
       }
   
     return(
-      <div className='flex flex-col gap-2'>
-        <div className='relative w-[150px] h-[150px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px]'>
-          <Image src={ props.image } fill alt="" className="object-cover rounded-2xl" />
-        </div>
-        <div className='max-w-[150px] lg:max-w-[200px] text-[16px] md:text-md font-bold pt-2'>
+    <div className='flex flex-col gap-2'>
+      <div className='relative w-[150px] h-[150px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px]'>
+        <Image src={ props.image } fill alt="" className="object-cover rounded-2xl" />
+      </div>
+      <div className="flex flex-row w-[150px] md:w-[150px] lg:w-[200px] items-start justify-between">
+        <div className='text-[16px] md:text-sm font-bold pt-2'>
           {props.titel}
         </div>
-        <div>
-          {props.tags.map((tag) => (
-            <span className='text-[10px] md:text-sm lg:text-md border border-gray-500 rounded-full px-2 py-1 mr-1'>{tag}</span>
-          ))}
-        </div>
-        <div className='text-[10px] md:text-sm lg:text-md'>
-          {props.beschrijving}
-        </div>
-        <div className='flex flex-row items-center justify-between '>
+        <div className='pt-2'>
           {renderIcon(props.iconType)}
         </div>
       </div>
-    )
-  }
+      <div className='text-[10px] text-gray-500'><FormatedDate dateString={props.datum}/></div>
+      <div>
+        {props.tags.map((tag) => (
+          <span className='text-[10px] md:text-sm lg:text-md border border-gray-500 rounded-full px-2 py-1 mr-1'>{tag}</span>
+        ))}
+      </div>
+    </div>
+  )
+}
 
   const Content = ({ videos, podcasts, lezingen }: ContentProps) => {
     const renderContent = () => {
@@ -81,6 +94,7 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
                             url={video.vid_url}
                             tags={video.tags}
                             iconType="video"
+                            datum={video.datum}
                         />
                 </Link>
             ));
@@ -94,6 +108,7 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
                             url={podcast.url}
                             tags={podcast.tags}
                             iconType="podcast"
+                            datum={podcast.datum}
                         />
                 </Link>
             ));
@@ -107,6 +122,7 @@ function PreviewCard(props: {titel: string, beschrijving: string, image: string,
                             url={lezing.url}
                             tags={lezing.tags}
                             iconType="lezing"
+                            datum={lezing.datum}
                         />
                 </Link>
             ));

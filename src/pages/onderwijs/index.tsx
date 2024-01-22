@@ -1,12 +1,11 @@
 import { Container } from "@/components/Container"
-import banner from "@/images/Promotie Looi 1.png"
+import banner from "@/images/Promotie Looi1.jpg"
 import Image from "next/image"
 import { Collapse } from 'react-collapse'
 import { useState } from "react"
-import { Uitlichting, getUitlichting, getAllUitlichtings } from "../api/uitlichting"
-import { Vakken, getVak, getAllVakken } from "../api/overzichtvakken"
+import { Uitlichting, getAllUitlichtings } from "../api/uitlichting"
+import { Vakken, getAllVakken } from "../api/overzichtvakken"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import { getDictionary } from "../api/dictionary"
 
 function PlusIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -26,25 +25,26 @@ function MinusIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 }
 
 
-function VakkenCard({link, titel, traject, periode, color}: any) {
+function VakkenCard(props: {link: string, titel: string, traject: string, periode: string, color: string}) {
+
     return (
-        <Link href={link}>
-            <div className={`bg-background transition ease-in-out cursor-pointer hover:scale-105 grid grid-cols-4 shadow-md p-2 rounded-lg border-l-2 ${color} ring-1 ring-zinc-300 `}>
+        <Link href={props.link}>
+            <div className={`bg-background transition ease-in-out cursor-pointer hover:scale-105 grid grid-cols-4 shadow-md p-2 rounded-lg ${props.color} border-l-2 ring-1 ring-zinc-300 `}>
                 {/* Vak naam */}
                 <div className="col-span-1">
                     <h1 className="font-bold">Vak</h1>
                 </div>
-                <div className="col-span-3">{titel}</div>
+                <div className="col-span-3">{props.titel}</div>
                 {/* traject */}
                 <div className="col-span-1">
                     <h1 className="font-bold">Traject</h1>
                 </div>
-                <div className="col-span-3">{traject}</div>
+                <div className="col-span-3">{props.traject}</div>
                 {/* jaren gegeven */}
                 <div className="col-span-1">
                     <h1 className="font-bold">periode</h1>
                 </div>
-                <div className="col-span-3">{periode}</div>
+                <div className="col-span-3">{props.periode}</div>
             </div>
         </Link>
     )
@@ -52,11 +52,11 @@ function VakkenCard({link, titel, traject, periode, color}: any) {
 
 function Accordionitem({open, toggle, title, desc}: any) {
     return (
-        <div className={`shadow-md rounded-lg border-l-2 border-red-500 ReactCollapse--collapse ring-1 ring-zinc-300`}>
+        <div className={`shadow-md rounded-lg border-l-2 border-zinc-400 ReactCollapse--collapse ring-1 ring-zinc-300`}>
             <div className="py-[25px] px-[50px] flex justify-between items-center cursor-pointer" onClick={toggle}>
                 <p className="text-[22px] font-semibold">{title}</p>
                 <div className={`text-[30px] transition-transform ${open ? 'rotate-180' : ''}`}>
-                    {open ? <MinusIcon className="w-5 h-5"/> : <PlusIcon className="w-5 h-5"/> }
+                    {open ? <MinusIcon className="w-10 h-10"/> : <PlusIcon className="w-10 h-10"/> }
                 </div>
             </div>
             <Collapse isOpened={open}>
@@ -83,7 +83,6 @@ export default function Onderwijs({uitlichtings, vakken, dictionary}: Props) {
         }
         setopen(index)
     })
-
     const colors = [
         'border-red-500',
         'border-blue-500',
@@ -94,6 +93,16 @@ export default function Onderwijs({uitlichtings, vakken, dictionary}: Props) {
         'border-indigo-500',
     ]
 
+    var trajectArr: string[] = [];
+
+    vakken?.map((vak) => {
+        let trajects = vak.traject.split(', ')
+        trajectArr = trajectArr.concat(trajects)
+    })
+    
+    trajectArr = trajectArr.filter((item, index, inputArr) => {
+        return inputArr.indexOf(item) == index;
+    });
     return (
         <div className="">
             <Container className="mt-9">
@@ -102,35 +111,28 @@ export default function Onderwijs({uitlichtings, vakken, dictionary}: Props) {
                 </h1>
             </Container>
             <div className='sm:px-8'>
-                <div className='mx-auto max-w-7xl lg:px-8'>
-                    <Image src={banner} alt="" className="rounded-2 w-full h-full object-cover" />
+                <div className='flex justify-center items-center mx-auto max-w-[1050px] lg:px-8'>
+                    <Image src={banner} alt="" className="rounded-xl w-full h-full object-cover" />
                 </div>
             </div>
             <Container className="">
+
                 {/* ONDERWIJS FILOSOFIE */}
-                <div className="flex flex-col gap-2 border-b-2 border-zinc-400 py-8">
-                        <h1 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
+                <div className="flex flex-col gap-2 border-zinc-400 py-8">
+                        <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
                           {dict.subheader1} 
                         </h1>
-                    <div className="flex">
-                        <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+                    <div className="flex flex-col mt-6 space-y-7 text-base text-zinc-600 w-[800px]">
+                     <p>{dict.onderwijsfilosofie1}</p>
+                     <p>{dict.onderwijsfilosofie2}</p>
+                     <p>{dict.onderwijsfilosofie3}</p>
+                     <p>{dict.onderwijsfilosofie4}</p>
                     </div>
                 </div>
-                {/* INITIATIEVEN */}
-                <div className="grid grid-cols-2 gap-2 border-b-2 border-zinc-400 py-8">
-                    <div className="cols-span-1">
-                        <h1 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
+                {/* VAK INITIATIEVE */}
+                <div className="flex flex-col gap-2 border-zinc-400 py-8">
+                        <h1 className="text-4xl pb-4 font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
                           {dict.subheader2} 
-                        </h1>
-                    </div>
-                    <div className="cols-span-1">
-                        <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-                    </div>
-                </div>
-                {/* UITLICHTING AANTAL VAKKEN */}
-                <div className="flex flex-col gap-2 border-b-2 border-zinc-400 py-8">
-                        <h1 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
-                          {dict.subheader3} 
                         </h1>
                     <div className="flex flex-col gap-2">
                         {uitlichtings?.map((uitlichting, index) => (
@@ -140,13 +142,28 @@ export default function Onderwijs({uitlichtings, vakken, dictionary}: Props) {
                 </div>
                 {/* OVERZICHT VAKKEN */}
                 <div className="flex flex-col gap-1">
-                    <h1 className="py-4 text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
-                          {dict.subheader4} 
+                    <h1 className="py-6 text-4xl py-4 font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
+                          {dict.subheader3} 
                     </h1>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 border-b-2 border-zinc-400 py-8">
-                        {vakken?.map((vak, index) => (
-                            <VakkenCard link={vak.link} key={vak.titel} titel={vak.titel} traject={vak.traject} periode={vak.periode} color={colors[index % 7]}/>
-                        ))}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 border-zinc-400">
+                        {vakken?.map((vak) => {
+                            var color = '';
+                            for (let i = 0; i < trajectArr.length; i++) {
+                                if (trajectArr[i] === vak.traject) {
+                                    color = colors[i] 
+                            }}
+
+                            return (
+                            <VakkenCard 
+                                link={vak.link} 
+                                key={vak.titel} 
+                                titel={vak.titel} 
+                                traject={vak.traject} 
+                                periode={vak.periode}
+                                color={color} 
+                            />
+                            )
+                    })}
                     </div>
                 </div>
             </Container>

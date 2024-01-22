@@ -188,34 +188,34 @@ function Resume() {
         dateTime: new Date().getFullYear().toString(),
       },
     },
-    {
-      company: dict.resume.six.company,
-      title: dict.resume.six.title,
-      logo: logoLucas,
-      start: '2015',
-      end: '2017',
-    },
-    {
-      company: dict.resume.seven.company,
-      title: dict.resume.seven.title,
-      logo: logoLucas,
-      start: '2015',
-      end: '2019',
-    },
-    {
-      company: dict.resume.eight.company,
-      title: dict.resume.eight.title,
-      logo: logoLucas,
-      start: '2013',
-      end: '2015',
-    },
-    {
-      company: dict.resume.nine.company,
-      title: dict.resume.nine.title,
-      logo: logoLucas, 
-      start: '2011',
-      end: '2014',
-    },
+    // {
+    //   company: dict.resume.six.company,
+    //   title: dict.resume.six.title,
+    //   logo: logoLucas,
+    //   start: '2015',
+    //   end: '2017',
+    // },
+    // {
+    //   company: dict.resume.seven.company,
+    //   title: dict.resume.seven.title,
+    //   logo: logoLucas,
+    //   start: '2015',
+    //   end: '2019',
+    // },
+    // {
+    //   company: dict.resume.eight.company,
+    //   title: dict.resume.eight.title,
+    //   logo: logoLucas,
+    //   start: '2013',
+    //   end: '2015',
+    // },
+    // {
+    //   company: dict.resume.nine.company,
+    //   title: dict.resume.nine.title,
+    //   logo: logoLucas, 
+    //   start: '2011',
+    //   end: '2014',
+    // },
   ];
 
   return (
@@ -302,9 +302,14 @@ export default function Home({previews, dictionary, agendas} : Props) {
   return (
     <div className=''>
       <Container className="mt-9 ">
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-8xl">
-            {dict.header.one} <br></br>{dict.header.two}
-          </h1>
+          <div className='flex flex-col gap-2'>
+            <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-8xl">
+              {dict.header.one} 
+            </h1>
+            <h1 className="text-4xl font-bold tracking-tight text-zinc-600 sm:text-4xl">
+              {dict.header.two}
+            </h1>
+          </div>
           <div className='w-full flex flex-row justify-between item-center my-5'>
             <h1 className='text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl'>{dict.subheader}</h1>
             <h1 className='text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl'></h1>
@@ -321,7 +326,7 @@ export default function Home({previews, dictionary, agendas} : Props) {
           <h1 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-4xl">
             painting and typesetting industry. Lorem Ipsum has  e a type.
           </h1>
-          <h1 className='text-3xl text-center w-full'>Agenda</h1>
+          <h1 className='py-8 text-5xl font-bold text-center w-full'>Agenda</h1>
           <Agenda 
             items={agendas.map((agenda, i: number) => ({
               type: agenda.type,

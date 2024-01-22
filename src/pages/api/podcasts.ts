@@ -15,7 +15,7 @@ export type Podcast = {
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
 
 export async function getAllPodcasts(): Promise<Podcast[]> {
-  const { data, error } = await supabase.from('Podcasts').select('*').order('datum', { ascending: true });
+  const { data, error } = await supabase.from('Podcasts').select('*').order('datum', { ascending: false });
 
   if (error) {
     throw error;

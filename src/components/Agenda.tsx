@@ -65,12 +65,33 @@ type AgendaProps = {
 }
 
 export function Agenda({ items }: AgendaProps) {
+    const months = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus','September', 'Oktober', 'November', 'December']
+    const [month, setMonth] = React.useState(5)
+    const [year, setYear] = React.useState(2024)
+
+    const handleMonth = (direction: string) => {
+        if (direction === 'left') {
+            if (month === 0) {
+                setMonth(11)
+                setYear(year - 1)
+            } else {
+                setMonth(month - 1)
+            }
+        } else {
+            if (month === 11) {
+                setMonth(0)
+                setYear(year + 1)
+            } else {
+                setMonth(month + 1)
+            }
+        }
+    }
   return (
     <div className='flex flex-col'>
-        <div className='flex flex-row gap-2'>
-            <div className='flex-start'>Mei 2023</div>
-            <ArrowleftIcon className='w-5 h-5'/>
-            <ArrowRightIcon className='w-5 h-5'/>
+        <div className='py-2 flex flex-row gap-2 items-center'>
+            <div className='flex-start font-bold text-xl'>Mei 2023</div>
+            <ArrowleftIcon className='w-10 h-10 cursor-pointer hover:text-zinc-400 transition ease-in-out'/>
+            <ArrowRightIcon className='w-10 h-10 cursor-pointer hover:text-zinc-400 transition ease-in-out'/>
         </div>
         <div className='flex flex-col gap-2'>
             {items.map((item:any, index: number) => (

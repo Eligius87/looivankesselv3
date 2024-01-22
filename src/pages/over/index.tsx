@@ -2,6 +2,7 @@ import { type Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
+import { getDictionary } from '../api/dictionary'
 import { Gallerijen, getAllGallerijen, getGallerij } from '../api/gallerij'
 import { Container } from '@/components/Container'
 import {
@@ -28,6 +29,7 @@ function SocialLink({
   return (
     <li className={clsx(className, 'flex')}>
       <Link
+        target="__blank"
         href={href}
         className="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
       >
@@ -55,8 +57,14 @@ export const metadata: Metadata = {
     'Ik ben Looi van Kessel. Assistent Professor aan de Universteit van Leiden, waar ik me inzet voor inclusiviteit en gerechtigheid',
 }
 
-export default function About(props: {gallerijen: Gallerijen[]}) {
-  const gallerijen = props.gallerijen;
+type Props = {
+  gallerijen: Gallerijen[],
+  dictionary: any
+}
+
+
+export default function About({gallerijen, dictionary}: Props) {
+  const dict = dictionary.over
   return (
     <Container className="mt-16 sm:mt-32">
       <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
@@ -77,7 +85,7 @@ export default function About(props: {gallerijen: Gallerijen[]}) {
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
             Ik ben Looi van Kessel. Assistent Professor aan de Universteit van Leiden, waar ik me inzet voor inclusiviteit en gerechtigheid.
           </h1>
-          <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
+          <div className="mt-6 space-y-7 text-base text-zinc-600">
             <p>
               Ik ben Looi van Kessel, universitair docent in de literatuurwetenschappen 
               en genderstudies aan de Universiteit Leiden. Mijn onderzoeksfocus ligt 
@@ -122,9 +130,9 @@ export default function About(props: {gallerijen: Gallerijen[]}) {
         </div>
         <div className="lg:pl-20">
           <ul role="list">
-            <SocialLink href="https://nl.linkedin.com/in/looi-van-kessel-a4095657" icon={LinkedInIcon} className="mt-4">
-              Follow on LinkedIn
-            </SocialLink>
+            {/* <SocialLink href="https://nl.linkedin.com/in/looi-van-kessel-a4095657" icon={LinkedInIcon} className="mt-4">
+             {dict.linkedin} 
+            </SocialLink> */}
             <SocialLink
               href="mailto:spencer@planetaria.tech"
               icon={MailIcon}
@@ -157,11 +165,13 @@ export default function About(props: {gallerijen: Gallerijen[]}) {
 
 
 
-export async function getServerSideProps() {
+export async function getServerSideProps({locale}: any) {
   const gallerijen = await getAllGallerijen();
+  const dictionary = await getDictionary(locale);
   return {
     props: {
       gallerijen: gallerijen,
+      dictionary,
     },
     }
   }
