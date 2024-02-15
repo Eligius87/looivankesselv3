@@ -9,13 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.17",
+    "@headlessui/react": "^1.7.18",
+    "@heroicons/react": "^2.1.1",
     "@supabase/supabase-js": "^2.39.0",
     "clsx": "^2.0.0",
+    "install": "^0.13.0",
     "latest": "^0.2.0",
     "next": "14.0.3",
     "next-intl": "^3.3.2",
     "next-themes": "^0.2.1",
+    "npm": "^10.4.0",
     "react": "^18",
     "react-collapse": "^5.1.1",
     "react-dom": "^18",

@@ -120,25 +120,16 @@ export default function About({gallerijen, dictionary}: Props) {
               over mijn onderzoek naar LHBTI+-cultuur en inclusief onderwijs tijdens 
               publiekslezingen of andere publieke optredens.
             </p>
-            <div>
-              <h1 className='text-3xl font-bold tracking-tight text-zinc-800 py-2'>Mijn onderwijsvisie</h1>
-              <p>
-                Centraal in mijn onderwijsvisie staat het idee van gelijkwaardigheid. Geen enkele student is hetzelfde 
-              </p>
-            </div>
           </div>
         </div>
         <div className="lg:pl-20">
           <ul role="list">
-            {/* <SocialLink href="https://nl.linkedin.com/in/looi-van-kessel-a4095657" icon={LinkedInIcon} className="mt-4">
-             {dict.linkedin} 
-            </SocialLink> */}
             <SocialLink
-              href="mailto:spencer@planetaria.tech"
+              href="mailto:l.van.kessel@hum.leidenuniv.nl"
               icon={MailIcon}
               className="mt-8 border-t border-zinc-100 pt-8 dark:border-zinc-700/40"
             >
-              spencer@planetaria.tech
+              l.van.kessel@hum.leidenuniv.nl
             </SocialLink>
           </ul>
         </div>

@@ -38,6 +38,7 @@ const config: Config = {
       green: colors.green,
       yellow: colors.yellow,
       white: colors.white,
+      black: colors.black,
       
       'background': '#f5f5ff',
 

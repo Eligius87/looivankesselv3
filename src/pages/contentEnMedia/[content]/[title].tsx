@@ -19,32 +19,32 @@ const VideoDetail = ({ video }: Props) => {
     return <div>Video not found</div>;
   }
 
-    // Function to transform YouTube URL to embed URL
-    const transformYouTubeUrl = (url: string) => {
-        if (url.includes('youtube.com/watch?v=')) {
-          return url.replace('youtube.com/watch?v=', 'youtube.com/embed/');
-        }
-        return url;
-      };
-    
-      const embedUrl = transformYouTubeUrl(video.vid_url);
+  // Function to transform YouTube URL to embed URL
+  const transformYouTubeUrl = (url: string) => {
+    if (url.includes('youtube.com/watch?v=')) {
+      return url.replace('youtube.com/watch?v=', 'youtube.com/embed/');
+    }
+    return url;
+  };
+
+  const embedUrl = transformYouTubeUrl(video.vid_url);
 
   return (
     <Container>
-    <div>
-    <h2 className="text-center p-10 text-2xl font-bold tracking-tight text-zinc-800 sm:text-4xl mb-5">
-        {video.titel}
-    </h2>
-    <div className="relative w-full pt-[56.25%]">
-      <iframe 
-        className="absolute top-0 left-0 w-full h-full"
-        src={embedUrl} 
-        title={video.titel} 
-        allowFullScreen
-      ></iframe>
-    </div>
-      <p className="mt-6 text-md">{video.beschrijving}</p>
-    </div>
+      <div>
+        <h2 className="text-center p-10 text-2xl font-bold tracking-tight text-zinc-800 sm:text-4xl mb-5">
+          {video.titel}
+        </h2>
+        <div className="relative w-full pt-[56.25%]">
+          <iframe
+            className="absolute top-0 left-0 w-full h-full"
+            src={embedUrl}
+            title={video.titel}
+            allowFullScreen
+          ></iframe>
+        </div>
+        <p className="mt-6 text-md">{video.beschrijving}</p>
+      </div>
     </Container>
   );
 };
@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps<Props> = async (params: any) => {
       notFound: true,
     };
   }
-  
+
   return {
     props: {
       video,

@@ -136,7 +136,7 @@ function PreviewCard(props: {titel: string, datum: any, beschrijving: string, im
                 <h2 className="text-center p-10 text-2xl font-bold tracking-tight text-zinc-800 sm:text-4xl mb-5">
                   {content == 'video' ? 'Video\'s' : content == 'podcasts' ? 'Podcasts' : 'Lezingen'}
                 </h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
                     {renderContent()}
                 </div>
             </Container>

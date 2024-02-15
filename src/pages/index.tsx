@@ -187,35 +187,7 @@ function Resume() {
         label: dict.resume.present,
         dateTime: new Date().getFullYear().toString(),
       },
-    },
-    // {
-    //   company: dict.resume.six.company,
-    //   title: dict.resume.six.title,
-    //   logo: logoLucas,
-    //   start: '2015',
-    //   end: '2017',
-    // },
-    // {
-    //   company: dict.resume.seven.company,
-    //   title: dict.resume.seven.title,
-    //   logo: logoLucas,
-    //   start: '2015',
-    //   end: '2019',
-    // },
-    // {
-    //   company: dict.resume.eight.company,
-    //   title: dict.resume.eight.title,
-    //   logo: logoLucas,
-    //   start: '2013',
-    //   end: '2015',
-    // },
-    // {
-    //   company: dict.resume.nine.company,
-    //   title: dict.resume.nine.title,
-    //   logo: logoLucas, 
-    //   start: '2011',
-    //   end: '2014',
-    // },
+    }
   ];
 
   return (
@@ -263,7 +235,7 @@ function PreviewCard(props: {beschrijving: string, date: string, image: string, 
   
   return(
     <Link href={props.link}>
-      <div className='grid grid-rows-auto gap-2'>
+      <div className='grid grid-rows-auto gap-2 cursor-pointer'>
         <div className='relative max-w-full h-auto aspect-square row-span-2'>
           <Image src={ props.image } fill alt="" className="object-cover rounded-2xl" />
         </div>

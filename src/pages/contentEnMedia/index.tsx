@@ -85,7 +85,7 @@ function PreviewCard(props: {titel: string, image: string, url: string, tags: st
 function Button(props: {text: string, url: string}) {
   return ( 
     <Link href={props.url}>
-      <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6 ring-2 ring-gray-300 transition ease-in-out hover:ring-teal-400'>{props.text} <span className='ml-2'>→</span></button>
+      <button className='rounded-full shadow-md px-4 py-1 text-md bg-white mt-6 transition ease-in-out hover:ring-teal-400'>{props.text} <span className='ml-2'>→</span></button>
     </Link>
   )
 }
@@ -122,29 +122,6 @@ export default function ContentEnMedia() {
       <h1 className="text-center p-10 text-4xl font-bold tracking-tight text-zinc-800 sm:text-8xl mb-5">
           Content en Media
       </h1>
-     {/* Videos Section */}
-     <span>
-      <div className="text-[32px] font-bold pb-6">Video's</div>
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
-      {loadingVideos ? <div className="flex">
-         <span className='ml-2 text-gray-500'>Video's ophalen</span></div> :
-          videos && videos.slice(0,4).map((video) => (
-            <Link className="w-[150px] md:w-[150px] lg:w-[200px]" key={video.id} href={`contentEnMedia/video/${encodeURIComponent(video.titel)}`}>
-              <PreviewCard
-                key={video.id}
-                titel={video.titel}
-                image={video.image}
-                url={video.vid_url}
-                tags={video.tags}
-                iconType={video.icon}
-                datum={video.datum}
-              />
-            </Link>
-          ))
-          }
-        </div>
-        <Button url="contentEnMedia/video" text="Bekijke alle Videos"/>
-     </span>
 {/* <BeatLoader color='grey' className="mt-2" loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> */}
       {/* Podcast Section */}
       <span>
@@ -168,6 +145,29 @@ export default function ContentEnMedia() {
           }
         </div>
         <Button text="Bekijk alle Podcasts" url="contentEnMedia/podcasts"/>
+     </span>
+     {/* Videos Section */}
+     <span>
+      <div className="text-[32px] font-bold pb-6">Video's</div>
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
+      {loadingVideos ? <div className="flex">
+         <span className='ml-2 text-gray-500'>Video's ophalen</span></div> :
+          videos && videos.slice(0,4).map((video) => (
+            <Link className="w-[150px] md:w-[150px] lg:w-[200px]" key={video.id} href={`contentEnMedia/video/${encodeURIComponent(video.titel)}`}>
+              <PreviewCard
+                key={video.id}
+                titel={video.titel}
+                image={video.image}
+                url={video.vid_url}
+                tags={video.tags}
+                iconType={video.icon}
+                datum={video.datum}
+              />
+            </Link>
+          ))
+          }
+        </div>
+        <Button url="contentEnMedia/video" text="Bekijke alle Videos"/>
      </span>
       {/* Conferences Section */}
       <span>

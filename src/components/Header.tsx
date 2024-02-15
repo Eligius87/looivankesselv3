@@ -85,7 +85,7 @@ function MobileNavItem({
     return (
         <ul className='w-full flex justify-center items-center flex-col gap-2'>
           <Link href="/onderzoek/publicaties" className='hover:text-teal-500 transition ease-in-out'>Publicaties</Link>
-          <Link href="/onderzoek/onderzoekers" className='hover:text-teal-500 transition ease-in-out'>Lezingen</Link>
+          <Link href="/onderzoek/lezingen" className='hover:text-teal-500 transition ease-in-out'>Lezingen</Link>
         </ul>
     )
   }
@@ -181,7 +181,7 @@ function NavItem({
     return (
         <ul className='absolute flex flex-col p-4 gap-2 bg-white/90 rounded-lg shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur'>
           <Link href="/onderzoek/publicaties" className='hover:text-teal-500 transition ease-in-out'>Publicaties</Link>
-          <Link href="/onderzoek/onderzoekers" className='hover:text-teal-500 transition ease-in-out'>Lezingen</Link>
+          <Link href="/onderzoek/lezingen" className='hover:text-teal-500 transition ease-in-out'>Lezingen</Link>
         </ul>
     )
   }

@@ -52,7 +52,7 @@ function VakkenCard(props: {link: string, titel: string, traject: string, period
 
 function Accordionitem({open, toggle, title, desc}: any) {
     return (
-        <div className={`shadow-md rounded-lg border-l-2 border-zinc-400 ReactCollapse--collapse ring-1 ring-zinc-300`}>
+        <div className={`shadow-md rounded-lg border-l-2 border-zinc-400 ReactCollapse--collapse ring-zinc-300`}>
             <div className="py-[25px] px-[50px] flex justify-between items-center cursor-pointer" onClick={toggle}>
                 <p className="text-[22px] font-semibold">{title}</p>
                 <div className={`text-[30px] transition-transform ${open ? 'rotate-180' : ''}`}>
@@ -60,7 +60,7 @@ function Accordionitem({open, toggle, title, desc}: any) {
                 </div>
             </div>
             <Collapse isOpened={open}>
-                <div className="px-[50px] pb-[20px]">{desc}</div>
+                <div className="px-[50px] pb-[20px] text-zinc-600">{desc}</div>
             </Collapse>
         </div>
     )
@@ -122,7 +122,7 @@ export default function Onderwijs({uitlichtings, vakken, dictionary}: Props) {
                         <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
                           {dict.subheader1} 
                         </h1>
-                    <div className="flex flex-col mt-6 space-y-7 text-base text-zinc-600 w-[800px]">
+                    <div className="flex flex-col mt-6 space-y-7 text-base text-zinc-600 w-[800px] text-lg">
                      <p>{dict.onderwijsfilosofie1}</p>
                      <p>{dict.onderwijsfilosofie2}</p>
                      <p>{dict.onderwijsfilosofie3}</p>
@@ -143,27 +143,27 @@ export default function Onderwijs({uitlichtings, vakken, dictionary}: Props) {
                 {/* OVERZICHT VAKKEN */}
                 <div className="flex flex-col gap-1">
                     <h1 className="py-6 text-4xl py-4 font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
-                          {dict.subheader3} 
+                        {dict.subheader3}
                     </h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 border-zinc-400">
-                        {vakken?.map((vak) => {
+                        {vakken?.sort((a, b) => b.periode.localeCompare(a.periode)).map((vak) => {
                             var color = '';
                             for (let i = 0; i < trajectArr.length; i++) {
                                 if (trajectArr[i] === vak.traject) {
-                                    color = colors[i] 
-                            }}
-
+                                    color = colors[i]
+                                }
+                            }
                             return (
-                            <VakkenCard 
-                                link={vak.link} 
-                                key={vak.titel} 
-                                titel={vak.titel} 
-                                traject={vak.traject} 
-                                periode={vak.periode}
-                                color={color} 
-                            />
+                                <VakkenCard
+                                    link={vak.link}
+                                    key={vak.titel}
+                                    titel={vak.titel}
+                                    traject={vak.traject}
+                                    periode={vak.periode}
+                                    color={color}
+                                />
                             )
-                    })}
+                        })}
                     </div>
                 </div>
             </Container>
