@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { getDictionary } from '../../api/dictionary';
 import FormatedDate from '../../../components/FormatedDate';
 import PublicatieUitgelicht from '../../../components/PublicatieUitgelicht';
+import { NextSeo } from 'next-seo';
 
 type ContentProps = {
   publicaties?: Publicaties[],
@@ -29,11 +30,11 @@ function PublicatieCard(props: { titel: string, publicatie_url: string, zin_besc
     return (
       <div className='w-full flex flex-row justify-between items-center gap-2 ring-1 ring-zinc-200 p-2 shadow-md rounded-lg '>
         <div className='flex flex-col gap-2'>
-          <dt className='text-base font-semibold leading-7'>{props.titel}</dt>
-          <dd className='text-base leading-7 text-zinc-600'>{props.zin_besc}</dd>
-          <h1 className='text-zinc-400 font-semibold text-[8px] lg:text-sm'>
+          <h1 className='text-xs md:text-xl font-semibold leading-4'>{props.titel}</h1>
+          <p className='text-[10px] md:text-lg leading-4 text-zinc-600'>{props.zin_besc}</p>
+          <h2 className='text-zinc-400 font-semibold text-[8px] lg:text-sm'>
             <FormatedDate dateString={props.datum} />
-          </h1>
+          </h2>
         </div>
         {props.publicatie_url !== null ? 
           <ArrowIcon className='w-10 h-10 flex justify-center items-center' />
@@ -67,7 +68,7 @@ export default function index({ publicaties, lezingen, dictionary }: ContentProp
     function renderPublicaties(type: string, title: string) {
       return (
         <>
-          <h2 className='text-5xl text-center font-bold p-20'>{title}</h2>
+          <h2 className='text-xl md:text-5xl text-center font-bold p-20'>{title}</h2>
           <div className='w-full flex flex-col justify-center items-center gap-8'>
             {
               publicaties?.filter(publicatie => publicatie.type === type && publicatie.uitgelicht === false).map((publicatie, index) => (
@@ -82,7 +83,7 @@ export default function index({ publicaties, lezingen, dictionary }: ContentProp
     function renderLezingen(type: string, title: string) {
       return (
         <>
-          <h2 className='text-5xl text-center font-bold p-20'>{title}</h2>
+          <h2 className='text-xl md:text-5xl text-center font-bold p-20'>{title}</h2>
           <div className='w-full flex flex-col justify-center items-center gap-8'>
             {
               lezingen?.filter(lezing => lezing.type === type && lezing.uitgelicht === false).map((lezing, index) => (
@@ -98,12 +99,12 @@ export default function index({ publicaties, lezingen, dictionary }: ContentProp
     if (publicaties) {
       return (
         <div>
-          <h1 className='text-4xl font-bold text-center p-10'>{dict.slug.headerpub}</h1>
-          <h2 className='text-2xl font-bold py-5'>{dict.slug.uitgelichtpub}</h2>
+          <h1 className='text-xl md:text-4xl font-bold text-center p-10'>{dict.slug.headerpub}</h1>
+          <h2 className='text-lg md:text-2xl font-bold py-5'>{dict.slug.uitgelichtpub}</h2>
           <div className='grid grid-cols-[150px_150px] md:grid-cols-[200px_200px] lg:grid-cols-1 gap-3 md:gap-20 lg:gap-3 justify-center lg:justify-start items-start transition ease-in-out'>
             {
               publicaties?.filter(publicatie => publicatie.uitgelicht === true).map((publicatie, index) => (
-                <PublicatieUitgelicht key={index} open={index === open} toggle={() => toggle(index)} titel={publicatie.titel} image={publicatie.image} beschrijving={publicatie.zin_besc} datum={publicatie.datum} url={publicatie.publicatie_url} />
+                <PublicatieUitgelicht key={index} buttontext={dict.buttonpub} titel={publicatie.titel} image={publicatie.image} beschrijving={publicatie.zin_besc} datum={publicatie.datum} url={publicatie.publicatie_url} />
               ))
             }
           </div>
@@ -119,7 +120,7 @@ export default function index({ publicaties, lezingen, dictionary }: ContentProp
           <h2 className='text-2xl font-bold py-5'>{dict.slug.uitgelichtlec}</h2>
           <div className='grid grid-cols-[150px_150px] md:grid-cols-[200px_200px] lg:grid-cols-1 gap-3 md:gap-20 lg:gap-3 justify-center lg:justify-start items-start transition ease-in-out'>
             {lezingen?.filter(lezing => lezing.uitgelicht === true).map((lezing, index) => (
-              <PublicatieUitgelicht key={index} open={index === open} toggle={() => toggle(index)} titel={lezing.titel} image={lezing.image} beschrijving={lezing.beschrijving} datum={lezing.datum} url={lezing.url} />
+              <PublicatieUitgelicht key={index} buttontext={dict.buttonlec} titel={lezing.titel} image={lezing.image} beschrijving={lezing.beschrijving} datum={lezing.datum} url={lezing.url} />
             ))}
           </div>
           {renderLezingen('lezing', `${dict.slug.lec}`)}
@@ -131,11 +132,17 @@ export default function index({ publicaties, lezingen, dictionary }: ContentProp
   }
 
   return (
+    <>
+    <NextSeo
+      title={dict.slug.title}
+      description={dict.slug.description}
+    />
     <div>
       <Container>
         {renderContent()}
       </Container>
     </div>
+    </>
   );
 }
 

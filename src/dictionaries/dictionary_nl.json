@@ -53,10 +53,9 @@
     "education": {
         "header": "Onderwijs",
         "subheader1": "Onderwijs filosofie",
-        "onderwijsfilosofie1": "Als universitair docent ben ik gespecialiseerd in onderwijs op drie verschillende vakgebieden: Literatuurwetenschap, Genderstudies en Amerikastudies. Ik ben zelf getraind in de Literatuurwetenschap en zodoende ook verbonden aan de vakgroep Film- en Literatuurwetenschap van de Universiteit Leiden. ",
-        "onderwijsfilosofie2": "Binnen deze vakgroep coördineer ik het minorprogramma “Gender and Sexuality in Society and Culture”. In deze minor leren studenten over het onderzoek naar gender en seksualiteit vanuit culturele disciplines: hoe geven verschillende culturen in verschillende tijden vorm aan hun opvattingen over gender en seksualiteit?",
-        "onderwijsfilosofie3": "Tijdens mijn promotieonderzoek ben ik ook in aanraking gekomen met de Amerikanistiek. Vanwege de expertise die ik tijdens dit onderzoek heb opgedaan, verzorg ik ook cursussen over Amerikaanse cultuur en literatuur bij de opleiding International Studies aan de Universiteit Leiden. Centraal in mijn onderwijsvisie staat het idee van gelijkwaardigheid. Geen enkele student is hetzelfde en iedere student zou moeten kunnen studeren in een omgeving waardoor diens kwaliteiten het beste tot uiting komen. Dat is aan de universiteit niet altijd het geval. ",
-        "onderwijsfilosofie4": "Het systeem is simpelweg niet ontworpen voor studenten van kleur, eerste-generatiestudenten, neurodiverse studenten of studenten met een fysieke beperking. In mijn eigen onderwijs probeer ik zo veel mogelijk rekening te houden met de verschillende achtergronden en leerbehoeftes van studenten. Dit doe ik door zelf onderzoek te doen naar democratiserende onderwijsvormen, waarbij studenten zelf inspraak krijgen in de leerweg die ze bewandelen. Hierdoor hoop ik studenten te kunnen stimuleren op het niveau die het beste bij hen past.",
+        "onderwijsfilosofie1": "Als universitair docent ben ik gespecialiseerd in onderwijs op drie verschillende vakgebieden: Literatuurwetenschap, Genderstudies en Amerikastudies. Ik ben zelf getraind in de Literatuurwetenschap en zodoende ook verbonden aan de vakgroep Film- en Literatuurwetenschap van de Universiteit Leiden. Binnen deze vakgroep coördineer ik het minorprogramma “Gender and Sexuality in Society and Culture”. In deze minor leren studenten over het onderzoek naar gender en seksualiteit vanuit culturele disciplines: hoe geven verschillende culturen in verschillende tijden vorm aan hun opvattingen over gender en seksualiteit?",
+        "onderwijsfilosofie2": "Tijdens mijn promotieonderzoek ben ik ook in aanraking gekomen met de Amerikanistiek. Vanwege de expertise die ik tijdens dit onderzoek heb opgedaan, verzorg ik ook cursussen over Amerikaanse cultuur en literatuur bij de opleiding International Studies aan de Universiteit Leiden. Centraal in mijn onderwijsvisie staat het idee van gelijkwaardigheid. Geen enkele student is hetzelfde en iedere student zou moeten kunnen studeren in een omgeving waardoor diens kwaliteiten het beste tot uiting komen. Dat is aan de universiteit niet altijd het geval. ",
+        "onderwijsfilosofie3": "Het systeem is simpelweg niet ontworpen voor studenten van kleur, eerste-generatiestudenten, neurodiverse studenten of studenten met een fysieke beperking. In mijn eigen onderwijs probeer ik zo veel mogelijk rekening te houden met de verschillende achtergronden en leerbehoeftes van studenten. Dit doe ik door zelf onderzoek te doen naar democratiserende onderwijsvormen, waarbij studenten zelf inspraak krijgen in de leerweg die ze bewandelen. Hierdoor hoop ik studenten te kunnen stimuleren op het niveau die het beste bij hen past.",
         "subheader2": "Inclusief onderwijs initatieven",
         "subheader3": "Overzicht vakken",
         "Course": "Vak",
@@ -80,6 +79,8 @@
         "header1": "Onderzoeksthemas",
         "button3": "Lees meer",
         "button4": "Lees minder",
+        "buttonpub": "Lees volledig artikel",
+        "buttonlec": "Bekijk lezing",
         "themas": {
             "titel1": "James purdy",
             "text1": {

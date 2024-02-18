@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
 import { Video, getVideo, getAllVideos } from '../../api/videos'; // Adjust the import path as needed
 import { Container } from '../../../components/Container';
 
@@ -31,23 +32,29 @@ export default function VideoDetail({ video }: Props) {
   const embedUrl = transformYouTubeUrl(video.vid_url);
 
   return (
-    <Container>
-      <div>
-        <h2 className="text-center p-10 text-2xl font-bold tracking-tight text-zinc-800 sm:text-4xl mb-5">
-          {video.titel}
-        </h2>
-        <div className="relative w-full pt-[56.25%]">
-          <iframe
-            className="absolute top-0 left-0 w-full h-full"
-            src={embedUrl}
-            title={video.titel}
-            allowFullScreen
-            sandbox='allow-scripts allow-same-origin allow-popups allow-presentation'
-          ></iframe>
+    <>
+      <NextSeo
+        title={video.titel}
+        description={video.beschrijving}
+      />
+      <Container>
+        <div>
+          <h2 className="text-center p-10 text-2xl font-bold tracking-tight text-zinc-800 sm:text-4xl mb-5">
+            {video.titel}
+          </h2>
+          <div className="relative w-full pt-[56.25%]">
+            <iframe
+              className="absolute top-0 left-0 w-full h-full"
+              src={embedUrl}
+              title={video.titel}
+              allowFullScreen
+              sandbox='allow-scripts allow-same-origin allow-popups allow-presentation'
+            ></iframe>
+          </div>
+          <p className="mt-6 text-md">{video.beschrijving}</p>
         </div>
-        <p className="mt-6 text-md">{video.beschrijving}</p>
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 };
 
