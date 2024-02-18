@@ -191,7 +191,7 @@ function Resume() {
   ];
 
   return (
-    <div className="rounded-2xl p-6 row-span-3 shadow-lg">
+    <div className="rounded-2xl p-6 row-auto shadow-lg">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <BriefcaseIcon className="h-6 w-6 flex-none" />
         <span className="ml-3">Werk</span>
@@ -316,20 +316,22 @@ export default function Home({ previews, dictionary, agendas }: Props) {
               color: colors[i % colors.length],
             }))}
           />
-        </Container>
-        {/* photo */}
-        <Container className="mt-24 md:mt-28">
-          <div className="mx-auto lg:max-w-none">
-            <div className="space-y-10 ">
-              <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
-                <div className='col-span-1 grid gap-4 grid-cols-2'>
-                  {previews?.map((preview) => (
-                    <PreviewCard key={preview.id} beschrijving={preview.beschrijving} date={preview.datum} image={preview.images[0]} type={preview.type} link={preview.link} />
-                  ))}
-                </div>
+      </Container>
+      {/* photo */}
+      <Container className="mt-24 md:mt-28">
+        <div className="mx-auto lg:max-w-none">
+          <div className="space-y-10">
+            <div className='grid grid-cols-1 lg:grid-cols-4 gap-10'>
+              <div className='lg:col-span-2 grid gap-4 grid-cols-1 md:grid-cols-2'>
+                {previews?.map((preview) => (
+                  <PreviewCard key={preview.id} beschrijving={preview.beschrijving} date={preview.datum} image={preview.images[0]} type={preview.type} link={preview.link} />
+                ))}
+              </div>
+              <div className='lg:col-span-2'>
                 <Resume />
               </div>
             </div>
+          </div>
           </div>
         </Container>
       </div>
