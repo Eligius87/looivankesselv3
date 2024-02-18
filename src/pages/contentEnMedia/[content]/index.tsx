@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { NextSeo } from 'next-seo';
 import { Container } from '../../../components/Container';
 import Image from 'next/image';
 import { Video, getAllVideos } from '../../api/videos';
@@ -114,16 +114,22 @@ export default function Content({ videos, podcasts, blogs, dictionary }: Content
 
   const content = videos ? 'videos' : podcasts ? 'podcasts' : 'blogs';
   return (
-    <div>
-      <Container>
-        <h2 className="text-center p-10 text-2xl font-bold tracking-tight text-zinc-800 sm:text-4xl mb-5">
-          {content == 'videos' ? 'Video\'s' : content == 'podcasts' ? 'Podcasts' : content == 'blogs' ? `${dict.blogs}` : ''}
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
-          {renderContent()}
-        </div>
-      </Container>
-    </div>
+    <>
+      <NextSeo
+        title="Content en Media"
+        description="Content en Media van de website"
+      />
+      <div>
+        <Container>
+          <h2 className="text-center p-10 text-2xl font-bold tracking-tight text-zinc-800 sm:text-4xl mb-5">
+            {content == 'videos' ? 'Video\'s' : content == 'podcasts' ? 'Podcasts' : content == 'blogs' ? `${dict.blogs}` : ''}
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
+            {renderContent()}
+          </div>
+        </Container>
+      </div>
+    </>
   );
 };
 

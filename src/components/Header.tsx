@@ -45,6 +45,7 @@ const LangDict = {
   },
 };
 
+
 interface NavigationTexts {
   educationText: string;
   mediaText: string;
@@ -110,18 +111,12 @@ function ArrowDownIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function MobileNavItem({
-  href,
-  children,
-  hasDropdown,
-  publicationsText,
-  lecturesText,
-}: {
+function MobileNavItem(props: {
   href: string
   children: React.ReactNode
   hasDropdown: boolean
-  publicationsText: string
-  lecturesText: string
+  publicationsText?: string
+  lecturesText?: string
 }) {
   
   const [open, setOpen] = useState(false)
@@ -133,8 +128,8 @@ function MobileNavItem({
   function DropDownMenu() {
     return (
         <ul className='w-full flex justify-center items-center flex-col gap-2'>
-          <Link href="/onderzoek/publicaties" className='hover:text-teal-500 transition ease-in-out'>{publicationsText}</Link>
-          <Link href="/onderzoek/lezingen" className='hover:text-teal-500 transition ease-in-out'>{lecturesText}</Link>
+          <Link href="/onderzoek/publicaties" className='hover:text-teal-500 transition ease-in-out'>{props.publicationsText}</Link>
+          <Link href="/onderzoek/lezingen" className='hover:text-teal-500 transition ease-in-out'>{props.lecturesText}</Link>
         </ul>
     )
   }
@@ -142,10 +137,10 @@ function MobileNavItem({
   return (
     <div>
       <li className='flex flex-row justify-center items-center gap-2'>
-        <Popover.Button as={Link} href={href} className="block py-2">
-          {children}
+        <Popover.Button as={Link} href={props.href} className="block py-2">
+          {props.children}
         </Popover.Button>
-        {hasDropdown ? <ArrowDownIcon onClick={handleDropdown} className='w-5 h-5 hover:text-teal-500 transition ease-in-out cursor-pointer stroke-2'/> : ''}
+        {props.hasDropdown ? <ArrowDownIcon onClick={handleDropdown} className='w-5 h-5 hover:text-teal-500 transition ease-in-out cursor-pointer stroke-2'/> : ''}
       </li>
         {open ? <DropDownMenu /> : ''}
     </div>
@@ -211,20 +206,14 @@ function MobileNavigation({ texts, ...props }: MobileNavigationProps) {
   )
 }
 
-function NavItem({
-  href,
-  children,
-  hasDropdown,
-  publicationsText,
-  lecturesText,
-}: {
+function NavItem(props: {
   href: string
   children: React.ReactNode
   hasDropdown: boolean
-  publicationsText: string
-  lecturesText: string
+  publicationsText?: string
+  lecturesText?: string
 }) {
-  let isActive = usePathname() === href
+  let isActive = usePathname() === props.href
   const [open, setOpen] = useState(false)
   
   function handleDropdown() {
@@ -234,8 +223,8 @@ function NavItem({
   function DropDownMenu() {
     return (
         <ul className='absolute flex flex-col p-4 gap-2 bg-white/90 rounded-lg shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur'>
-          <Link href="/onderzoek/publicaties" className='hover:text-teal-500 transition ease-in-out'>{publicationsText}</Link>
-          <Link href="/onderzoek/lezingen" className='hover:text-teal-500 transition ease-in-out'>{lecturesText}</Link>
+          <Link href="/onderzoek/publicaties" className='hover:text-teal-500 transition ease-in-out'>{props.publicationsText}</Link>
+          <Link href="/onderzoek/lezingen" className='hover:text-teal-500 transition ease-in-out'>{props.lecturesText}</Link>
         </ul>
     )
   }
@@ -244,7 +233,7 @@ function NavItem({
     <div>
       <li className='flex flex-row gap-1 justify-center items-center'>
         <Link
-          href={href}
+          href={props.href}
           className={clsx(
             'relative block py-2 transition',
             isActive
@@ -252,12 +241,12 @@ function NavItem({
               : 'hover:text-teal-500',
           )}
         >
-          {children}
+          {props.children}
           {isActive && (
             <span className="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0" />
           )}
         </Link>
-        {hasDropdown ? <ArrowDownIcon onClick={handleDropdown} className='w-5 h-5 hover:text-teal-500 transition ease-in-out cursor-pointer stroke-2'/> : ''}
+        {props.hasDropdown ? <ArrowDownIcon onClick={handleDropdown} className='w-5 h-5 hover:text-teal-500 transition ease-in-out cursor-pointer stroke-2'/> : ''}
       </li>
       {open ? <DropDownMenu /> : ''}
     </div>

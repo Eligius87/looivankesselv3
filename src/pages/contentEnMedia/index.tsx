@@ -7,8 +7,7 @@ import { Podcast, getAllPodcasts } from '../api/podcasts';
 import { Blogs, getAllBlogs } from '../api/blogandinterview';
 import FormatedDate from '@/components/FormatedDate';
 import { getDictionary } from '../api/dictionary';
-import { GetServerSideProps } from 'next';
-
+import { NextSeo } from 'next-seo';
 // kaartje
 function PreviewCard(props: { titel: string, image: string, url: string, tags: string[], iconType: string, datum: string }) {
 
@@ -92,6 +91,11 @@ export default function ContentEnMedia({ dictionary, podcasts, videos, blogs }: 
 
   {/* <BeatLoader className="mt-2" color='grey' loading={true} size={5} aria-label="Loading Spinner" data-testid="loader"/> */ }
   return (
+    <>
+      <NextSeo
+        title={dict.header1}
+        description={dict.header1}
+      />
     <div >
       <Container className="mt-9 flex justify-center items-center">
         <h1 className="text-center p-10 text-4xl font-bold tracking-tight text-zinc-800 sm:text-8xl mb-5">
@@ -161,6 +165,7 @@ export default function ContentEnMedia({ dictionary, podcasts, videos, blogs }: 
         </span>
       </Container>
     </div>
+    </>
   );
 };
 

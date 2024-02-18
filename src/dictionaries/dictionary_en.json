@@ -53,10 +53,11 @@
     "education": {
         "header": "Education",
         "subheader1": "Educational philosophy",
+        "onderwijsfilosofie1": "As an assistant professor, I specialize in three different fields: Literary Studies, Gender Studies, and American Studies. My training is in Literary Studies, and I am affiliated with the Department of Film and Literary Studies at Leiden University. Within this department, I coordinate the minor program “Gender and Sexuality in Society and Culture.” In this minor, students learn about research on gender and sexuality from the perspective of cultural studies, exploring how different cultures across various times shape their views on gender and sexuality.",
+        "onderwijsfilosofie2": "During my doctoral research, I also became involved in American Studies. Leveraging the expertise gained during this research, I teach courses on American culture and literature in the BA International Studies at Leiden University.",
+        "onderwijsfilosofie3": "Central to my teaching philosophy is the idea of equity. No two students are the same, and every student should be able to study in an environment that allows their qualities to shine through. Unfortunately, this is not always the case in the university system. The system simply is not designed for students of color, first-generation students, gender nonconforming students, neurodiverse students, or students with physical disabilities. In my own teaching, I strive to take into consideration the diverse backgrounds and learning needs of my students as much as possible. I do this by conducting research into democratizing pedagogies, in which students have a say in the learning path that they embark on. Through this approach, I aim to encourage students to thrive at the level that suits them best.",
         "subheader2": "inclusive education initiatives",
         "subheader3": "Overview of courses",
-        "onderwijsfilosofie1": "Als universitair docent ben ik gespecialiseerd in onderwijs op drie verschillende vakgebieden: Literatuurwetenschap, Genderstudies en Amerikastudies. Ik ben zelf getraind in de Literatuurwetenschap en zodoende ook verbonden aan de vakgroep Film- en Literatuurwetenschap van de Universiteit Leiden. Binnen deze vakgroep coördineer ik het minorprogramma “Gender and Sexuality in Society and Culture”. In deze minor leren studenten over het onderzoek naar gender en seksualiteit vanuit culturele disciplines: hoe geven verschillende culturen in verschillende tijden vorm aan hun opvattingen over gender en seksualiteit?",
-        "onderwijsfilosofie2": "Tijdens mijn promotieonderzoek ben ik ook in aanraking gekomen met de Amerikanistiek. Vanwege de expertise die ik tijdens dit onderzoek heb opgedaan, verzorg ik ook cursussen over Amerikaanse cultuur en literatuur bij de opleiding International Studies aan de Universiteit Leiden. Centraal in mijn onderwijsvisie staat het idee van gelijkwaardigheid. Geen enkele student is hetzelfde en iedere student zou moeten kunnen studeren in een omgeving waardoor diens kwaliteiten het beste tot uiting komen. Dat is aan de universiteit niet altijd het geval. Het systeem is simpelweg niet ontworpen voor studenten van kleur, eerste-generatiestudenten, neurodiverse studenten of studenten met een fysieke beperking. In mijn eigen onderwijs probeer ik zo veel mogelijk rekening te houden met de verschillende achtergronden en leerbehoeftes van studenten. Dit doe ik door zelf onderzoek te doen naar democratiserende onderwijsvormen, waarbij studenten zelf inspraak krijgen in de leerweg die ze bewandelen. Hierdoor hoop ik studenten te kunnen stimuleren op het niveau die het beste bij hen past.",
         "Course": "Course",
         "Trajectory": "Trajectory",
         "Period": "Period"
@@ -78,6 +79,8 @@
         "header1": "Research Subjects",
         "button3": "Read more",
         "button4": "Read less",
+        "buttonpub": "Read full Article",
+        "buttonlec": "Watch Lecture",
         "themas": {
             "titel1": "James purdy",
             "text1": {

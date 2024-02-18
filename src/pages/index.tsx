@@ -8,23 +8,23 @@ import logoLGBT from '@/images/logos/lgbtqnetwork.png'
 import portrait from '@/images/bannerlooi.jpg'
 import couperus from '@/images/logos/couperus.png'
 import { Preview, getAllPreviews } from './api/landingpage'
-import { Agendas, getAllAgendas} from './api/agenda'
+import { Agendas, getAllAgendas } from './api/agenda'
 import { getDictionary } from './api/dictionary'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Agenda } from '@/components/Agenda'
-
+import { NextSeo } from 'next-seo'
 
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
 
-function FormatedDate({dateString}: any) {
+function FormatedDate({ dateString }: any) {
   const date = new Date(dateString)
-  const options: Intl.DateTimeFormatOptions = { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   };
   const formatedDate = date.toLocaleDateString('nl-BE', options)
   return (
@@ -135,9 +135,9 @@ function Resume() {
 
   if (!dict) {
     return <div>Loading...</div>;
-  }  
+  }
 
-  let resume: Array<Role> =  [
+  let resume: Array<Role> = [
     {
       company: dict.resume.one.company,
       title: dict.resume.one.title,
@@ -209,35 +209,35 @@ function Resume() {
   )
 }
 
-function PreviewCard(props: {beschrijving: string, date: string, image: string, type: string, link: string}) {
-    function podcastIcon() {
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 md:w-5 md:h-5 lg:w-6 lg:h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
-        </svg>
-      )
-    }
-    function videoIcon() {
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-          <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
-        </svg>
-      )
-    }
+function PreviewCard(props: { beschrijving: string, date: string, image: string, type: string, link: string }) {
+  function podcastIcon() {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 md:w-5 md:h-5 lg:w-6 lg:h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+      </svg>
+    )
+  }
+  function videoIcon() {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+        <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+      </svg>
+    )
+  }
 
-    function articleIcon() {
-      return (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-        </svg>
-      )
-    }
-  
-  return(
+  function articleIcon() {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+      </svg>
+    )
+  }
+
+  return (
     <Link href={props.link}>
       <div className='grid grid-rows-auto gap-2 cursor-pointer'>
         <div className='relative max-w-full h-auto aspect-square row-span-2'>
-          <Image src={ props.image } fill alt="" className="object-cover rounded-2xl" />
+          <Image src={props.image} fill alt="" className="object-cover rounded-2xl" />
         </div>
         <div className='text-[10px] md:text-xl lg:text-lg font-bold py-2 row-span-1'>
           {props.beschrijving}
@@ -245,8 +245,8 @@ function PreviewCard(props: {beschrijving: string, date: string, image: string, 
         <div className='row-span-1 flex flex-row items-center justify-between '>
           <div className='text-red-600 font-bold text-[10px] md:text-xs lg:text-sm'><FormatedDate dateString={props.date} /></div>
           {props.type == 'podcast' ? podcastIcon() :
-          props.type == 'video' ? videoIcon() :
-          props.type == 'article' ? articleIcon() : null
+            props.type == 'video' ? videoIcon() :
+              props.type == 'article' ? articleIcon() : null
           }
         </div>
       </div>
@@ -260,23 +260,28 @@ type Props = {
   agendas: Agendas[],
 }
 
-export default function Home({previews, dictionary, agendas} : Props) {
-    const colors = [
-        'border-red-500',
-        'border-blue-500',
-        'border-green-500',
-        'border-yellow-500',
-        'border-purple-500',
-        'border-pink-500',
-        'border-indigo-500',
-    ]
+export default function Home({ previews, dictionary, agendas }: Props) {
+  const colors = [
+    'border-red-500',
+    'border-blue-500',
+    'border-green-500',
+    'border-yellow-500',
+    'border-purple-500',
+    'border-pink-500',
+    'border-indigo-500',
+  ]
   const dict = dictionary.home;
   return (
-    <div className=''>
-      <Container className="mt-9 ">
+    <>
+    <NextSeo
+      title={dict.title}
+      description={dict.description}
+    />
+      <div className=''>
+        <Container className="mt-9 ">
           <div className='flex flex-col gap-2'>
             <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-8xl">
-              {dict.header.one} 
+              {dict.header.one}
             </h1>
             <h1 className="text-4xl font-bold tracking-tight text-zinc-600 sm:text-4xl">
               {dict.header.two}
@@ -286,20 +291,20 @@ export default function Home({previews, dictionary, agendas} : Props) {
             <h1 className='text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl'>{dict.subheader}</h1>
             <h1 className='text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-xl'></h1>
           </div>
-        <div className='max-w-3xl'>  
-        </div>
-      </Container>
+          <div className='max-w-3xl'>
+          </div>
+        </Container>
         <div className='sm:px-8'>
           <div className='mx-auto w-full max-w-7xl lg:px-8'>
             <Image src={portrait} alt="" className="rounded-2xl w-full h-full" />
           </div>
         </div>
-      <Container className='mt-9'>
+        <Container className='mt-9'>
           <h1 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-4xl">
             {dict.quote}
           </h1>
           <h1 className='py-8 text-5xl font-bold text-center w-full'>Agenda</h1>
-          <Agenda 
+          <Agenda
             noActivity={dict.agenda.noActivity}
             items={agendas.map((agenda, i: number) => ({
               type: agenda.type,
@@ -327,13 +332,14 @@ export default function Home({previews, dictionary, agendas} : Props) {
               </div>
             </div>
           </div>
-        </div>
-      </Container>
-    </div>
+          </div>
+        </Container>
+      </div>
+    </>
   )
 }
 
-export async function getServerSideProps({locale}: any) {
+export async function getServerSideProps({ locale }: any) {
   const previews = await getAllPreviews();
   const agendas = await getAllAgendas();
   const dictionary = await getDictionary(locale);
@@ -343,7 +349,7 @@ export async function getServerSideProps({locale}: any) {
       previews: previews,
       agendas: agendas,
     },
-    }
   }
+}
 
 
