@@ -51,12 +51,6 @@ function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-export const metadata: Metadata = {
-  title: 'About',
-  description:
-    'Ik ben Looi van Kessel. Assistent Professor aan de Universteit van Leiden, waar ik me inzet voor inclusiviteit en gerechtigheid',
-}
-
 type Props = {
   gallerijen: Gallerijen[],
   dictionary: any
@@ -83,42 +77,20 @@ export default function About({ gallerijen, dictionary }: Props) {
         </div>
         <div className="lg:order-first lg:row-span-2">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-            Ik ben Looi van Kessel. Assistent Professor aan de Universteit van Leiden, waar ik me inzet voor inclusiviteit en gerechtigheid.
+          {dict.quote}
           </h1>
           <div className="mt-6 space-y-7 text-base text-zinc-600">
             <p>
-              Ik ben Looi van Kessel, universitair docent in de literatuurwetenschappen
-              en genderstudies aan de Universiteit Leiden. Mijn onderzoeksfocus ligt
-              bij Amerikaanse en Nederlandstalige LHBTI+ literatuur van de 20e eeuw.
-              In 2019 ben ik gepromoveerd op een proefschrift over de Amerikaanse
-              schrijver James Purdy.
+            {dict.alinea1}
             </p>
             <p>
-              Deze wat vergeten schrijver zocht in de jaren 1960 naar een manier om
-              over seksualiteit te schrijven zonder zich te moeten conformeren aan
-              vaststaande en onveranderlijke ideeën over seksuele identiteit. Sinds
-              het afronden van mijn proefschrift, hebben mijn onderzoeksinteresses
-              zich op drie sporen verder ontwikkeld: gender en seksualiteit in het
-              werk van Louis Couperus, literatuur van en over de aidsepidemie,
-              en inclusief onderwijs.
+            {dict.alinea2}
             </p>
             <p>
-              Naast mijn werk als universitair docent, ben ik de redactievoorzitter
-              van het Tijdschrift voor Genderstudies, een wetenschappelijk multidisciplinair
-              tijdschrift dat een platform biedt aan Nederlands- en Engelstalig genderonderzoek.
-              Daarnaast ben ik ook redacteur van het tijdschrift Arabesken, dat wordt
-              uitgegeven door het Louis Couperusgenootschap. Een belangrijke drijfveer
-              voor mijn onderzoek en onderwijs, is het streven naar inclusie en gerechtigheid.
-              Mijn onderzoek en onderwijs kan ik dan ook niet los zien van mijn sociale engagement.
-
+            {dict.alinea3}
             </p>
             <p>
-              Als voorzitter van het Leiden University LGBT+ Network zet ik me in voor de
-              gelijkwaardige behandeling van LHBTI+ medewerkers en studenten. In mijn
-              onderwijspraktijk heb ik verschillende initiatieven ondernomen om het
-              universitair onderwijs inclusiever te maken. Tenslotte spreek ik regelmatig
-              over mijn onderzoek naar LHBTI+-cultuur en inclusief onderwijs tijdens
-              publiekslezingen of andere publieke optredens.
+            {dict.alinea4}
             </p>
           </div>
         </div>
@@ -135,7 +107,7 @@ export default function About({ gallerijen, dictionary }: Props) {
         </div>
       </div>
       {/* GALLERIJ */}
-      <h1 className='text-5xl text-center font-bold tracking-tight text-zinc-800 my-20'>Gallerij</h1>
+      <h1 className='text-5xl text-center font-bold tracking-tight text-zinc-800 my-20'>{dict.gallerij}</h1>
       <div className='grid grid-cols-2 lg:grid-cols-3 gap-4'>
         {gallerijen?.map((gallerij, index) => (
           <div className='col-span-1 w-[200px] lg:w-[300px] h-[200px] lg:h-[300px] relative'>

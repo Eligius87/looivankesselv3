@@ -37,33 +37,40 @@ type Props = {
 
 export default function Publicatie({ dictionary }: Props) {
   const dict = dictionary.research;
-  const [open, setOpen] = useState(false);
 
   const texten = [
     {
-      header1: `${dict.themas.titel1}`,
-      alinea1: `${dict.themas.text1.alinea1}`,
-      alinea2: `${dict.themas.text1.alinea1}`,
-      alinea3: `${dict.themas.text1.alinea1}`
+      text1: {
+        header1: `${dict.themas.titel1}`,
+        alinea1: `${dict.themas.text1.alinea1}`,
+        alinea2: `${dict.themas.text1.alinea1}`,
+        alinea3: `${dict.themas.text1.alinea1}`
+      }
     },
     {
-      header2: `${dict.themas.titel2}`,
-      alinea1: `${dict.themas.text2.alinea1}`,
-      alinea2: `${dict.themas.text2.alinea1}`,
-      alinea3: `${dict.themas.text2.alinea1}`,
+      text2: {
+        header2: `${dict.themas.titel2}`,
+        alinea1: `${dict.themas.text2.alinea1}`,
+        alinea2: `${dict.themas.text2.alinea1}`,
+        alinea3: `${dict.themas.text2.alinea1}`,
+      }
     },
     {
-      header3: `${dict.themas.titel3}`,
-      alinea1: `${dict.themas.text3.alinea1}`,
-      alinea2: `${dict.themas.text3.alinea1}`,
-      alinea3: `${dict.themas.text3.alinea1}`,
+      text3: {
+        header3: `${dict.themas.titel3}`,
+        alinea1: `${dict.themas.text3.alinea1}`,
+        alinea2: `${dict.themas.text3.alinea1}`,
+        alinea3: `${dict.themas.text3.alinea1}`,
+      }
     },
     {
-      header4: `${dict.themas.titel4}`,
-      alinea1: `${dict.themas.text4.alinea1}`,
-      alinea2: `${dict.themas.text4.alinea1}`,
+      text4: {
+        header4: `${dict.themas.titel4}`,
+        alinea1: `${dict.themas.text4.alinea1}`,
+        alinea2: `${dict.themas.text4.alinea1}`,
+      }
     }
-    
+
   ]
 
 
@@ -88,19 +95,23 @@ export default function Publicatie({ dictionary }: Props) {
         <h1 className='text-4xl font-bold tracking-tight text-zinc-800 py-4'>{dict.header1}</h1>
         <div className='flex flex-col gap-5'>
 
-          {texten.map((text, index) => {
+          {texten.map((textObject, index) => {
+            const [open, setOpen] = useState(false);
+            const text = Object.values(textObject)[0];
             return (
-              <div className='rounded-lg w-full shadow-lg ring-1 ring-zinc-200 p-4 flex flex-col justify-center items-start'>
-                <h2 className='text-2xl font-bold tracking-tight text-zinc-800 py-1'>{text[index]}</h2>
+              <div key={index} className='rounded-lg w-full shadow-lg ring-1 ring-zinc-200 p-4 flex flex-col justify-center items-start'>
+                <h2 className='text-2xl font-bold tracking-tight text-zinc-800 py-1'>{text.header1 || text.header2 || text.header3 || text.header4}</h2>
                 <div className={`flex flex-col gap-2 text-base text-zinc-600 ${open ? '' : 'line-clamp-4'}`}>
-                  <p>{dict.themas.text1.alinea1}</p>
+                  <p>{text.alinea1}</p>
                   {open ?
                     <div className='flex flex-col gap-2'>
-                      <p>{dict.themas.text1.alinea2}</p>
-                      <p>{dict.themas.text1.alinea3}</p>
+                      <p>{text.alinea2}</p>
+                      <p>{text.alinea3}</p>
                     </div> : ''}
                 </div>
-                <button className='rounded-lg py-1 px-2 ring-1 ring-zinc-200 text-sm mt-4 hover:ring-teal-400 hover:text-teal-400 transition ease-in-out' onClick={() => setOpen(!open)}>{open ? `${dict.button4}` : `${dict.button3}`}</button>
+                <button className='rounded-lg py-1 px-2 ring-1 ring-zinc-200 text-sm mt-4 hover:ring-teal-400 hover:text-teal-400 transition ease-in-out' onClick={() => {
+                  setOpen(!open)               
+                }}>{open ? `${dict.button4}` : `${dict.button3}`}</button>
               </div>
             )
           }
@@ -112,7 +123,7 @@ export default function Publicatie({ dictionary }: Props) {
 
 
 
-          {/* // <div className='rounded-lg w-full shadow-lg ring-1 ring-zinc-200 p-4 flex flex-col justify-center items-start'>
+        {/* // <div className='rounded-lg w-full shadow-lg ring-1 ring-zinc-200 p-4 flex flex-col justify-center items-start'>
           //   <h2 className='text-2xl font-bold tracking-tight text-zinc-800 py-1'>{dict.themas.titel1}</h2>
           //   <div className={`flex flex-col gap-2 text-base text-zinc-600 ${open ? '' : 'line-clamp-4'}`}>
           //     <p>{dict.themas.text1.alinea1}</p>
@@ -125,7 +136,7 @@ export default function Publicatie({ dictionary }: Props) {
           //   <button className='rounded-lg py-1 px-2 ring-1 ring-zinc-200 text-sm mt-4 hover:ring-teal-400 hover:text-teal-400 transition ease-in-out' onClick={() => setOpen(!open)}>{open ? `${dict.button4}` : `${dict.button3}`}</button>
           // </div> */}
 
-        
+
       </Container>
     </div>
 

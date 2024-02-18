@@ -1,6 +1,5 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { Publicaties, getPublicatie, getAllPublicaties } from '../../api/publicaties'
-import { Lezingen, getLezing, getAllLezingen } from '../../api/lezingen'
+import { Publicaties, getAllPublicaties } from '../../api/publicaties'
+import { Lezingen, getAllLezingen } from '../../api/lezingen'
 import { Container } from '../../../components/Container';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -53,7 +52,7 @@ function PublicatieCard(props: { titel: string, publicatie_url: string, zin_besc
 }
 
 export default function index({ publicaties, lezingen, dictionary }: ContentProps) {
-  const dict = dictionary.onderzoek;
+  const dict = dictionary.research;
 
   const [open, setOpen] = useState<number | null>(null);
 
@@ -99,8 +98,8 @@ export default function index({ publicaties, lezingen, dictionary }: ContentProp
     if (publicaties) {
       return (
         <div>
-          <h1 className='text-4xl font-bold text-center p-10'>Vind hier al mijn Publicaties</h1>
-          <h2 className='text-2xl font-bold py-5'>Uitgelichte Publicaties</h2>
+          <h1 className='text-4xl font-bold text-center p-10'>{dict.slug.headerpub}</h1>
+          <h2 className='text-2xl font-bold py-5'>{dict.slug.uitgelichtpub}</h2>
           <div className='grid grid-cols-[150px_150px] md:grid-cols-[200px_200px] lg:grid-cols-1 gap-3 md:gap-20 lg:gap-3 justify-center lg:justify-start items-start transition ease-in-out'>
             {
               publicaties?.filter(publicatie => publicatie.uitgelicht === true).map((publicatie, index) => (
@@ -108,24 +107,24 @@ export default function index({ publicaties, lezingen, dictionary }: ContentProp
               ))
             }
           </div>
-          {renderPublicaties('artikel', 'Alle Artikelen')}
-          {renderPublicaties('recensie', 'Alle Boek Recensies')}
-          {renderPublicaties('thema', 'Alle Redactie themanummers')}
+          {renderPublicaties('artikel', `${dict.slug.articles}`)}
+          {renderPublicaties('recensie', `${dict.slug.recensies}`)}
+          {renderPublicaties('thema', `${dict.slug.themas}`)}
         </div>
       )
     } else if (lezingen) {
       return (
         <div>
-          <h1 className='text-4xl font-bold text-center p-10'>Vind hier al mijn Lezingen</h1>
-          <h2 className='text-2xl font-bold py-5'>Uitgelichte Lezingen</h2>
+          <h1 className='text-4xl font-bold text-center p-10'>{dict.slug.headerlec}</h1>
+          <h2 className='text-2xl font-bold py-5'>{dict.slug.uitgelichtlec}</h2>
           <div className='grid grid-cols-[150px_150px] md:grid-cols-[200px_200px] lg:grid-cols-1 gap-3 md:gap-20 lg:gap-3 justify-center lg:justify-start items-start transition ease-in-out'>
             {lezingen?.filter(lezing => lezing.uitgelicht === true).map((lezing, index) => (
               <PublicatieUitgelicht key={index} open={index === open} toggle={() => toggle(index)} titel={lezing.titel} image={lezing.image} beschrijving={lezing.beschrijving} datum={lezing.datum} url={lezing.url} />
             ))}
           </div>
-          {renderLezingen('lezing', 'Alle Lezingen')}
-          {renderLezingen('conferentie', 'Alle Conferenties')}
-          {renderLezingen('panel', 'Alle Panel Discussies')}
+          {renderLezingen('lezing', `${dict.slug.lec}`)}
+          {renderLezingen('conferentie', `${dict.slug.conf}`)}
+          {renderLezingen('panel', `${dict.slug.panel}`)}
         </div>
       )
     }

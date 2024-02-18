@@ -91,7 +91,7 @@
                 "alinea2": "For instance, works set in antiquity are often praised for their explicit treatment of homosexuality, but don’t consider how the world of antiquity carries over into his colonial or psychological novels. Other critics discuss how his novels set in the Dutch East Indies provide insight into how changes in 19th-century colonial policy also impact the experience of sexuality and gender relations in the Netherlands, but then don’t consider how the novels set in antiquity are also affected by those same colonial policies.",
                 "alinea3": "In my research, I aim to connect those literary worlds and demonstrate how Couperus’ novels set in antiquity can similarly be read as a response to how colonialism affected sexual and gender relations in the Netherlands."
             },
-            "titel3": "AIDS and promiscuity",           
+            "titel3": "AIDS and promiscuity",
             "text3": {
                 "alinea1": "The consequences of the AIDS epidemic are still felt deeply in the LGBTQIA+ community. As the virus that causes AIDS has claimed numerous lives, it has become a challenge for many individuals in the queer community to establish intergenerational connections. The advent of medications that make the syndrome manageable and the introduction of PrEP, a preventive measure against HIV transmission, also mean that newer generations of queer individuals have a different relationship with the virus than those directly affected by it. As a result, activism and cultural production during the AIDS epidemic are gradually fading from view, leading to mutual misunderstanding between different generations of LGBTQIA+ individuals. Yet, especially at a time when global homophobia and transphobia are resurfacing, we need to look at the lessons we can learn from activism, literature, and art from the AIDS epidemic.",
                 "alinea2": "In my research, I explore how literature on AIDS can be interpreted as a pedagogy for future generations: what can we learn today about the ways in which the queer community can fight as a collective against societal injustices without sacrificing our acquired freedoms? I focus on significant authors such as Samuel Delany, Derek Jarman, and Alain Emmanuel Dreuihle.",
@@ -102,6 +102,27 @@
                 "alinea1": "My research interests and teaching philosophy converge most clearly around the theme of  diversity and inclusion. In my teaching practice, I dedicate significant attention to inclusive didactic approaches. This practice feeds into my research projects, in which I aim to translate my practical experiences into methods and insights upon which other educators can build. ",
                 "alinea2": "One of these projects is a collaboration with my colleague Liesbeth Minnaard. In 2023, we embarked on a project to assess the curriculum of Film and Literary Studies at Leiden University, and to think of ways of making it more inclusive: addressing not only course materials, but also other factors such as workload, teaching methods, and assessment formats. Currently, we are developing a method to share the findings of our research with other university programs."
             }
+        },
+        "slug": {
+            "headerpub": "Find all of my publications here",
+            "headerlec": "Find all of my lectures here",
+            "uitgelichtpub": "Publications in the spotlight",
+            "uitgelichtlec": "Lectures in the spotlight",
+            "articles": "All Articles",
+            "recensies": "All book reviews",
+            "themas": "All redactional work",
+            "lec": "All lectures",
+            "conf": "All conference presentations",
+            "panel": "All panel discussions"
         }
+    },
+    "over": {
+        "quote": "I am Looi van Kessel. Assistant Professor at the University of Leiden, where I am committed to inclusivity and justice.",
+        "alinea1": "I am Looi van Kessel, assistant professor in Literary Studies and Gender Studies at Leiden University. My research focuses on 20th-century American and Dutch LGBTQIA+ literature. In 2019, I obtained my PhD with a dissertation on the American author James Purdy. ",
+        "alinea2": "Already in the 1960s, Purdy sought to write about sexuality without conforming to ideas of a stable and unchanging sexual identity. Since completing my dissertation, my research interests have developed along three tracks: gender and sexuality in the works of Louis Couperus, literature about the AIDS epidemic, and inclusive education.",
+        "alinea3": "In addition to my role as an assistant professor, I am the editor-in-chief at Tijdschrift voor Genderstudies (the Low Countries Journal for Gender Studies), a multidisciplinary, peer reviewed journal providing a platform for Dutch and English gender research in the Netherlands and Flanders. I am also editor for the journal Arabesken, which is published by the Louis Couperus Society.",
+        "alinea4": "A key motivator for my research and teaching is the pursuit of inclusion and justice. I cannot separate my research and teaching from my social and political engagement. As the chair of the Leiden University LGBT+ Network, I advocate for the equal treatment of LGBTQIA+ staff and students. In my teaching practice, I have undertaken various initiatives to make university education more inclusive. Finally, I frequently speak about my research on LGBTQIA+ culture and education in public lectures or other public appearances.",
+        "gallerij": "Gallery",
+        "linkedin": "Follow me on LinkedIn"
     }
 }
