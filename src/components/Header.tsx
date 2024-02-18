@@ -9,6 +9,51 @@ import {useRouter} from 'next/router'
 
 import { Container } from '@/components/Container'
 
+// Define language dictionaries
+const LangDict = {
+  menu: {
+    nl: 'Menu',
+    en: 'Menu',
+  },
+  navigation: {
+    nl: 'Navigatie',
+    en: 'Navigation',
+  },
+  education: {
+    nl: 'Onderwijs',
+    en: 'Education',
+  },
+  media: {
+    nl: 'Media',
+    en: 'Media',
+  },
+  research: {
+    nl: 'Onderzoek',
+    en: 'Research',
+  },
+  about: {
+    nl: 'Over',
+    en: 'About',
+  },
+  publications: {
+    nl: 'Publicaties',
+    en: 'Publications',
+  },
+  lectures: {
+    nl: 'Lezingen',
+    en: 'Lectures',
+  },
+};
+
+interface NavigationTexts {
+  educationText: string;
+  mediaText: string;
+  researchText: string;
+  aboutText: string;
+  publicationsText: string;
+  lecturesText: string;
+}
+
 function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
@@ -69,10 +114,14 @@ function MobileNavItem({
   href,
   children,
   hasDropdown,
+  publicationsText,
+  lecturesText,
 }: {
   href: string
   children: React.ReactNode
   hasDropdown: boolean
+  publicationsText: string
+  lecturesText: string
 }) {
   
   const [open, setOpen] = useState(false)
@@ -84,8 +133,8 @@ function MobileNavItem({
   function DropDownMenu() {
     return (
         <ul className='w-full flex justify-center items-center flex-col gap-2'>
-          <Link href="/onderzoek/publicaties" className='hover:text-teal-500 transition ease-in-out'>Publicaties</Link>
-          <Link href="/onderzoek/lezingen" className='hover:text-teal-500 transition ease-in-out'>Lezingen</Link>
+          <Link href="/onderzoek/publicaties" className='hover:text-teal-500 transition ease-in-out'>{publicationsText}</Link>
+          <Link href="/onderzoek/lezingen" className='hover:text-teal-500 transition ease-in-out'>{lecturesText}</Link>
         </ul>
     )
   }
@@ -103,9 +152,11 @@ function MobileNavItem({
   )
 }
 
-function MobileNavigation(
-  props: React.ComponentPropsWithoutRef<typeof Popover>,
-) {
+interface MobileNavigationProps extends React.ComponentPropsWithoutRef<typeof Popover> {
+  texts: NavigationTexts;
+}
+
+function MobileNavigation({ texts, ...props }: MobileNavigationProps) {
   return (
     <Popover {...props}>
       <Popover.Button className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20">
@@ -147,10 +198,10 @@ function MobileNavigation(
             </div>
             <nav className="mt-6">
               <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-                <MobileNavItem hasDropdown={false} href="/onderwijs">Onderwijs</MobileNavItem>
-                <MobileNavItem hasDropdown={false} href="/contentEnMedia">Media</MobileNavItem>
-                <MobileNavItem hasDropdown={true} href="/onderzoek">Onderzoek</MobileNavItem>
-                <MobileNavItem hasDropdown={false} href="/over">Over</MobileNavItem>
+                <MobileNavItem hasDropdown={false} href="/onderwijs">{texts.educationText}</MobileNavItem>
+                <MobileNavItem hasDropdown={false} href="/contentEnMedia">{texts.mediaText}</MobileNavItem>
+                <MobileNavItem hasDropdown={true}  publicationsText={texts.publicationsText} lecturesText={texts.lecturesText} href="/onderzoek">{texts.researchText}</MobileNavItem>
+                <MobileNavItem hasDropdown={false} href="/over">{texts.aboutText}</MobileNavItem>
               </ul>
             </nav>
           </Popover.Panel>
@@ -164,11 +215,14 @@ function NavItem({
   href,
   children,
   hasDropdown,
+  publicationsText,
+  lecturesText,
 }: {
   href: string
   children: React.ReactNode
   hasDropdown: boolean
-
+  publicationsText: string
+  lecturesText: string
 }) {
   let isActive = usePathname() === href
   const [open, setOpen] = useState(false)
@@ -180,8 +234,8 @@ function NavItem({
   function DropDownMenu() {
     return (
         <ul className='absolute flex flex-col p-4 gap-2 bg-white/90 rounded-lg shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur'>
-          <Link href="/onderzoek/publicaties" className='hover:text-teal-500 transition ease-in-out'>Publicaties</Link>
-          <Link href="/onderzoek/lezingen" className='hover:text-teal-500 transition ease-in-out'>Lezingen</Link>
+          <Link href="/onderzoek/publicaties" className='hover:text-teal-500 transition ease-in-out'>{publicationsText}</Link>
+          <Link href="/onderzoek/lezingen" className='hover:text-teal-500 transition ease-in-out'>{lecturesText}</Link>
         </ul>
     )
   }
@@ -210,14 +264,17 @@ function NavItem({
   )
 }
 
-function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
+interface DesktopNavigationProps extends React.ComponentPropsWithoutRef<typeof Popover> {
+  texts: NavigationTexts;
+}
+function DesktopNavigation({ texts, ...props }: DesktopNavigationProps) {
   return (
     <nav {...props}>
       <ul className="flex rounded-full gap-5 bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        <NavItem hasDropdown={false} href="/onderwijs">Onderwijs</NavItem>
-        <NavItem hasDropdown={false} href="/contentEnMedia">Media</NavItem>
-        <NavItem hasDropdown={true} href="/onderzoek" >Onderzoek</NavItem>
-        <NavItem hasDropdown={false} href="/over">Over</NavItem>
+        <NavItem hasDropdown={false} href="/onderwijs">{texts.educationText}</NavItem>
+        <NavItem hasDropdown={false} href="/contentEnMedia">{texts.mediaText}</NavItem>
+        <NavItem hasDropdown={true} href="/onderzoek" publicationsText={texts.publicationsText} lecturesText={texts.lecturesText}>{texts.researchText}</NavItem>
+        <NavItem hasDropdown={false} href="/over">{texts.aboutText}</NavItem>
       </ul>
     </nav>
   )
@@ -267,8 +324,19 @@ function HomeButton() {
 }
 
 export function Header() {
+  const router = useRouter();
+  const isDutch = router.locale === 'nl';
+  const lang = isDutch ? 'nl' : 'en'; // Determine the current language
 
-
+  // Localize text by selecting the appropriate translation based on the current locale
+  const menuText = LangDict.menu[lang];
+  const navigationText = LangDict.navigation[lang];
+  const educationText = LangDict.education[lang];
+  const mediaText = LangDict.media[lang];
+  const researchText = LangDict.research[lang];
+  const aboutText = LangDict.about[lang];
+  const publicationsText = LangDict.publications[lang];
+  const lecturesText = LangDict.lectures[lang];
 
   let isHomePage = usePathname() === '/'
 
@@ -374,8 +442,24 @@ export function Header() {
                   </div>
               </div>
               <div className="flex flex-1 justify-end md:justify-center"> 
-                <MobileNavigation className="pointer-events-auto md:hidden" />
-                <DesktopNavigation className="pointer-events-auto hidden md:block" />
+                <MobileNavigation className="pointer-events-auto md:hidden"
+                 texts={{
+                  educationText: educationText,
+                  mediaText: mediaText,
+                  researchText: researchText,
+                  aboutText: aboutText,
+                  publicationsText: publicationsText,
+                  lecturesText: lecturesText
+                }}/>
+                <DesktopNavigation className="pointer-events-auto hidden md:block"
+                 texts={{
+                  educationText: educationText,
+                  mediaText: mediaText,
+                  researchText: researchText,
+                  aboutText: aboutText,
+                  publicationsText: publicationsText,
+                  lecturesText: lecturesText
+                }}/>
               </div>
               <div className="flex justify-end md:flex-1">
                 <div className="pointer-events-auto">
