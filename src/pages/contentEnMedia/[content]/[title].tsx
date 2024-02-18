@@ -22,7 +22,7 @@ export default function VideoDetail({ video }: Props) {
 
   // Function to transform YouTube URL to embed URL
   const transformYouTubeUrl = (url: string) => {
-    if (url.includes('youtube.com/watch?v=')) {
+    if (url.includes('youtube.com/watch?v=' || 'youtu.be/')) {
       return url.replace('youtube.com/watch?v=', 'youtube.com/embed/');
     }
     return url;
