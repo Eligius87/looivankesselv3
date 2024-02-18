@@ -104,9 +104,27 @@
                 "alinea1": "Rond het thema diversiteit en inclusie komen mijn onderzoeksinteresses en onderwijsvisie het beste samen. Vanuit mijn onderwijspraktijk besteed ik veel aandacht aan inclusieve onderwijsvormen en dit vertaalt zich naar onderzoeksprojecten waarbij ik deze praktijkervaring probeer te vertalen naar methodes en inzichten waar andere wetenschappers en docenten mee verder kunnen. Een van deze projecten doe ik in samenwerking met mijn collega Liesbeth Minnaard.",
                 "alinea2": "In 2023 hebben we onderzoek gedaan naar de manieren waarop de opleiding Film- en Literatuurwetenschap haar curriculum inclusiever kan maken, niet alleen op het niveau van het cursusmateriaal, maar ook op het niveau van werkdruk, werkvormen en toetsvormen. Momenteel werken we aan een methode waarmee de bevindingen van ons onderzoek ook gedeeld kunnen worden met andere universitaire opleidingen."
             }
+        },
+        "slug": {
+            "headerpub": "Vind al mijn publicaties hier",
+            "headerlec": "Vind al mijn lezingen hier",
+            "uitgelichtpub": "Publicaties uitgelicht",
+            "uitgelichtlec": "Lezingen uitgelicht",
+            "articles": "Alle artikelen",
+            "recensies": "Alle boek recensies",
+            "themas": "Alle redactie themanummers",
+            "lec": "Alle lezingen",
+            "conf": "Alle conferenties",
+            "panel": "Alle panel dicussies"
         }
     },
     "over": {
+        "quote": "Ik ben Looi van Kessel. Assistent Professor aan de Universteit van Leiden, waar ik me inzet voor inclusiviteit en gerechtigheid.",
+        "alinea1": "Ik ben Looi van Kessel, universitair docent in de literatuurwetenschappen en genderstudies aan de Universiteit Leiden. Mijn onderzoeksfocus ligt bij Amerikaanse en Nederlandstalige LHBTI+ literatuur van de 20e eeuw. In 2019 ben ik gepromoveerd op een proefschrift over de Amerikaanse schrijver James Purdy.",
+        "alinea2": "Deze wat vergeten schrijver zocht in de jaren 1960 naar een manier om over seksualiteit te schrijven zonder zich te moeten conformeren aan vaststaande en onveranderlijke ideeën over seksuele identiteit. Sinds het afronden van mijn proefschrift, hebben mijn onderzoeksinteresses zich op drie sporen verder ontwikkeld: gender en seksualiteit in het werk van Louis Couperus, literatuur van en over de aidsepidemie, en inclusief onderwijs.",
+        "alinea3": "Naast mijn werk als universitair docent, ben ik de redactievoorzitter van het Tijdschrift voor Genderstudies, een wetenschappelijk multidisciplinair tijdschrift dat een platform biedt aan Nederlands- en Engelstalig genderonderzoek. Daarnaast ben ik ook redacteur van het tijdschrift Arabesken, dat wordt uitgegeven door het Louis Couperusgenootschap. Een belangrijke drijfveer voor mijn onderzoek en onderwijs, is het streven naar inclusie en gerechtigheid. Mijn onderzoek en onderwijs kan ik dan ook niet los zien van mijn sociale engagement.",
+        "alinea4": "Als voorzitter van het Leiden University LGBT+ Network zet ik me in voor de gelijkwaardige behandeling van LHBTI+ medewerkers en studenten. In mijn onderwijspraktijk heb ik verschillende initiatieven ondernomen om het universitair onderwijs inclusiever te maken. Tenslotte spreek ik regelmatig over mijn onderzoek naar LHBTI+-cultuur en inclusief onderwijs tijdens publiekslezingen of andere publieke optredens.",
+        "gallerij": "Gallerij",
         "linkedin": "volg op Linkedin"
     }
 }
