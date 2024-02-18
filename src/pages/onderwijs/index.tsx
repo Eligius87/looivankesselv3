@@ -7,44 +7,30 @@ import { Uitlichting, getAllUitlichtings } from "../api/uitlichting"
 import { Vakken, getAllVakken } from "../api/overzichtvakken"
 import Link from "next/link"
 import { getDictionary } from "../api/dictionary"
-
-function PlusIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" {...props}>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-        </svg>
-    )
-}
-
-function MinusIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" {...props}>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-        </svg>
-    )
-}
+import { PlusIcon } from "@heroicons/react/20/solid"
+import { MinusIcon } from "@heroicons/react/20/solid"
 
 
-function VakkenCard(props: {link: string, titel: string, traject: string, periode: string, color: string}) {
+function VakkenCard(props: {link: string, titel: string, traject: string, periode: string, color: string, vaktext: string, trajecttext: string, periodetext: string}) {
 
     return (
         <Link href={props.link}>
             <div className={`bg-background transition ease-in-out cursor-pointer hover:scale-105 grid grid-cols-4 shadow-md p-2 rounded-lg ${props.color} border-l-2 ring-1 ring-zinc-300 `}>
                 {/* Vak naam */}
                 <div className="col-span-1">
-                    <h1 className="font-bold">Vak</h1>
+                    <h1 className="font-bold text-xs md:text-md lg:text-lg">{props.vaktext}</h1>
                 </div>
-                <div className="col-span-3">{props.titel}</div>
+                <div className="col-span-3 text-xs md:text-md lg:text-lg">{props.titel}</div>
                 {/* traject */}
                 <div className="col-span-1">
-                    <h1 className="font-bold">Traject</h1>
+                    <h1 className="font-bold text-xs md:text-md lg:text-lg">{props.trajecttext}</h1>
                 </div>
-                <div className="col-span-3">{props.traject}</div>
+                <div className="col-span-3 text-xs md:text-md lg:text-lg">{props.traject}</div>
                 {/* jaren gegeven */}
                 <div className="col-span-1">
-                    <h1 className="font-bold">periode</h1>
+                    <h1 className="font-bold text-xs md:text-md lg:text-lg">{props.periodetext}</h1>
                 </div>
-                <div className="col-span-3">{props.periode}</div>
+                <div className="col-span-3 text-xs md:text-md lg:text-lg">{props.periode}</div>
             </div>
         </Link>
     )
@@ -53,14 +39,14 @@ function VakkenCard(props: {link: string, titel: string, traject: string, period
 function Accordionitem({open, toggle, title, desc}: any) {
     return (
         <div className={`shadow-md rounded-lg border-l-2 border-zinc-400 ReactCollapse--collapse ring-zinc-300`}>
-            <div className="py-[25px] px-[50px] flex justify-between items-center cursor-pointer" onClick={toggle}>
-                <p className="text-[22px] font-semibold">{title}</p>
+            <div className="py-[25px] px-5 lg:px-[50px] flex justify-between items-center cursor-pointer" onClick={toggle}>
+                <h1 className="text-[10px] sm:text-sm md:text-md lg:text-xl font-semibold">{title}</h1>
                 <div className={`text-[30px] transition-transform ${open ? 'rotate-180' : ''}`}>
-                    {open ? <MinusIcon className="w-10 h-10"/> : <PlusIcon className="w-10 h-10"/> }
+                    {open ? <MinusIcon className="h-4 w-4 lg:w-10 lg:h-10"/> : <PlusIcon className="w-4 h-4 lg:w-10 lg:h-10"/> }
                 </div>
             </div>
             <Collapse isOpened={open}>
-                <div className="px-[50px] pb-[20px] text-zinc-600">{desc}</div>
+                <div className="px-5 lg:px-[50px] pb-[20px] text-zinc-600 text-[10px] sm:text-sm md:text-md lg:text-xl">{desc}</div>
             </Collapse>
         </div>
     )
@@ -118,11 +104,11 @@ export default function Onderwijs({uitlichtings, vakken, dictionary}: Props) {
             <Container className="">
 
                 {/* ONDERWIJS FILOSOFIE */}
-                <div className="flex flex-col gap-2 border-zinc-400 py-8">
-                        <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
+                <div className="flex flex-col gap-2 border-zinc-400 py-8 w-full">
+                        <h1 className="text-lg md:text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
                           {dict.subheader1} 
                         </h1>
-                    <div className="flex flex-col mt-6 space-y-7 text-base text-zinc-600 w-[800px] text-lg">
+                    <div className="flex flex-col mt-6 space-y-7 text-base text-zinc-600 text-xs sm:text-sm md:text-lg">
                      <p>{dict.onderwijsfilosofie1}</p>
                      <p>{dict.onderwijsfilosofie2}</p>
                      <p>{dict.onderwijsfilosofie3}</p>
@@ -131,7 +117,7 @@ export default function Onderwijs({uitlichtings, vakken, dictionary}: Props) {
                 </div>
                 {/* VAK INITIATIEVE */}
                 <div className="flex flex-col gap-2 border-zinc-400 py-8">
-                        <h1 className="text-4xl pb-4 font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
+                        <h1 className="text-lg md:text-4xl pb-4 font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
                           {dict.subheader2} 
                         </h1>
                     <div className="flex flex-col gap-2">
@@ -142,7 +128,7 @@ export default function Onderwijs({uitlichtings, vakken, dictionary}: Props) {
                 </div>
                 {/* OVERZICHT VAKKEN */}
                 <div className="flex flex-col gap-1">
-                    <h1 className="py-6 text-4xl py-4 font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
+                    <h1 className="py-6 text-lg md:text-4xl py-4 font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
                         {dict.subheader3}
                     </h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 border-zinc-400">
@@ -161,6 +147,9 @@ export default function Onderwijs({uitlichtings, vakken, dictionary}: Props) {
                                     traject={vak.traject}
                                     periode={vak.periode}
                                     color={color}
+                                    vaktext={dict.Course}
+                                    trajecttext={dict.Trajectory}
+                                    periodetext={dict.Period}
                                 />
                             )
                         })}

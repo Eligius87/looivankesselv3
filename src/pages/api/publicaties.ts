@@ -9,6 +9,7 @@ export type Publicaties = {
   type: string;
   uitgelicht: boolean;
   image: string;
+  tags: string[];
 };
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
@@ -21,7 +22,7 @@ export async function getAllPublicaties(): Promise<Publicaties[]> {
   }
 
   return data.map((publicatie) => {
-    const {id, type, titel, datum, publicatie_url, zin_besc, uitgelicht, image} = publicatie;
+    const {id, type, titel, datum, publicatie_url, zin_besc, uitgelicht, image, tags} = publicatie;
     return {
         id, 
         datum,
@@ -31,6 +32,7 @@ export async function getAllPublicaties(): Promise<Publicaties[]> {
         type,
         uitgelicht,
         image: BASE_FILE_STORAGE_URL + image,
+        tags,
     };
   });
 }

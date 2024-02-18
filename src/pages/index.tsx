@@ -296,10 +296,11 @@ export default function Home({previews, dictionary, agendas} : Props) {
         </div>
       <Container className='mt-9'>
           <h1 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-4xl">
-            painting and typesetting industry. Lorem Ipsum has  e a type.
+            {dict.quote}
           </h1>
           <h1 className='py-8 text-5xl font-bold text-center w-full'>Agenda</h1>
           <Agenda 
+            noActivity={dict.agenda.noActivity}
             items={agendas.map((agenda, i: number) => ({
               type: agenda.type,
               date: agenda.datum,
@@ -307,7 +308,7 @@ export default function Home({previews, dictionary, agendas} : Props) {
               titel: agenda.titel,
               image: agenda.image,
               desc: agenda.beschrijving,
-              color: colors[i % colors.length]
+              color: colors[i % colors.length],
             }))}
           />
       </Container>

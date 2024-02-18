@@ -63,7 +63,7 @@ type Props = {
 }
 
 
-export default function About({gallerijen, dictionary}: Props) {
+export default function About({ gallerijen, dictionary }: Props) {
   const dict = dictionary.over
   return (
     <Container className="mt-16 sm:mt-32">
@@ -87,37 +87,37 @@ export default function About({gallerijen, dictionary}: Props) {
           </h1>
           <div className="mt-6 space-y-7 text-base text-zinc-600">
             <p>
-              Ik ben Looi van Kessel, universitair docent in de literatuurwetenschappen 
-              en genderstudies aan de Universiteit Leiden. Mijn onderzoeksfocus ligt 
-              bij Amerikaanse en Nederlandstalige LHBTI+ literatuur van de 20e eeuw. 
-              In 2019 ben ik gepromoveerd op een proefschrift over de Amerikaanse 
+              Ik ben Looi van Kessel, universitair docent in de literatuurwetenschappen
+              en genderstudies aan de Universiteit Leiden. Mijn onderzoeksfocus ligt
+              bij Amerikaanse en Nederlandstalige LHBTI+ literatuur van de 20e eeuw.
+              In 2019 ben ik gepromoveerd op een proefschrift over de Amerikaanse
               schrijver James Purdy.
             </p>
             <p>
-              Deze wat vergeten schrijver zocht in de jaren 1960 naar een manier om 
-              over seksualiteit te schrijven zonder zich te moeten conformeren aan 
-              vaststaande en onveranderlijke ideeën over seksuele identiteit. Sinds 
-              het afronden van mijn proefschrift, hebben mijn onderzoeksinteresses 
-              zich op drie sporen verder ontwikkeld: gender en seksualiteit in het 
-              werk van Louis Couperus, literatuur van en over de aidsepidemie, 
+              Deze wat vergeten schrijver zocht in de jaren 1960 naar een manier om
+              over seksualiteit te schrijven zonder zich te moeten conformeren aan
+              vaststaande en onveranderlijke ideeën over seksuele identiteit. Sinds
+              het afronden van mijn proefschrift, hebben mijn onderzoeksinteresses
+              zich op drie sporen verder ontwikkeld: gender en seksualiteit in het
+              werk van Louis Couperus, literatuur van en over de aidsepidemie,
               en inclusief onderwijs.
             </p>
             <p>
-              Naast mijn werk als universitair docent, ben ik de redactievoorzitter 
-              van het Tijdschrift voor Genderstudies, een wetenschappelijk multidisciplinair 
-              tijdschrift dat een platform biedt aan Nederlands- en Engelstalig genderonderzoek. 
-              Daarnaast ben ik ook redacteur van het tijdschrift Arabesken, dat wordt 
-              uitgegeven door het Louis Couperusgenootschap. Een belangrijke drijfveer 
-              voor mijn onderzoek en onderwijs, is het streven naar inclusie en gerechtigheid. 
+              Naast mijn werk als universitair docent, ben ik de redactievoorzitter
+              van het Tijdschrift voor Genderstudies, een wetenschappelijk multidisciplinair
+              tijdschrift dat een platform biedt aan Nederlands- en Engelstalig genderonderzoek.
+              Daarnaast ben ik ook redacteur van het tijdschrift Arabesken, dat wordt
+              uitgegeven door het Louis Couperusgenootschap. Een belangrijke drijfveer
+              voor mijn onderzoek en onderwijs, is het streven naar inclusie en gerechtigheid.
               Mijn onderzoek en onderwijs kan ik dan ook niet los zien van mijn sociale engagement.
 
             </p>
             <p>
-              Als voorzitter van het Leiden University LGBT+ Network zet ik me in voor de 
-              gelijkwaardige behandeling van LHBTI+ medewerkers en studenten. In mijn 
-              onderwijspraktijk heb ik verschillende initiatieven ondernomen om het 
-              universitair onderwijs inclusiever te maken. Tenslotte spreek ik regelmatig 
-              over mijn onderzoek naar LHBTI+-cultuur en inclusief onderwijs tijdens 
+              Als voorzitter van het Leiden University LGBT+ Network zet ik me in voor de
+              gelijkwaardige behandeling van LHBTI+ medewerkers en studenten. In mijn
+              onderwijspraktijk heb ik verschillende initiatieven ondernomen om het
+              universitair onderwijs inclusiever te maken. Tenslotte spreek ik regelmatig
+              over mijn onderzoek naar LHBTI+-cultuur en inclusief onderwijs tijdens
               publiekslezingen of andere publieke optredens.
             </p>
           </div>
@@ -156,7 +156,7 @@ export default function About({gallerijen, dictionary}: Props) {
 
 
 
-export async function getServerSideProps({locale}: any) {
+export async function getServerSideProps({ locale }: any) {
   const gallerijen = await getAllGallerijen();
   const dictionary = await getDictionary(locale);
   return {
@@ -164,5 +164,5 @@ export async function getServerSideProps({locale}: any) {
       gallerijen: gallerijen,
       dictionary,
     },
-    }
   }
+}

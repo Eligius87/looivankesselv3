@@ -10,6 +10,7 @@ export type Lezingen = {
   icon: string;
   type: string;
   image: string;
+  uitgelicht: boolean;
 };
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
@@ -22,9 +23,10 @@ export async function getAllLezingen(): Promise<Lezingen[]> {
   }
 
   return data.map((lezing) => {
-    const {id, type, titel, datum, url, beschrijving, tags, icon, image} = lezing;
+    const {id, type, uitgelicht, titel, datum, url, beschrijving, tags, icon, image} = lezing;
     return {
         id, 
+        uitgelicht,
         datum,
         titel,
         url,
