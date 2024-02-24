@@ -1,6 +1,5 @@
 {
     "home": {
-        "quote": "painting and typesetting industry. Lorem Ipsum has  e a type.",
         "agenda": {
             "noActivity": "Geen Activiteiten deze maand"
         },
@@ -8,13 +7,14 @@
             "one": "Looi van Kessel",
             "two": "Universtair Docent, Literatuur Wetenschap & Genderstudies"
         },
-        "subheader": "Universiteit of Leiden",
+        "subheader": "Universiteit Leiden",
         "resume": {
+            "header": "Huidige Posities",
             "present": "heden",
             "cv": "download CV nu",
             "one": {
                 "company": "Universiteit Leiden",
-                "title": "Assistent Professor"
+                "title": "Universitair Docent"
             },
             "two": {
                 "company": "Nederlands Research School of Genderstudies",
@@ -22,7 +22,7 @@
             },
             "three": {
                 "company": "Tijdschrift voor Genderstudies",
-                "title": "Editor en Chief"
+                "title": "Redactievoorzitter"
             },
             "four": {
                 "company": "Leiden Universiteit LGBT+ Network",
@@ -30,7 +30,7 @@
             },
             "five": {
                 "company": "Louis Couperus Society",
-                "title": "Arabesken"
+                "title": "Redacteur Arabesken"
             },
             "six": {
                 "company": "Universiteit Leiden",
@@ -52,7 +52,7 @@
     },
     "education": {
         "header": "Onderwijs",
-        "subheader1": "Onderwijs filosofie",
+        "subheader1": "Onderwijsfilosofie",
         "onderwijsfilosofie1": "Als universitair docent ben ik gespecialiseerd in onderwijs op drie verschillende vakgebieden: Literatuurwetenschap, Genderstudies en Amerikastudies. Ik ben zelf getraind in de Literatuurwetenschap en zodoende ook verbonden aan de vakgroep Film- en Literatuurwetenschap van de Universiteit Leiden. Binnen deze vakgroep coördineer ik het minorprogramma “Gender and Sexuality in Society and Culture”. In deze minor leren studenten over het onderzoek naar gender en seksualiteit vanuit culturele disciplines: hoe geven verschillende culturen in verschillende tijden vorm aan hun opvattingen over gender en seksualiteit?",
         "onderwijsfilosofie2": "Tijdens mijn promotieonderzoek ben ik ook in aanraking gekomen met de Amerikanistiek. Vanwege de expertise die ik tijdens dit onderzoek heb opgedaan, verzorg ik ook cursussen over Amerikaanse cultuur en literatuur bij de opleiding International Studies aan de Universiteit Leiden. Centraal in mijn onderwijsvisie staat het idee van gelijkwaardigheid. Geen enkele student is hetzelfde en iedere student zou moeten kunnen studeren in een omgeving waardoor diens kwaliteiten het beste tot uiting komen. Dat is aan de universiteit niet altijd het geval. ",
         "onderwijsfilosofie3": "Het systeem is simpelweg niet ontworpen voor studenten van kleur, eerste-generatiestudenten, neurodiverse studenten of studenten met een fysieke beperking. In mijn eigen onderwijs probeer ik zo veel mogelijk rekening te houden met de verschillende achtergronden en leerbehoeftes van studenten. Dit doe ik door zelf onderzoek te doen naar democratiserende onderwijsvormen, waarbij studenten zelf inspraak krijgen in de leerweg die ze bewandelen. Hierdoor hoop ik studenten te kunnen stimuleren op het niveau die het beste bij hen past.",
@@ -69,10 +69,12 @@
         "videos": "Video's",
         "videosload": "Videos aan het laden...",
         "blogs": "Blog Posts en Interviews",
-        "blogsload": "Blog posts and interviews aan het laden..."
+        "blogsload": "Blog posts and interviews aan het laden...",
+        "buttonpod": "Bekijk alle Podcasts",
+        "buttonvid": "Bekijk alle Video's",
+        "buttonblog": "Bekijk alle Blog Posts"
     },
     "research": {
-        "quote": "Direct navigeren Lorem ipsum, dolor sit amet consectetur",
         "subquote": "Hieronder leg ik een aantal van mijn onderzoeks themas uit en geef ik een overzicht van mijn publicaties en lezingen. Mocht je meer willen weten over mijn onderzoek, neem dan gerust contact met me op.",
         "button1": "Bekijk alle publicaties",
         "button2": "Bekijk alle lezingen",
@@ -120,12 +122,15 @@
         }
     },
     "over": {
-        "quote": "Ik ben Looi van Kessel. Assistent Professor aan de Universteit van Leiden, waar ik me inzet voor inclusiviteit en gerechtigheid.",
+        "quote": "Ik ben Looi van Kessel. Universitair Docent aan de Universteit van Leiden, waar ik me inzet voor inclusiviteit en gerechtigheid.",
         "alinea1": "Ik ben Looi van Kessel, universitair docent in de literatuurwetenschappen en genderstudies aan de Universiteit Leiden. Mijn onderzoeksfocus ligt bij Amerikaanse en Nederlandstalige LHBTI+ literatuur van de 20e eeuw. In 2019 ben ik gepromoveerd op een proefschrift over de Amerikaanse schrijver James Purdy.",
         "alinea2": "Deze wat vergeten schrijver zocht in de jaren 1960 naar een manier om over seksualiteit te schrijven zonder zich te moeten conformeren aan vaststaande en onveranderlijke ideeën over seksuele identiteit. Sinds het afronden van mijn proefschrift, hebben mijn onderzoeksinteresses zich op drie sporen verder ontwikkeld: gender en seksualiteit in het werk van Louis Couperus, literatuur van en over de aidsepidemie, en inclusief onderwijs.",
         "alinea3": "Naast mijn werk als universitair docent, ben ik de redactievoorzitter van het Tijdschrift voor Genderstudies, een wetenschappelijk multidisciplinair tijdschrift dat een platform biedt aan Nederlands- en Engelstalig genderonderzoek. Daarnaast ben ik ook redacteur van het tijdschrift Arabesken, dat wordt uitgegeven door het Louis Couperusgenootschap. Een belangrijke drijfveer voor mijn onderzoek en onderwijs, is het streven naar inclusie en gerechtigheid. Mijn onderzoek en onderwijs kan ik dan ook niet los zien van mijn sociale engagement.",
         "alinea4": "Als voorzitter van het Leiden University LGBT+ Network zet ik me in voor de gelijkwaardige behandeling van LHBTI+ medewerkers en studenten. In mijn onderwijspraktijk heb ik verschillende initiatieven ondernomen om het universitair onderwijs inclusiever te maken. Tenslotte spreek ik regelmatig over mijn onderzoek naar LHBTI+-cultuur en inclusief onderwijs tijdens publiekslezingen of andere publieke optredens.",
         "gallerij": "Gallerij",
         "linkedin": "volg op Linkedin"
+    },
+    "zoeken": {
+        "header": "Zoek door middel van de volgende tags"
     }
 }

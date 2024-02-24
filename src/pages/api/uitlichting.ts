@@ -4,6 +4,7 @@ export type Uitlichting = {
   id: string;
   titel: string;
   beschrijving: string;
+  tags: string[];
 };
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
@@ -16,11 +17,12 @@ export async function getAllUitlichtings(): Promise<Uitlichting[]> {
   }
 
   return data.map((uitlichting) => {
-    const {id, titel, beschrijving} = uitlichting;
+    const {id, titel, beschrijving, tags} = uitlichting;
     return {
         id, 
         titel,
         beschrijving,
+        tags
     };
   });
 }

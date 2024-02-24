@@ -1,6 +1,5 @@
 {
     "home": {
-        "quote": "painting and typesetting industry. Lorem Ipsum has  e a type.",
         "agenda": {
             "noActivity": "No upcoming activities"
         },
@@ -8,13 +7,14 @@
             "one": "Looi van Kessel",
             "two": "Assistent Professor, Literairy studies & Genderstudies"
         },
-        "subheader": "University of Leiden",
+        "subheader": "Leiden University",
         "resume": {
+            "header": "Current roles",
             "present": "present",
             "cv": "download CV",
             "one": {
                 "company": "University Leiden",
-                "title": "Assistent Professor"
+                "title": "Assistant Professor"
             },
             "two": {
                 "company": "Netherlands Research School of Genderstudies",
@@ -22,7 +22,7 @@
             },
             "three": {
                 "company": "Journal for Genderstudies",
-                "title": "Editor and chief"
+                "title": "Editor-in-chief"
             },
             "four": {
                 "company": "University of Leiden LGBT+ Network",
@@ -30,7 +30,7 @@
             },
             "five": {
                 "company": "Louis Couperus Society",
-                "title": "Arabesken"
+                "title": "Editor Arabesken"
             },
             "six": {
                 "company": "University of Leiden",
@@ -69,14 +69,16 @@
         "videos": "Videos",
         "videosload": "Loading videos...",
         "blogs": "Blog Posts and Interviews",
-        "blogsload": "Loading blog posts and interviews..."
+        "blogsload": "Loading blog posts and interviews...",
+        "buttonpod": "View All Podcasts",
+        "buttonvid": "View All Videos",
+        "buttonblog": "View All Blog Posts"
     },
     "research": {
-        "quote": "Direct navigeren Lorem ipsum, dolor sit amet consectetur",
         "subquote": "Below, I explain some of my research themes and provide an overview of my publications and lectures. If you want to know more about my research, please feel free to contact me.",
         "button1": "View all publications",
         "button2": "View all Lectures",
-        "header1": "Research Subjects",
+        "header1": "Research Themes",
         "button3": "Read more",
         "button4": "Read less",
         "buttonpub": "Read full Article",
@@ -108,9 +110,9 @@
         },
         "slug": {
             "headerpub": "Find all of my publications here",
-            "headerlec": "Find all of my lectures here",
+            "headerlec": "Find all of my talks here",
             "uitgelichtpub": "Publications in the spotlight",
-            "uitgelichtlec": "Lectures in the spotlight",
+            "uitgelichtlec": "Talks in the spotlight",
             "articles": "All Articles",
             "recensies": "All book reviews",
             "themas": "All redactional work",
@@ -127,5 +129,8 @@
         "alinea4": "A key motivator for my research and teaching is the pursuit of inclusion and justice. I cannot separate my research and teaching from my social and political engagement. As the chair of the Leiden University LGBT+ Network, I advocate for the equal treatment of LGBTQIA+ staff and students. In my teaching practice, I have undertaken various initiatives to make university education more inclusive. Finally, I frequently speak about my research on LGBTQIA+ culture and education in public lectures or other public appearances.",
         "gallerij": "Gallery",
         "linkedin": "Follow me on LinkedIn"
+    },
+    "zoeken": {
+        "header": "Search by using the tags below"
     }
 }

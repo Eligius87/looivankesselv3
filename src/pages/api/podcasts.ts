@@ -3,7 +3,6 @@ import supabase from '../../../utils/supabase';
 export type Podcast = {
   id: string;
   titel: string;
-  beschrijving: string;
   images: string[];
   datum: string;
   url: string;
@@ -22,12 +21,11 @@ export async function getAllPodcasts(): Promise<Podcast[]> {
   }
 
   return data.map((podcast) => {
-    const {id, titel, image, datum, url, beschrijving ,tags, icon} = podcast;
+    const {id, titel, image, datum, url, tags, icon} = podcast;
     return {
         id, 
         titel,
-        beschrijving,
-	    images: [image].map(src => BASE_FILE_STORAGE_URL + src),
+        images: [image].map(src => BASE_FILE_STORAGE_URL + src),
         datum,
         url,
         tags,

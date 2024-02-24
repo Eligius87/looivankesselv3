@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { Popover, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import {useRouter} from 'next/router'
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 
 import { Container } from '@/components/Container'
 
@@ -41,7 +42,7 @@ const LangDict = {
   },
   lectures: {
     nl: 'Lezingen',
-    en: 'Lectures',
+    en: 'Talks',
   },
 };
 
@@ -194,9 +195,10 @@ function MobileNavigation({ texts, ...props }: MobileNavigationProps) {
             <nav className="mt-6">
               <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
                 <MobileNavItem hasDropdown={false} href="/onderwijs">{texts.educationText}</MobileNavItem>
-                <MobileNavItem hasDropdown={false} href="/contentEnMedia">{texts.mediaText}</MobileNavItem>
+                <MobileNavItem hasDropdown={false} href="/ContentEnMedia">{texts.mediaText}</MobileNavItem>
                 <MobileNavItem hasDropdown={true}  publicationsText={texts.publicationsText} lecturesText={texts.lecturesText} href="/onderzoek">{texts.researchText}</MobileNavItem>
                 <MobileNavItem hasDropdown={false} href="/over">{texts.aboutText}</MobileNavItem>
+                <MobileNavItem hasDropdown={false} href="/zoeken"><MagnifyingGlassIcon className='w-5 h-5'/></MobileNavItem>
               </ul>
             </nav>
           </Popover.Panel>
@@ -264,6 +266,7 @@ function DesktopNavigation({ texts, ...props }: DesktopNavigationProps) {
         <NavItem hasDropdown={false} href="/contentEnMedia">{texts.mediaText}</NavItem>
         <NavItem hasDropdown={true} href="/onderzoek" publicationsText={texts.publicationsText} lecturesText={texts.lecturesText}>{texts.researchText}</NavItem>
         <NavItem hasDropdown={false} href="/over">{texts.aboutText}</NavItem>
+        <NavItem hasDropdown={false} href="/zoeken"><MagnifyingGlassIcon className='w-5 h-5'/></NavItem>
       </ul>
     </nav>
   )

@@ -7,7 +7,6 @@ export type Lezingen = {
   url: string;
   beschrijving: string;
   tags: string[];
-  icon: string;
   type: string;
   image: string;
   uitgelicht: boolean;
@@ -23,7 +22,7 @@ export async function getAllLezingen(): Promise<Lezingen[]> {
   }
 
   return data.map((lezing) => {
-    const {id, type, uitgelicht, titel, datum, url, beschrijving, tags, icon, image} = lezing;
+    const {id, type, uitgelicht, titel, datum, url, beschrijving, tags, image} = lezing;
     return {
         id, 
         uitgelicht,
@@ -32,7 +31,6 @@ export async function getAllLezingen(): Promise<Lezingen[]> {
         url,
         beschrijving,
         type,
-        icon,
         tags,
         image: BASE_FILE_STORAGE_URL + image,
     };

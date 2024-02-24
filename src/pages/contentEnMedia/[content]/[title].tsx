@@ -35,7 +35,7 @@ export default function VideoDetail({ video }: Props) {
     <>
       <NextSeo
         title={video.titel}
-        description={video.beschrijving}
+        description={video.titel}
       />
       <Container>
         <div>
@@ -51,7 +51,7 @@ export default function VideoDetail({ video }: Props) {
               sandbox='allow-scripts allow-same-origin allow-popups allow-presentation'
             ></iframe>
           </div>
-          <p className="mt-6 text-md">{video.beschrijving}</p>
+          <p className="mt-6 text-md">{video.titel}</p>
         </div>
       </Container>
     </>

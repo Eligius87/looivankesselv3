@@ -6,6 +6,7 @@ export type Blogs = {
   beschrijving: string;
   datum: string;
   url: string;
+  tags: string[];
 };
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
@@ -18,13 +19,14 @@ export async function getAllBlogs(): Promise<Blogs[]> {
   }
 
   return data.map((blog) => {
-    const {id, url, titel, beschrijving, datum} = blog;
+    const {id, url, titel, beschrijving, datum, tags} = blog;
     return {
         id, 
         titel,
         beschrijving,
         datum,
         url,
+        tags,
     };
   });
 }

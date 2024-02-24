@@ -3,7 +3,6 @@ import supabase from '../../../utils/supabase';
 export type Video = {
   id: string;
   titel: string;
-  beschrijving: string;
   image: string;
   datum: string;
   vid_url: string;
@@ -22,11 +21,10 @@ export async function getAllVideos(): Promise<Video[]> {
   }
 
   return data.map((video) => {
-    const {id, titel, image, datum, vid_url, beschrijving ,tags, icon} = video;
+    const {id, titel, image, datum, vid_url, tags, icon} = video;
     return {
         id, 
         titel,
-        beschrijving,
         image: BASE_FILE_STORAGE_URL + image,
         datum,
         vid_url,

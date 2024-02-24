@@ -20,7 +20,7 @@ type ContentProps = {
 type ContentType = 'videos' | 'podcasts' | 'blogs';
 
 // kaartje
-function PreviewCard(props: { titel: string, datum: any, beschrijving: string, image: string, url: string, tags: string[], iconType: string }) {
+function PreviewCard(props: { titel: string, datum: any, image: string, url: string, tags: string[], iconType: string }) {
 
   const renderIcon = (iconType: string) => {
     switch (iconType) {
@@ -76,7 +76,6 @@ export default function Content({ videos, podcasts, blogs, dictionary }: Content
         <Link key={video.id} href={`/contentEnMedia/video/${encodeURIComponent(video.titel)}`}>
           <PreviewCard
             titel={video.titel}
-            beschrijving={video.beschrijving}
             image={video.image}
             url={video.vid_url}
             tags={video.tags}
@@ -90,7 +89,6 @@ export default function Content({ videos, podcasts, blogs, dictionary }: Content
         <Link key={podcast.id} href={podcast.url} target='__blank'>
           <PreviewCard
             titel={podcast.titel}
-            beschrijving={podcast.beschrijving}
             image={podcast.images[0]}
             url={podcast.url}
             tags={podcast.tags}

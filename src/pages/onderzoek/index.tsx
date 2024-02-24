@@ -6,6 +6,7 @@ import Link from 'next/link'
 import React from 'react'
 import { getDictionary } from '../api/dictionary'
 import { NextSeo } from 'next-seo'
+import banner from "@/images/Onderzoek.jpg"
 
 function FormatedDate({ dateString }: any) {
   const date = new Date(dateString)
@@ -44,31 +45,31 @@ export default function Publicatie({ dictionary }: Props) {
       text1: {
         header1: `${dict.themas.titel1}`,
         alinea1: `${dict.themas.text1.alinea1}`,
-        alinea2: `${dict.themas.text1.alinea1}`,
-        alinea3: `${dict.themas.text1.alinea1}`
+        alinea2: `${dict.themas.text1.alinea2}`,
+        alinea3: `${dict.themas.text1.alinea3}`
       }
     },
     {
       text2: {
         header2: `${dict.themas.titel2}`,
         alinea1: `${dict.themas.text2.alinea1}`,
-        alinea2: `${dict.themas.text2.alinea1}`,
-        alinea3: `${dict.themas.text2.alinea1}`,
+        alinea2: `${dict.themas.text2.alinea2}`,
+        alinea3: `${dict.themas.text2.alinea3}`,
       }
     },
     {
       text3: {
         header3: `${dict.themas.titel3}`,
         alinea1: `${dict.themas.text3.alinea1}`,
-        alinea2: `${dict.themas.text3.alinea1}`,
-        alinea3: `${dict.themas.text3.alinea1}`,
+        alinea2: `${dict.themas.text3.alinea2}`,
+        alinea3: `${dict.themas.text3.alinea3}`,
       }
     },
     {
       text4: {
         header4: `${dict.themas.titel4}`,
         alinea1: `${dict.themas.text4.alinea1}`,
-        alinea2: `${dict.themas.text4.alinea1}`,
+        alinea2: `${dict.themas.text4.alinea2}`,
       }
     }
 
@@ -84,7 +85,6 @@ export default function Publicatie({ dictionary }: Props) {
       <div>
         <Container className='mt-9'>
           <div className='w-full flex justify-center items-center flex-col'>
-            <h1 className='text-center text-xl md:text-4xl font-bold tracking-tight text-zinc-800 py-4'>{dict.quote}</h1>
             <p className='text-xs md:text-sm text-zinc-400 w-1/2 text-center'>
               {dict.subquote}
             </p>
@@ -97,6 +97,13 @@ export default function Publicatie({ dictionary }: Props) {
               <h1 className='text-xs md:text-sm text-semibold text-zinc-600'>{dict.button2}</h1>
             </Link>
           </div>
+        </Container>
+        <div className='sm:px-8'>
+            <div className='flex justify-center items-center mx-auto max-w-[1050px] lg:px-8'>
+                <Image src={banner} alt="" className="rounded-xl w-full h-full object-cover" />
+            </div>
+        </div>
+        <Container className='mt-9'>
           {/* Onderzoek uitleg */}
           <h1 className='text-lg md:text-4xl font-bold tracking-tight text-zinc-800 py-4'>{dict.header1}</h1>
           <div className='flex flex-col gap-5'>

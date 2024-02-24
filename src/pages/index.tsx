@@ -194,7 +194,7 @@ function Resume() {
     <div className="rounded-2xl p-6 row-auto shadow-lg">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <BriefcaseIcon className="h-6 w-6 flex-none" />
-        <span className="ml-3">Werk</span>
+        <span className="ml-3">{dict.resume.header}</span>
       </h2>
       <ol className="mt-6 space-y-4">
         {resume.map((role, roleIndex) => (
@@ -300,9 +300,6 @@ export default function Home({ previews, dictionary, agendas }: Props) {
           </div>
         </div>
         <Container className='mt-9'>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-4xl">
-            {dict.quote}
-          </h1>
           <h1 className='py-8 text-5xl font-bold text-center w-full'>Agenda</h1>
           <Agenda
             noActivity={dict.agenda.noActivity}

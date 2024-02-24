@@ -1,12 +1,11 @@
 import { Publicaties, getAllPublicaties } from '../../api/publicaties'
 import { Lezingen, getAllLezingen } from '../../api/lezingen'
 import { Container } from '../../../components/Container';
-import Link from 'next/link';
 import { useState } from 'react';
 import { getDictionary } from '../../api/dictionary';
-import FormatedDate from '../../../components/FormatedDate';
 import PublicatieUitgelicht from '../../../components/PublicatieUitgelicht';
 import { NextSeo } from 'next-seo';
+import PublicatieCard from '../../../components/PublicatieCard';
 
 type ContentProps = {
   publicaties?: Publicaties[],
@@ -17,40 +16,6 @@ type ContentProps = {
 type ContentType = 'publicaties' | 'lezingen';
 
 
-function ArrowIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" {...props}>
-      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-    </svg>
-  )
-}
-
-function PublicatieCard(props: { titel: string, publicatie_url: string, zin_besc: string, datum: string }) {
-  function Content() {
-    return (
-      <div className='w-full flex flex-row justify-between items-center gap-2 ring-1 ring-zinc-200 p-2 shadow-md rounded-lg '>
-        <div className='flex flex-col gap-2'>
-          <h1 className='text-xs md:text-xl font-semibold leading-4'>{props.titel}</h1>
-          <p className='text-[10px] md:text-lg leading-4 text-zinc-600'>{props.zin_besc}</p>
-          <h2 className='text-zinc-400 font-semibold text-[8px] lg:text-sm'>
-            <FormatedDate dateString={props.datum} />
-          </h2>
-        </div>
-        {props.publicatie_url !== null ? 
-          <ArrowIcon className='w-10 h-10 flex justify-center items-center' />
-        : ''
-        }
-      </div>
-    )
-  }
-
-  return (
-    props.publicatie_url !== null ?
-      <Link href={props.publicatie_url} target='__blank' passHref={true} className='cursor-pointer w-full transition ease-in-out hover:scale-[101%]'>
-        <Content />
-      </Link> : <Content />
-  )
-}
 
 export default function index({ publicaties, lezingen, dictionary }: ContentProps) {
   const dict = dictionary.research;
@@ -71,7 +36,7 @@ export default function index({ publicaties, lezingen, dictionary }: ContentProp
           <h2 className='text-xl md:text-5xl text-center font-bold p-20'>{title}</h2>
           <div className='w-full flex flex-col justify-center items-center gap-8'>
             {
-              publicaties?.filter(publicatie => publicatie.type === type && publicatie.uitgelicht === false).map((publicatie, index) => (
+              publicaties?.filter(publicatie => publicatie.type === type).map((publicatie, index) => (
                 <PublicatieCard key={index} titel={publicatie.titel} publicatie_url={publicatie.publicatie_url} zin_besc={publicatie.zin_besc} datum={publicatie.datum} />
               ))
             }
@@ -86,7 +51,7 @@ export default function index({ publicaties, lezingen, dictionary }: ContentProp
           <h2 className='text-xl md:text-5xl text-center font-bold p-20'>{title}</h2>
           <div className='w-full flex flex-col justify-center items-center gap-8'>
             {
-              lezingen?.filter(lezing => lezing.type === type && lezing.uitgelicht === false).map((lezing, index) => (
+              lezingen?.filter(lezing => lezing.type === type).map((lezing, index) => (
                 <PublicatieCard key={index} titel={lezing.titel} publicatie_url={lezing.url} zin_besc={lezing.beschrijving} datum={lezing.datum} />
               ))
             }

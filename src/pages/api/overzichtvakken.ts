@@ -6,6 +6,7 @@ export type Vakken = {
   titel: string;
   traject: string;
   periode: string;
+  tags: string[];
 };
 
 export async function getAllVakken(): Promise<Vakken[]> {
@@ -16,13 +17,14 @@ export async function getAllVakken(): Promise<Vakken[]> {
   }
 
   return data.map((vak) => {
-    const {id, link, titel, traject, periode} = vak;
+    const {id, link, titel, traject, periode, tags} = vak;
     return {
         link,
         id, 
         titel,
         traject,
-        periode
+        periode,
+        tags
     };
   });
 }
