@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image'
 import { Container } from "../../components/Container"
 import Link from 'next/link';
 import { getAllVideos, Video } from '../api/videos';
 import { Podcast, getAllPodcasts } from '../api/podcasts';
 import { Blogs, getAllBlogs } from '../api/blogandinterview';
-import FormatedDate from '@/components/FormatedDate';
 import { getDictionary } from '../api/dictionary';
 import { NextSeo } from 'next-seo';
 import PreviewCard from '@/components/PreviewCard';

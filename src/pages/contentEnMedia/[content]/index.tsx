@@ -7,7 +7,7 @@ import { Blogs, getAllBlogs } from '../../api/blogandinterview';
 import Link from 'next/link';
 import { getDictionary } from '../../api/dictionary';
 import FormatedDate from '../../../components/FormatedDate';
-import { BlogCard } from '../index';
+import BlogCard from '../../../components/BlogCard';
 import { GetServerSideProps } from 'next';
 
 type ContentProps = {
