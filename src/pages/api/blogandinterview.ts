@@ -11,7 +11,8 @@ export type Blogs = {
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
 
-export async function getAllBlogs(): Promise<Blogs[]> {
+export async function getAllBlogs(lang: any): Promise<Blogs[]> {
+  const isDutch = lang === 'nl';
   const { data, error } = await supabase.from('BlogInterview').select('*').order('datum', {ascending: false});
 
   if (error) {
@@ -19,11 +20,11 @@ export async function getAllBlogs(): Promise<Blogs[]> {
   }
 
   return data.map((blog) => {
-    const {id, url, titel, beschrijving, datum, tags} = blog;
+    const {id, url, titel, beschrijving, datum, tags, titel_EN, besc_EN} = blog;
     return {
         id, 
-        titel,
-        beschrijving,
+        titel: isDutch ? titel : titel_EN ? titel_EN : titel,
+        beschrijving: isDutch ? beschrijving : besc_EN ? besc_EN : beschrijving,
         datum,
         url,
         tags,
@@ -31,6 +32,6 @@ export async function getAllBlogs(): Promise<Blogs[]> {
   });
 }
 
-export async function getBlogs(titel: string): Promise<Blogs | null> {
-  return (await getAllBlogs()).find((blog) => blog.titel === titel) ?? null;
+export async function getBlogs(titel: string, lang: any): Promise<Blogs | null> {
+  return (await getAllBlogs(lang)).find((blog) => blog.titel === titel) ?? null;
 }	

@@ -135,8 +135,8 @@ export default function Onderwijs({ uitlichtings, vakken, dictionary }: Props) {
 
 
 export async function getServerSideProps({ locale }: any) {
-    const uitlichtings = await getAllUitlichtings();
-    const vakken = await getAllVakken();
+    const uitlichtings = await getAllUitlichtings(locale);
+    const vakken = await getAllVakken(locale);
     const dictionary = await getDictionary(locale);
     return {
         props: {

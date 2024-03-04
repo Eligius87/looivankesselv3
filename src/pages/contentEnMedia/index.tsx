@@ -110,9 +110,9 @@ export default function ContentEnMedia({ dictionary, podcasts, videos, blogs }: 
 };
 
 export async function getServerSideProps({ locale }: any) {
-  const videos = await getAllVideos();
-  const podcasts = await getAllPodcasts();
-  const blogs = await getAllBlogs();
+  const videos = await getAllVideos(locale);
+  const podcasts = await getAllPodcasts(locale);
+  const blogs = await getAllBlogs(locale);
   const dictionary = await getDictionary(locale);
   return {
     props: {

@@ -137,13 +137,13 @@ export const getServerSideProps: GetServerSideProps<ContentProps> = async ({ par
   const dictionary = await getDictionary(locale);
 
   if (content === 'videos') {
-    const videos = await getAllVideos();
+    const videos = await getAllVideos(locale);
     return { props: { videos, dictionary } };
   } else if (content === 'podcasts') {
-    const podcasts = await getAllPodcasts();
+    const podcasts = await getAllPodcasts(locale);
     return { props: { podcasts, dictionary } };
   } else if (content === 'blogs') {
-    const blogs = await getAllBlogs();
+    const blogs = await getAllBlogs(locale);
     return { props: { blogs, dictionary } };
   }
 

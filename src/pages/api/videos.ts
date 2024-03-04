@@ -13,7 +13,8 @@ export type Video = {
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
 
-export async function getAllVideos(): Promise<Video[]> {
+export async function getAllVideos(lang: any): Promise<Video[]> {
+  const isDutch = lang === 'nl';
   const { data, error } = await supabase.from('Videos').select('*');
 
   if (error) {
@@ -21,10 +22,10 @@ export async function getAllVideos(): Promise<Video[]> {
   }
 
   return data.map((video) => {
-    const {id, titel, image, datum, vid_url, tags, icon} = video;
+    const {id, titel, image, datum, vid_url, tags, icon, titel_EN} = video;
     return {
         id, 
-        titel,
+        titel: isDutch ? titel : titel_EN ? titel_EN : titel,
         image: BASE_FILE_STORAGE_URL + image,
         datum,
         vid_url,
@@ -34,6 +35,6 @@ export async function getAllVideos(): Promise<Video[]> {
   });
 }
 
-export async function getVideo(titel: string): Promise<Video | null> {
-  return (await getAllVideos()).find((video) => video.titel === titel) ?? null;
+export async function getVideo(titel: string, lang: any): Promise<Video | null> {
+  return (await getAllVideos(lang)).find((video) => video.titel === titel) ?? null;
 }	

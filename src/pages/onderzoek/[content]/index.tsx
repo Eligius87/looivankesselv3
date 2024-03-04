@@ -117,10 +117,10 @@ export async function getServerSideProps({ params, locale }: any) {
   const dictionary = await getDictionary(locale);
 
   if (content === 'publicaties') {
-    const publicaties = await getAllPublicaties();
+    const publicaties = await getAllPublicaties(locale);
     return { props: { publicaties: publicaties, dictionary } };
   } else if (content === 'lezingen') {
-    const lezingen = await getAllLezingen();
+    const lezingen = await getAllLezingen(locale);
     return { props: { lezingen, dictionary } };
   }
 

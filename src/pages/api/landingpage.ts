@@ -2,7 +2,7 @@ import supabase from '../../../utils/supabase';
 
 export type Preview = {
   id: string;
-  beschrijving: string;
+  titel: string;
   images: string[];
   datum: string;
   type: string;
@@ -11,7 +11,8 @@ export type Preview = {
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
 
-export async function getAllPreviews(): Promise<Preview[]> {
+export async function getAllPreviews(lang: any): Promise<Preview[]> {
+  const isDutch = lang === 'nl';
   const { data, error } = await supabase.from('Landingpage').select('*');
 
   if (error) {
@@ -19,11 +20,11 @@ export async function getAllPreviews(): Promise<Preview[]> {
   }
 
   return data.map((preview) => {
-    const {id, image, beschrijving, datum, type, link} = preview;
+    const {id, image, titel, titel_EN, datum, type, link} = preview;
     return {
         id, 
 	    images: [image].map(src => BASE_FILE_STORAGE_URL + src),
-        beschrijving,
+        titel: isDutch ? titel : titel_EN ? titel_EN : titel,
         datum,
         type,
         link,
@@ -31,6 +32,6 @@ export async function getAllPreviews(): Promise<Preview[]> {
   });
 }
 
-export async function getPreview(beschrijving: string): Promise<Preview | null> {
-  return (await getAllPreviews()).find((preview) => preview.beschrijving === beschrijving) ?? null;
+export async function getPreview(beschrijving: string, lang: any): Promise<Preview | null> {
+  return (await getAllPreviews(lang)).find((preview) => preview.titel === beschrijving) ?? null;
 }	

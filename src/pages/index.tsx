@@ -321,7 +321,7 @@ export default function Home({ previews, dictionary, agendas }: Props) {
             <div className='grid grid-cols-1 lg:grid-cols-4 gap-10'>
               <div className='lg:col-span-2 grid gap-4 grid-cols-1 md:grid-cols-2'>
                 {previews?.map((preview) => (
-                  <PreviewCard key={preview.id} beschrijving={preview.beschrijving} date={preview.datum} image={preview.images[0]} type={preview.type} link={preview.link} />
+                  <PreviewCard key={preview.id} beschrijving={preview.titel} date={preview.datum} image={preview.images[0]} type={preview.type} link={preview.link} />
                 ))}
               </div>
               <div className='lg:col-span-2'>
@@ -337,7 +337,7 @@ export default function Home({ previews, dictionary, agendas }: Props) {
 }
 
 export async function getServerSideProps({ locale }: any) {
-  const previews = await getAllPreviews();
+  const previews = await getAllPreviews(locale);
   const agendas = await getAllAgendas();
   const dictionary = await getDictionary(locale);
   return {

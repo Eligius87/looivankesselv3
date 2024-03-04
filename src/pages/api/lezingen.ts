@@ -14,7 +14,8 @@ export type Lezingen = {
 
 const BASE_FILE_STORAGE_URL = process.env.NEXT_PUBLIC_SUPABASE_BASE_FILE_URL;
 
-export async function getAllLezingen(): Promise<Lezingen[]> {
+export async function getAllLezingen(lang: any): Promise<Lezingen[]> {
+  const isDutch = lang === 'nl';
   const { data, error } = await supabase.from('Lezingen').select('*').order('datum', { ascending: false });
 
   if (error) {
@@ -22,14 +23,14 @@ export async function getAllLezingen(): Promise<Lezingen[]> {
   }
 
   return data.map((lezing) => {
-    const {id, type, uitgelicht, titel, datum, url, beschrijving, tags, image} = lezing;
+    const {id, type, uitgelicht, titel, datum, url, beschrijving, tags, image, besc_EN, titel_EN} = lezing;
     return {
         id, 
         uitgelicht,
         datum,
-        titel,
+        titel: isDutch ? titel : titel_EN ? titel_EN : titel,
         url,
-        beschrijving,
+        beschrijving: isDutch ? beschrijving : besc_EN ? besc_EN : beschrijving,
         type,
         tags,
         image: BASE_FILE_STORAGE_URL + image,
@@ -37,6 +38,6 @@ export async function getAllLezingen(): Promise<Lezingen[]> {
   });
 }
 
-export async function getLezing(titel: string): Promise< Lezingen | null> {
-  return (await getAllLezingen()).find((lezing) => lezing.titel === titel) ?? null;
+export async function getLezing(titel: string, lang: any): Promise< Lezingen | null> {
+  return (await getAllLezingen(lang)).find((lezing) => lezing.titel === titel) ?? null;
 }	
