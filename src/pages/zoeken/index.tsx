@@ -311,13 +311,13 @@ export default function Zoeken({ podcasts, blogs, videos, lezingen, publicaties,
 
 export async function getServerSideProps({ locale }: any) {
     const dictionary = await getDictionary(locale);
-    const podcasts = await getAllPodcasts();
-    const blogs = await getAllBlogs();
-    const videos = await getAllVideos();
-    const lezingen = await getAllLezingen();
-    const publicaties = await getAllPublicaties();
-    const vakken = await getAllVakken();
-    const uitlichting = await getAllUitlichtings();
+    const podcasts = await getAllPodcasts(locale);
+    const blogs = await getAllBlogs(locale);
+    const videos = await getAllVideos(locale);
+    const lezingen = await getAllLezingen(locale);
+    const publicaties = await getAllPublicaties(locale);
+    const vakken = await getAllVakken(locale);
+    const uitlichting = await getAllUitlichtings(locale);
 
     return {
         props: {
