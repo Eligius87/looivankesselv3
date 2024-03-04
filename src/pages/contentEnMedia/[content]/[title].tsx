@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { Video, getVideo, getAllVideos } from '../../api/videos'; // Adjust the import path as needed
 import { Container } from '../../../components/Container';
+import { getDictionary } from '@/pages/api/dictionary';
 
 type Props = {
   video: Video;
@@ -59,8 +60,9 @@ export default function VideoDetail({ video }: Props) {
 };
 
 
-export async function getServerSideProps({ params }: any) {
-  const video = await getVideo(params.title);
+export async function getServerSideProps({ params, locale }: any) {
+  const dictionary = await getDictionary(locale);
+  const video = await getVideo(params.title, locale);
   return {
     props: {
       video,
