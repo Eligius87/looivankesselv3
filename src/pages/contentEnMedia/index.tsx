@@ -48,7 +48,7 @@ export default function ContentEnMedia({ dictionary, podcasts, videos, blogs }: 
             <div className="text-center xs:text-left mt-16 text-md md:text-lg lg:text-2xl xl:text-4xl font-bold pb-6">Podcasts & Radio</div>
             <div className="flex flex-row flex-wrap justify-center xs:justify-start items-start gap-10">
               {podcasts && podcasts.slice(0, 4).map((podcast) => (
-                <Link key={podcast.id} href={`contentEnMedia/podcast/${encodeURIComponent(podcast.titel)}`}>
+                <Link key={podcast.id} href={podcast.url} >
                   <PreviewCard
                     key={podcast.id}
                     titel={podcast.titel}
