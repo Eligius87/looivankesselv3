@@ -332,7 +332,7 @@ export default function Home({ previews, dictionary, agendas }: Props) {
         <div className='sm:px-8'>
           <div className='mx-auto w-full max-w-7xl lg:px-8 relative aspect-[16/9]'>
             <Image 
-              src={BASE_FILE_STORAGE_URL + `images/Home/bannerlooi.jpg`} 
+              src={`https://bvywrgmguxjmwqevbevc.supabase.co/storage/v1/object/public/images/Home/bannerlooi.jpg?t=2024-12-25T10%3A57%3A03.197Z`} 
               alt="" 
               className="rounded-2xl object-cover"
               fill 
