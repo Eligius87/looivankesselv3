@@ -95,36 +95,65 @@ export default function Onderwijs({ uitlichtings, vakken, dictionary }: Props) {
                         <h1 className="py-6 text-lg md:text-4xl py-4 font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
                             {dict.subheader3}
                         </h1>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 border-zinc-400">
-                            {vakken?.sort((a, b) => {
-                                if (a.periode.includes(currentYear) && !b.periode.includes(currentYear)) {
-                                    return -1;
-                                }
-                                if (!a.periode.includes(currentYear) && b.periode.includes(currentYear)) {
-                                    return 1;
-                                }
-                                return 0;
-                            }).map((vak) => {
-                                var color = '';
-                                for (let i = 0; i < trajectArr.length; i++) {
-                                    if (trajectArr[i] === vak.traject) {
-                                        color = colors[i]
-                                    }
-                                }
-                                return (
-                                    <VakkenCard
-                                        link={vak.link}
-                                        key={vak.titel}
-                                        titel={vak.titel}
-                                        traject={vak.traject}
-                                        periode={vak.periode}
-                                        color={color}
-                                        vaktext={dict.Course}
-                                        trajecttext={dict.Trajectory}
-                                        periodetext={dict.Period}
-                                    />
-                                )
-                            })}
+                        <div className="flex flex-col gap-8">
+                            {/* Current Courses Section */}
+                            <div>
+                                <h2 className="text-xl font-semibold mb-4 text-zinc-800 dark:text-zinc-100">
+                                    {dict.current}
+                                </h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 border-zinc-400">
+                                    {vakken
+                                        ?.filter(vak => vak.periode.includes(currentYear))
+                                        .map((vak) => {
+                                            const color = trajectArr.indexOf(vak.traject) !== -1 
+                                                ? colors[trajectArr.indexOf(vak.traject)] 
+                                                : '';
+                                            return (
+                                                <VakkenCard
+                                                    link={vak.link}
+                                                    key={vak.titel}
+                                                    titel={vak.titel}
+                                                    traject={vak.traject}
+                                                    periode={vak.periode}
+                                                    color={color}
+                                                    vaktext={dict.Course}
+                                                    trajecttext={dict.Trajectory}
+                                                    periodetext={dict.Period}
+                                                />
+                                            )
+                                        })}
+                                </div>
+                            </div>
+
+                            {/* Other Courses Section */}
+                            <div>
+                                <h2 className="text-xl font-semibold mb-4 text-zinc-800 dark:text-zinc-100">
+                                    {dict.other}
+                                </h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 border-zinc-400">
+                                    {vakken
+                                        ?.filter(vak => !vak.periode.includes(currentYear))
+                                        .sort((a, b) => b.periode.localeCompare(a.periode))
+                                        .map((vak) => {
+                                            const color = trajectArr.indexOf(vak.traject) !== -1 
+                                                ? colors[trajectArr.indexOf(vak.traject)] 
+                                                : '';
+                                            return (
+                                                <VakkenCard
+                                                    link={vak.link}
+                                                    key={vak.titel}
+                                                    titel={vak.titel}
+                                                    traject={vak.traject}
+                                                    periode={vak.periode}
+                                                    color={color}
+                                                    vaktext={dict.Course}
+                                                    trajecttext={dict.Trajectory}
+                                                    periodetext={dict.Period}
+                                                />
+                                            )
+                                        })}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </Container>

@@ -14,6 +14,7 @@ import PublicatieCard from "@/components/PublicatieCard";
 import VakkenCard from "@/components/VakkenCard";
 import Accordionitem from "@/components/AccordionItem";
 
+
 type Props = {
     podcasts: Podcast[];
     blogs: Blogs[];
@@ -39,6 +40,22 @@ export default function Zoeken({ podcasts, blogs, videos, lezingen, publicaties,
     const allTags = Array.from(new Set([...podcastTags, ...blogsTags, ...videoTags, ...lezingTags, ...publicatieTags, ...vakkenTags, ...uitlichtingTags]))
     const cleanedTags = allTags.filter(tag => tag && tag.trim() !== "")
     const [selectedTags, setSelectedTags] = useState<string[]>([])
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const matchesSearch = (item: any) => {
+        if (!searchTerm) return true;
+
+        const searchLower = searchTerm.toLowerCase();
+        const fieldsToSearch = [
+            item.titel,
+            item.beschrijving,
+            item.zin_besc,
+        ];
+
+        return fieldsToSearch.some(field =>
+            field && field.toLowerCase().includes(searchLower)
+        );
+    };
 
     function handleTagClick(tag: string) {
         setSelectedTags(prevTags => {
@@ -55,49 +72,56 @@ export default function Zoeken({ podcasts, blogs, videos, lezingen, publicaties,
 
     function renderContent() {
         const renderPodcasts = () => {
-            if (podcasts.some(podcast => selectedTags.some(tag => podcast.tags.includes(tag)))) {
-                const matchingTag = selectedTags.filter(tag => podcasts.some(podcast => podcast.tags.includes(tag)));
-                return (
-                    <div>
-                        <h1 className="text-4xl font-bold py-10">
-                            {`Podcasts - ${matchingTag.join(' - ')}`}
+            if (!searchTerm && selectedTags.length === 0) return null;
 
-                        </h1>
-                        <ul className="flex flex-row flex-wrap gap-10">
-                            {podcasts.map(podcast => {
-                                if (selectedTags.some(tag => podcast.tags.includes(tag))) {
-                                    return (
-                                        <PreviewCard
-                                            key={podcast.id}
-                                            titel={podcast.titel}
-                                            image={podcast.images[0]}
-                                            url={podcast.url}
-                                            tags={podcast.tags}
-                                            iconType={podcast.icon}
-                                            datum={podcast.datum}
-                                        />
-                                    )
-                                }
-                            })}
-                        </ul>
-                    </div>
-                )
-            }
+            const filteredPodcasts = podcasts.filter(podcast =>
+                matchesSearch(podcast) && (selectedTags.length === 0 || selectedTags.some(tag => podcast.tags.includes(tag)))
+            );
+
+            if (filteredPodcasts.length === 0) return null;
+
+            const matchingTag = selectedTags.filter(tag => podcasts.some(podcast => podcast.tags.includes(tag)));
+            return (
+                <div>
+                    <h1 className="text-4xl font-bold py-10">
+                        {`Podcasts - ${matchingTag.length ? `${matchingTag.join(' - ')}` : ''}`}
+                    </h1>
+                    <ul className="flex flex-row flex-wrap gap-10">
+                        {filteredPodcasts.map(podcast => (
+                            <PreviewCard
+                                key={podcast.id}
+                                titel={podcast.titel}
+                                image={podcast.images[0]}
+                                url={podcast.url}
+                                tags={podcast.tags}
+                                iconType={podcast.icon}
+                                datum={podcast.datum}
+                            />
+                        ))}
+                    </ul>
+                </div>
+            )
         }
 
         const renderBlogs = () => {
-            if (blogs.some(blog => selectedTags.some(tag => blog.tags.includes(tag)))) {
-                const matchingTag = selectedTags.filter(tag => blogs.some(blog => blog.tags.includes(tag)));
+
+            if(!searchTerm && selectedTags.length === 0) return null;
+
+            const filteredBlogs = blogs.filter(blog =>
+                matchesSearch(blog) && (selectedTags.length === 0 || selectedTags.some(tag => blog.tags.includes(tag)))
+            );
+
+            if (filteredBlogs.length === 0) return null;
+
+            const matchingTag = selectedTags.filter(tag => blogs.some(blog => blog.tags.includes(tag)));
                 return (
                     <div>
                         <h1 className="text-4xl font-bold py-10">
-                            {`Blogs & Interviews - ${matchingTag.join(' - ')}`}
-
+                        {`Blogs & Interviews - ${matchingTag.length ? `${matchingTag.join(' - ')}`: ''}`}
                         </h1>
                         <ul className="flex flex-row flex-wrap gap-10">
-                            {blogs.map(blog => {
-                                if (selectedTags.some(tag => blog.tags.includes(tag))) {
-                                    return (
+                            {filteredBlogs.map(blog =>
+                                     (
                                         <BlogCard
                                             key={blog.id}
                                             titel={blog.titel}
@@ -105,28 +129,29 @@ export default function Zoeken({ podcasts, blogs, videos, lezingen, publicaties,
                                             url={blog.url}
                                             datum={blog.datum}
                                         />
-                                    )
-                                }
-                            })}
+                                    ))}
                         </ul>
                     </div>
                 )
-            }
         }
 
         const renderVideos = () => {
-            if (videos.some(video => selectedTags.some(tag => video.tags.includes(tag)))) {
-                const matchingTag = selectedTags.filter(tag => videos.some(video => video.tags.includes(tag)));
+            if(!searchTerm && selectedTags.length === 0) return null;
+
+            const filteredVideos = videos.filter(video =>
+                matchesSearch(video) && (selectedTags.length === 0 || selectedTags.some(tag => video.tags.includes(tag)))
+            );
+
+            if (filteredVideos.length === 0) return null;
+            const matchingTag = selectedTags.filter(tag => videos.some(video => video.tags.includes(tag)));
                 return (
                     <div>
                         <h1 className="text-4xl font-bold py-10">
-                            {`Videos - ${matchingTag.join(' - ')}`}
-
+                            {`Videos - ${matchingTag.length ? `${matchingTag.join(' - ')}`: ''}`}
                         </h1>
                         <ul className="flex flex-row flex-wrap gap-10">
-                            {videos.map(video => {
-                                if (selectedTags.some(tag => video.tags.includes(tag))) {
-                                    return (
+                                    {filteredVideos.map(video =>
+                                    (
                                         <PreviewCard
                                             key={video.id}
                                             titel={video.titel}
@@ -136,28 +161,31 @@ export default function Zoeken({ podcasts, blogs, videos, lezingen, publicaties,
                                             iconType={video.icon}
                                             datum={video.datum}
                                         />
-                                    )
-                                }
-                            })}
+                                    ))}
+                        
                         </ul>
                     </div>
                 )
-            }
         }
 
         const renderLezingen = () => {
-            if (lezingen.some(lezing => selectedTags.some(tag => lezing.tags.includes(tag)))) {
-                const matchingTag = selectedTags.filter(tag => lezingen.some(lezing => lezing.tags.includes(tag)));
+            if(!searchTerm && selectedTags.length === 0) return null;
+
+            const filteredLezingen = lezingen.filter(lezing =>
+                matchesSearch(lezing) && (selectedTags.length === 0 || selectedTags.some(tag => lezing.tags.includes(tag)))
+            );
+
+            if (filteredLezingen.length === 0) return null;
+            const matchingTag = selectedTags.filter(tag => lezingen.some(lezing => lezing.tags.includes(tag)));
                 return (
                     <div>
                         <h1 className="text-4xl font-bold py-10">
-                            {`Lezingen - ${matchingTag.join(' - ')}`}
+                            {`Lezingen - ${matchingTag.length ? `${matchingTag.join(' - ')}`: ''}`}
 
                         </h1>
                         <ul className="flex flex-row flex-wrap gap-10">
-                            {lezingen.map(lezing => {
-                                if (selectedTags.some(tag => lezing.tags.includes(tag))) {
-                                    return (
+                                    {filteredLezingen.map(lezing =>
+                                    (
                                         <PublicatieCard
                                             key={lezing.id}
                                             titel={lezing.titel}
@@ -165,57 +193,63 @@ export default function Zoeken({ podcasts, blogs, videos, lezingen, publicaties,
                                             zin_besc={lezing.beschrijving}
                                             datum={lezing.datum}
                                         />
-                                    )
-                                }
-                            })}
+                                    ))}
+                
                         </ul>
                     </div>
                 )
-            }
         }
 
         const renderPublicatie = () => {
-            if (publicaties.some(publicatie => selectedTags.some(tag => publicatie.tags.includes(tag)))) {
-                const matchingTag = selectedTags.filter(tag => publicaties.some(publicatie => publicatie.tags.includes(tag)));
+            if(!searchTerm && selectedTags.length === 0) return null;
+
+            const filteredPublicaties = publicaties.filter(publicatie =>
+                matchesSearch(publicatie) && (selectedTags.length === 0 || selectedTags.some(tag => publicatie.tags.includes(tag)))
+            );
+
+            if (filteredPublicaties.length === 0) return null;
+            const matchingTag = selectedTags.filter(tag => publicaties.some(publicatie => publicatie.tags.includes(tag)));
                 return (
                     <div>
                         <h1 className="text-4xl font-bold py-10">
-                            {`Publicaties - ${matchingTag.join(' - ')}`}
+                            {`Publicaties - ${matchingTag.length ? `${matchingTag.join(' - ')}`: ''}`}
 
                         </h1>
                         <ul className="flex flex-row flex-wrap gap-10">
-                            {publicaties.map(publicatie => {
-                                if (selectedTags.some(tag => publicatie.tags.includes(tag))) {
-                                    return (
-                                        <PublicatieCard
-                                            key={publicatie.id}
-                                            titel={publicatie.titel}
-                                            publicatie_url={publicatie.publicatie_url}
-                                            zin_besc={publicatie.zin_besc}
-                                            datum={publicatie.datum}
-                                        />
-                                    )
-                                }
-                            })}
+                            {filteredPublicaties.map(publicatie => 
+                            (
+                                <PublicatieCard
+                                    key={publicatie.id}
+                                    titel={publicatie.titel}
+                                    publicatie_url={publicatie.publicatie_url}
+                                    zin_besc={publicatie.zin_besc}
+                                    datum={publicatie.datum}
+                                />
+                            ))}
+    
                         </ul>
                     </div>
                 )
-            }
         }
 
         const renderVakken = () => {
-            if (vakken.some(vak => selectedTags.some(tag => vak.tags.includes(tag)))) {
-                const matchingTag = selectedTags.filter(tag => vakken.some(vak => vak.tags.includes(tag)));
+            if(!searchTerm && selectedTags.length === 0) return null;
+
+            const filteredVakken = vakken.filter(vak =>
+                matchesSearch(vak) && (selectedTags.length === 0 || selectedTags.some(tag => vak.tags.includes(tag)))
+            );
+
+            if (filteredVakken.length === 0) return null;
+            const matchingTag = selectedTags.filter(tag => vakken.some(vak => vak.tags.includes(tag)));
                 return (
                     <div>
                         <h1 className="text-4xl font-bold py-10">
-                            {`Vakken - ${matchingTag.join(' - ')}`}
+                            {`Vakken - ${matchingTag.length ? `${matchingTag.join(' - ')}`: ''}`}
 
                         </h1>
                         <ul className="flex flex-row flex-wrap gap-10">
-                            {vakken.map(vak => {
-                                if (selectedTags.some(tag => vak.tags.includes(tag))) {
-                                    return (
+                                        {filteredVakken.map(vak =>
+                                        (
                                         <VakkenCard
                                             key={vak.titel}
                                             link={vak.link}
@@ -227,51 +261,51 @@ export default function Zoeken({ podcasts, blogs, videos, lezingen, publicaties,
                                             periodetext="Periode"
                                             color=""
                                         />
-                                    )
+                                    ))
                                 }
-                            })}
                         </ul>
                     </div>
                 )
-            }
         }
 
         const renderUitlichting = () => {
             const [open, setopen] = useState<number | null>(null);
 
-            const toggle = ((index: any) => {
+            const toggle = (index: number) => {
                 if (open === index) {
                     return setopen(null);
                 }
-                setopen(index)
-            })
-            if (uitlichting.some(text => selectedTags.some(tag => text.tags.includes(tag)))) {
-                const matchingTag = selectedTags.filter(tag => uitlichting.some(text => text.tags.includes(tag)));
-                return (
-                    <div>
-                        <h1 className="text-4xl font-bold py-10">
-                            {`Onderwijs Initiatieven - ${matchingTag.join(' - ')}`}
+                setopen(index);
+            };
 
-                        </h1>
-                        <ul className="flex flex-row flex-wrap gap-10">
-                            {uitlichting.map((text, index) => {
-                                if (selectedTags.some(tag => text.tags.includes(tag))) {
-                                    return (
-                                        <Accordionitem
-                                            key={text.id}
-                                            open={false}
-                                            toggle={() => {toggle(index)}}
-                                            title={text.titel}
-                                            desc={text.beschrijving}
-                                        />
-                                    )
-                                }
-                            })}
-                        </ul>
-                    </div>
-                )
-            }
-        }
+            if(!searchTerm && selectedTags.length === 0) return null;
+
+            const filteredUitlichtingen = uitlichting.filter(uitlicht =>
+                matchesSearch(uitlicht) && (selectedTags.length === 0 || selectedTags.some(tag => uitlicht.tags.includes(tag)))
+            );
+
+            if (filteredUitlichtingen.length === 0) return null;
+            const matchingTag = selectedTags.filter(tag => uitlichting.some(text => text.tags.includes(tag)));
+            
+            return (
+                <div>
+                    <h1 className="text-4xl font-bold py-10">
+                        {`Onderwijs Initiatieven - ${matchingTag.length ? `${matchingTag.join(' - ')}`: ''}`}
+                    </h1>
+                    <ul className="flex flex-row flex-wrap gap-10">
+                        {filteredUitlichtingen.map((text, index) => (
+                            <Accordionitem
+                                key={text.id}
+                                open={open === index}
+                                toggle={() => toggle(index)}
+                                title={text.titel}
+                                desc={text.beschrijving}
+                            />
+                        ))}
+                    </ul>
+                </div>
+            );
+        };
 
 
         return (
@@ -291,6 +325,16 @@ export default function Zoeken({ podcasts, blogs, videos, lezingen, publicaties,
     return (
         <Container>
             <h1 className="text-center py-10 text-4xl font-bold">{dict.header}</h1>
+            <div className="mb-8">
+                <input
+                    type="text"
+                    placeholder={dict.zoeken}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-600"
+                />
+                
+            </div>
             <div>
                 <ul className="flex flex-row flex-wrap gap-4">
                     {cleanedTags.map((tag, index) => {
@@ -299,6 +343,7 @@ export default function Zoeken({ podcasts, blogs, videos, lezingen, publicaties,
                             <li key={tag} className={`${isSelected ? 'ring-teal-600 text-teal-600 transform scale-[105%]' : 'ring-zinc-200 text-zinc-900 hover:ring-teal-600 hover:text-teal-600'} ring-1 shadow-lg transition ease-in-out py-3 px-3 flex justify-center items-center rounded-lg cursor-pointer`} onClick={() => handleTagClick(tag)}>{tag}</li>
                         )
                     })}
+                    
                 </ul>
             </div>
             <div>
@@ -307,6 +352,8 @@ export default function Zoeken({ podcasts, blogs, videos, lezingen, publicaties,
         </Container>
     );
 }
+
+
 
 
 export async function getServerSideProps({ locale }: any) {
@@ -332,3 +379,4 @@ export async function getServerSideProps({ locale }: any) {
         }
     }
 }
+

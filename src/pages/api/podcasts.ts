@@ -8,6 +8,7 @@ export type Podcast = {
   url: string;
   tags: string[];
   icon: string;
+  isSelected: boolean;
 };
 
 
@@ -22,7 +23,7 @@ export async function getAllPodcasts(lang: any): Promise<Podcast[]> {
   }
 
   return data.map((podcast) => {
-    const {id, titel, image, datum, url, tags, icon, titel_EN} = podcast;
+    const {id, titel, image, datum, url, tags, icon, titel_EN, isSelected} = podcast;
     return {
         id, 
         titel: isDutch ? titel : titel_EN ? titel_EN : titel,
@@ -31,7 +32,8 @@ export async function getAllPodcasts(lang: any): Promise<Podcast[]> {
         url,
         tags,
         icon,
-    };
+        isSelected,
+      };
   });
 }
 

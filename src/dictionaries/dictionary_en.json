@@ -5,7 +5,7 @@
         },
         "header": {
             "one": "Looi van Kessel",
-            "two": "Assistent Professor, Literary studies & Genderstudies"
+            "two": "Assistant Professor, Literary Studies & Gender Studies"
         },
         "subheader": "Leiden University",
         "resume": {
@@ -60,7 +60,9 @@
         "subheader3": "Overview of courses",
         "Course": "Course",
         "Trajectory": "Trajectory",
-        "Period": "Period"
+        "Period": "Period",
+        "current": "Currently Giving",
+        "other": "Other Courses"
     },
     "media": {
         "header1": "Content and Media",
@@ -131,6 +133,7 @@
         "linkedin": "Follow me on LinkedIn"
     },
     "zoeken": {
-        "header": "Search by using the tags below"
+        "header": "Search by using the tags below",
+        "zoeken": "Search..."
     }
 }

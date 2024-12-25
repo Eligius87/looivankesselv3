@@ -20,16 +20,15 @@ export default function PublicatieCard(props: { titel: string, publicatie_url: s
             <FormatedDate dateString={props.datum} />
           </h2>
         </div>
-        {props.publicatie_url !== null ? 
-          <ArrowIcon className='w-10 h-10 flex justify-center items-center' />
-        : ''
+        {Boolean(props.publicatie_url) && 
+          <ArrowIcon className='w-10 h-10 min-w-[2.5rem] min-h-[2.5rem]' />
         }
       </div>
     )
   }
 
   return (
-    props.publicatie_url !== null ?
+    props.publicatie_url !== null && props.publicatie_url !== '' ?
       <Link href={props.publicatie_url} target='__blank' passHref={true} className='cursor-pointer w-full transition ease-in-out hover:scale-[101%]'>
         <Content />
       </Link> : <Content />

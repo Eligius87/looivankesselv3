@@ -1,7 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
-import { ClockIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@heroicons/react/20/solid'
+import { ClockIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon, MapPinIcon, LinkIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const MonthDict: string[][] = [
     ['Jan', 'Feb', 'Maa', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
@@ -9,7 +10,7 @@ const MonthDict: string[][] = [
 ]
 
 
-function AgendaItem({ type, date, time, titel, image, desc, color }: any) {
+function AgendaItem({ type, date, time, titel, image, desc, color, locatie, link }: any) {
     return (
         <div className={`flex flex-col w-[200px] sm:w-full sm:flex-row border-b-2 sm:border-l-2 sm:border-b-0 ${color} p-0 sm:p-2 shadow-lg rounded-lg ring-1 ring-zinc-300`}>
             <div className='flex flex-col gap-2 px-4 w-auto justify-between'>
@@ -17,9 +18,19 @@ function AgendaItem({ type, date, time, titel, image, desc, color }: any) {
                     <h1 className='font-bold sm:text-md'>{type}</h1>
                     <h1 className='font-bold text-zinc-400 text-xs'>{date}</h1>
                 </div>
-                <div className='flex flex-row gap-2 items-center'>
-                    <span><ClockIcon className='w-3 h-3 md:w-5 md:h-5' /></span>
-                    <h1 className='font-bold text-[10px] md:text-xs text-zinc-400'>{time}</h1>
+                <div className='flex flex-col gap-2 justify-center'>
+                    <div className='flex flex-row gap-2 items-center'>
+                        <span><MapPinIcon className='w-3 h-3 md:w-5 md:h-5' /></span>
+                        <h1 className='font-bold text-[10px] md:text-xs text-zinc-400'>{locatie}</h1>
+                    </div>
+                    <div className='flex flex-row gap-2 items-center'>
+                        <span><ClockIcon className='w-3 h-3 md:w-5 md:h-5' /></span>
+                        <h1 className='font-bold text-[10px] md:text-xs text-zinc-400'>{time}</h1>
+                    </div>
+                    <div className='flex flex-row gap-2 items-center'>
+                        <span><LinkIcon className='w-3 h-3 md:w-5 md:h-5' /></span>
+                        <Link className='font-bold text-[10px] md:text-xs text-zinc-400' href={link} target='_blank'>Link</Link>
+                    </div>
                 </div>
             </div>
             <div className='relative w-[200px] h-auto aspect-square'>

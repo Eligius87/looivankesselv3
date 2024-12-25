@@ -59,9 +59,9 @@ function PreviewCard(props: { titel: string, datum: any, image: string, url: str
         </div>
       </div>
       <div className='text-[10px] text-gray-500'><FormatedDate dateString={props.datum} /></div>
-      <div>
+      <div className='flex flex-wrap w-[150px] md:w-[150px] lg:w-[200px] gap-1'>
         {props.tags.map((tag) => (
-          <span className='text-[10px] md:text-sm lg:text-md border border-gray-500 rounded-full px-2 py-1 mr-1'>{tag}</span>
+          <span key={tag} className='inline-block text-[10px] md:text-sm lg:text-md border border-gray-500 rounded-full px-2 py-1'>{tag}</span>
         ))}
       </div>
     </div>
@@ -122,8 +122,10 @@ export default function Content({ videos, podcasts, blogs, dictionary }: Content
           <h2 className="text-center p-10 text-2xl font-bold tracking-tight text-zinc-800 sm:text-4xl mb-5">
             {content == 'videos' ? 'Video\'s' : content == 'podcasts' ? 'Podcasts' : content == 'blogs' ? `${dict.blogs}` : ''}
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
-            {renderContent()}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 justify-items-center">
+              {renderContent()}
+            </div>
           </div>
         </Container>
       </div>

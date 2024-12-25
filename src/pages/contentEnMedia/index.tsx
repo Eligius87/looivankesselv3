@@ -47,7 +47,7 @@ export default function ContentEnMedia({ dictionary, podcasts, videos, blogs }: 
           <span>
             <div className="text-center xs:text-left mt-16 text-md md:text-lg lg:text-2xl xl:text-4xl font-bold pb-6">Podcasts & Radio</div>
             <div className="flex flex-row flex-wrap justify-center xs:justify-start items-start gap-10">
-              {podcasts && podcasts.slice(0, 4).map((podcast) => (
+              {podcasts && podcasts.filter((podcast) => podcast.isSelected).map((podcast) => (
                 <Link key={podcast.id} href={podcast.url} >
                   <PreviewCard
                     key={podcast.id}
@@ -69,7 +69,7 @@ export default function ContentEnMedia({ dictionary, podcasts, videos, blogs }: 
           <span>
             <div className="text-center xs:text-left text-md md:text-lg lg:text-2xl xl:text-4xl font-bold py-6">Video's</div>
             <div className="flex flex-row flex-wrap justify-center xs:justify-start items-start gap-10">
-              {videos && videos.slice(0, 4).map((video) => (
+              {videos && videos.filter((video) => video.isSelected).map((video) => (
                 <Link className="w-[150px] md:w-[150px] lg:w-[200px]" key={video.id} href={`contentEnMedia/video/${encodeURIComponent(video.titel)}`}>
                   <PreviewCard
                     key={video.id}
@@ -89,7 +89,7 @@ export default function ContentEnMedia({ dictionary, podcasts, videos, blogs }: 
 
           <span>
             <div className="text-center xs:text-left text-md md:text-lg lg:text-2xl xl:text-4xl mt-16 font-bold pb-6">Blog posts & interviews</div>
-            <div className="flex flex-row flex-wrap justify-center xs:justify-start items-center gap-2">
+            <div className="flex flex-row flex-wrap justify-center xs:justify-start items-start gap-10">
               {blogs && blogs.slice(0, 4).map((blog) => (
                 <BlogCard
                   key={blog.id}

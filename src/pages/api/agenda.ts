@@ -8,6 +8,8 @@ export type Agendas = {
   datum: string;
   type: string;
   tijd: string;
+  link: string;
+  locatie: string;
 };
 
 
@@ -21,7 +23,7 @@ export async function getAllAgendas(): Promise<Agendas[]> {
   }
 
   return data.map((agenda) => {
-    const {id, titel, image, datum, beschrijving, type, tijd} = agenda;
+    const {id, titel, image, datum, beschrijving, type, tijd, link, locatie} = agenda;
     return {
         id, 
         titel,
@@ -30,6 +32,8 @@ export async function getAllAgendas(): Promise<Agendas[]> {
         datum,
         type,
         tijd,
+        link,
+        locatie,
     };
   });
 }

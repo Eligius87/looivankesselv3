@@ -5,7 +5,7 @@
         },
         "header": {
             "one": "Looi van Kessel",
-            "two": "Universitair Docent, Literatuur Wetenschap & Genderstudies"
+            "two": "Universitair Docent, Literatuurwetenschap & Genderstudies"
         },
         "subheader": "Universiteit Leiden",
         "resume": {
@@ -60,7 +60,9 @@
         "subheader3": "Overzicht vakken",
         "Course": "Vak",
         "Trajectory": "Traject",
-        "Period": "Periode"
+        "Period": "Periode",
+        "current": "Huidige vakken",
+        "other": "Andere vakken"
     },
     "media": {
         "header1": "Content en Media",
@@ -114,7 +116,7 @@
             "uitgelichtpub": "Publicaties uitgelicht",
             "uitgelichtlec": "Lezingen uitgelicht",
             "articles": "Alle artikelen",
-            "recensies": "Alle boek recensies",
+            "recensies": "Alle boekrecensies",
             "themas": "Alle redactie themanummers",
             "lec": "Alle lezingen",
             "conf": "Alle conferenties",
@@ -131,6 +133,7 @@
         "linkedin": "volg op Linkedin"
     },
     "zoeken": {
-        "header": "Zoek door middel van de volgende tags"
+        "header": "Zoek door middel van de volgende tags",
+        "zoeken": "Zoeken..."
     }
 }
