@@ -195,7 +195,7 @@ function MobileNavigation({ texts, ...props }: MobileNavigationProps) {
             <nav className="mt-6">
               <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
                 <MobileNavItem hasDropdown={false} href="/onderwijs">{texts.educationText}</MobileNavItem>
-                <MobileNavItem hasDropdown={false} href="/ContentenMedia">{texts.mediaText}</MobileNavItem>
+                <MobileNavItem hasDropdown={false} href="/contentEnMedia">{texts.mediaText}</MobileNavItem>
                 <MobileNavItem hasDropdown={true}  publicationsText={texts.publicationsText} lecturesText={texts.lecturesText} href="/onderzoek">{texts.researchText}</MobileNavItem>
                 <MobileNavItem hasDropdown={false} href="/over">{texts.aboutText}</MobileNavItem>
                 <MobileNavItem hasDropdown={false} href="/zoeken"><MagnifyingGlassIcon className='w-5 h-5'/></MobileNavItem>
@@ -263,7 +263,7 @@ function DesktopNavigation({ texts, ...props }: DesktopNavigationProps) {
     <nav {...props}>
       <ul className="flex rounded-full gap-5 bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
         <NavItem hasDropdown={false} href="/onderwijs">{texts.educationText}</NavItem>
-        <NavItem hasDropdown={false} href="/ContentenMedia">{texts.mediaText}</NavItem>
+        <NavItem hasDropdown={false} href="/contentEnMedia">{texts.mediaText}</NavItem>
         <NavItem hasDropdown={true} href="/onderzoek" publicationsText={texts.publicationsText} lecturesText={texts.lecturesText}>{texts.researchText}</NavItem>
         <NavItem hasDropdown={false} href="/over">{texts.aboutText}</NavItem>
         <NavItem hasDropdown={false} href="/zoeken"><MagnifyingGlassIcon className='w-5 h-5'/></NavItem>
