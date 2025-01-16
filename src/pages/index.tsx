@@ -294,6 +294,13 @@ export default function Home({ previews, dictionary, agendas }: Props) {
         alinea1: `${dict2.themas.text4.alinea1}`,
         alinea2: `${dict2.themas.text4.alinea2}`,
       }
+    },
+    {
+      text5: {
+        header5: `${dict2.themas.titel5}`,
+        alinea1: `${dict2.themas.text5.alinea1}`,
+        alinea2: `${dict2.themas.text5.alinea2}`,
+      }
     }
 
   ]
@@ -381,7 +388,7 @@ export default function Home({ previews, dictionary, agendas }: Props) {
             const text = Object.values(textObject)[0];
             return (
               <div key={index} className='rounded-lg w-full shadow-lg ring-1 ring-zinc-200 p-4 flex flex-col justify-center items-start'>
-                <h2 className='text-lg md:text-2xl font-bold tracking-tight text-zinc-800 py-1'>{text.header1 || text.header2 || text.header3 || text.header4}</h2>
+                <h2 className='text-lg md:text-2xl font-bold tracking-tight text-zinc-800 py-1'>{text.header1 || text.header2 || text.header3 || text.header4 || text.header5}</h2>
                 <div className={`text-sm md:text-lg flex flex-col gap-2 text-base text-zinc-600 ${open ? '' : 'line-clamp-4'}`}>
                   <p>{text.alinea1}</p>
                   {open ?
